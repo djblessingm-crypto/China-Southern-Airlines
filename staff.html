@@ -1332,6 +1332,21 @@ footer{
         <div class="field">
 
             <label>
+                Staff Access Key
+            </label>
+
+            <input
+                id="staffKey"
+                type="password"
+                autocomplete="off"
+                placeholder="Paste the CSN staff API key"
+            >
+
+        </div>
+
+        <div class="field">
+
+            <label>
                 QR / Ticket Token
             </label>
 
@@ -1590,6 +1605,90 @@ let verifiedBooking = null;
 
 
 /* =========================================
+   STAFF ACCESS KEY
+   Every staff API call is authorised with the
+   x-csn-staff-key header. The key is entered once
+   and remembered locally in the browser.
+========================================= */
+
+const staffKeyInput =
+    document.getElementById(
+        "staffKey"
+    );
+
+const STAFF_KEY_STORAGE =
+    "csnStaffKey";
+
+try{
+
+    const savedKey =
+        localStorage.getItem(
+            STAFF_KEY_STORAGE
+        );
+
+    if(savedKey){
+
+        staffKeyInput.value =
+            savedKey;
+
+    }
+
+}catch(error){
+    /* localStorage may be unavailable; the field still works. */
+}
+
+staffKeyInput.addEventListener(
+    "change",
+    function(){
+
+        try{
+
+            localStorage.setItem(
+                STAFF_KEY_STORAGE,
+                staffKeyInput.value.trim()
+            );
+
+        }catch(error){
+            /* Ignore storage failures. */
+        }
+
+    }
+);
+
+function staffHeaders(){
+
+    const key =
+        staffKeyInput.value.trim();
+
+    try{
+
+        localStorage.setItem(
+            STAFF_KEY_STORAGE,
+            key
+        );
+
+    }catch(error){
+        /* Ignore storage failures. */
+    }
+
+    const headers = {
+        "Content-Type":
+            "application/json"
+    };
+
+    if(key){
+
+        headers["x-csn-staff-key"] =
+            key;
+
+    }
+
+    return headers;
+
+}
+
+
+/* =========================================
    ELEMENTS
 ========================================= */
 
@@ -1820,6 +1919,20 @@ verifyButton.addEventListener(
         }
 
 
+        if(
+            !staffKeyInput.value.trim()
+        ){
+
+            showToast(
+                "Enter the staff access key first.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
         resetResult();
 
 
@@ -1845,10 +1958,8 @@ verifyButton.addEventListener(
 
                         method:"POST",
 
-                        headers:{
-                            "Content-Type":
-                                "application/json"
-                        },
+                        headers:
+                            staffHeaders(),
 
                         body:
                             JSON.stringify(data)
@@ -2139,10 +2250,8 @@ checkInButton.addEventListener(
 
                         method:"POST",
 
-                        headers:{
-                            "Content-Type":
-                                "application/json"
-                        },
+                        headers:
+                            staffHeaders(),
 
                         body:
                             JSON.stringify({
@@ -2252,10 +2361,8 @@ boardButton.addEventListener(
 
                         method:"POST",
 
-                        headers:{
-                            "Content-Type":
-                                "application/json"
-                        },
+                        headers:
+                            staffHeaders(),
 
                         body:
                             JSON.stringify({

@@ -554,12 +554,12 @@
       <nav class="desktop-nav" aria-label="Main navigation">
         <a href="index.html">Home</a>
         <a href="about.html">About</a>
-        <a href="index.html#destinations">Destinations</a>
+        <a href="destinations.html">Destinations</a>
         <a href="flights.html">Flights</a>
-        <a href="recruitment.html">Careers</a>
+        <a href="recruitment.html">recruitment</a>
         <a href="community.html">Community</a>
         <a href="booking.html" class="active" aria-current="page">Booking</a>
-        <a class="nav-cta" href="https://discord.gg/UuCc6bxXmG" target="_blank" rel="noopener noreferrer">Join CSN ↗</a>
+        <a class="nav-cta" href="Login.html">Login with Discord ↗</a>
       </nav>
     </div>
   </header>
@@ -656,6 +656,18 @@
               Please check your flight number, airports, dates and passenger names before submitting.
               This is a virtual airline booking for the CSN Virtual community.
             </div>
+            <div class="field full" style="margin-bottom:14px">
+              <label class="terms-row" style="margin-bottom:12px">
+                <input type="checkbox" id="friendBooking">
+                <span>Book this trip on behalf of a friend</span>
+              </label>
+              <div id="friendField" hidden>
+                <label for="friendDiscordUsername">Friend&rsquo;s Discord username <span class="required">*</span></label>
+                <input id="friendDiscordUsername" name="friendDiscordUsername" type="text" placeholder="Their Discord username" maxlength="80" autocomplete="off">
+                <p class="helper" style="margin-top:8px">Your friend must confirm this booking themselves before it becomes active. CSN Virtual never confirms on their behalf.</p>
+              </div>
+            </div>
+
             <label class="terms-row">
               <input type="checkbox" id="agree" required>
               <span>I confirm that the information I entered is correct and understand this is a virtual airline booking.</span>
@@ -673,6 +685,7 @@
             Keep your passenger code, security code and ticket token private. They are used to access and verify your booking. Do not share them publicly or in Discord channels.
           </div>
           <button type="button" class="copy-btn" id="copyAll">Copy booking details</button>
+          <a class="copy-btn" id="viewTicket" href="booking-confirmation.html" style="display:inline-block;margin-left:8px;text-decoration:none">View digital ticket ↗</a>
         </section>
       </div>
 
@@ -709,7 +722,7 @@
           <h3>Need assistance?</h3>
           <p>For help with your virtual airline journey, contact the CSN Virtual community on Discord.</p>
           <p style="margin-top:15px">
-            <a href="https://discord.gg/UuCc6bxXmG" target="_blank" rel="noopener noreferrer" style="color:var(--blue);font-weight:850">Visit CSN Discord ↗</a>
+            <a href="https://discord.gg/uUcc6bxXmG" target="_blank" rel="noopener noreferrer" style="color:var(--blue);font-weight:850">Visit CSN Discord ↗</a>
           </p>
         </div>
       </aside>
@@ -737,6 +750,9 @@
     const confirmation = document.getElementById('confirmation');
     const confirmationDetails = document.getElementById('confirmationDetails');
     const copyAllButton = document.getElementById('copyAll');
+    const friendBookingInput = document.getElementById('friendBooking');
+    const friendField = document.getElementById('friendField');
+    const friendUsernameInput = document.getElementById('friendDiscordUsername');
 
     let passengerCount = 0;
     let latestBookingDetails = '';
@@ -778,6 +794,15 @@
       input.addEventListener('change', updateTripType);
     });
     departureDateInput.addEventListener('change', updateReturnDateMinimum);
+
+    function updateFriendBooking() {
+      const enabled = friendBookingInput.checked;
+      friendField.hidden = !enabled;
+      friendUsernameInput.required = enabled;
+      if (!enabled) friendUsernameInput.value = '';
+    }
+
+    friendBookingInput.addEventListener('change', updateFriendBooking);
 
     function addPassenger() {
       if (passengerCount >= 9) return;
@@ -933,8 +958,11 @@
         .map(([label, value]) => `${label}: ${value || 'Not provided'}`)
         .join('\n');
 
-      document.getElementById('confirmationMessage').textContent =
-        `Your booking ${booking.bookingReference || ''} has been created. Save the private codes below.`;
+      const pending = Boolean(booking.requiresConfirmation);
+
+      document.getElementById('confirmationMessage').textContent = pending
+        ? `Your booking ${booking.bookingReference || ''} has been created and is pending confirmation from your friend. It becomes active once they confirm it.`
+        : `Your booking ${booking.bookingReference || ''} has been created. Save the private codes below.`;
 
       confirmation.classList.add('show');
       confirmation.scrollIntoView({ behavior:'smooth', block:'start' });
@@ -981,6 +1009,14 @@
         return;
       }
 
+      const friendBooking = friendBookingInput.checked;
+      const friendDiscordUsername = friendUsernameInput.value.trim();
+
+      if (friendBooking && !friendDiscordUsername) {
+        showMessage('Please enter your friend\u2019s Discord username, or uncheck the friend booking option.', 'error');
+        return;
+      }
+
       const bookingData = {
         flightNumber: form.elements.flightNumber.value.trim(),
         origin,
@@ -990,7 +1026,9 @@
         returnDate: tripType === 'round-trip' ? returnDateInput.value : '',
         aircraft: form.elements.aircraft.value.trim(),
         gate: form.elements.gate.value.trim(),
-        passengers
+        passengers,
+        friendBooking,
+        friendDiscordUsername
       };
 
       submitButton.disabled = true;
@@ -1014,7 +1052,20 @@
           throw new Error(result.message || 'Your booking could not be created. Please check your details and try again.');
         }
 
-        showMessage('Your booking has been created successfully.', 'success');
+        showMessage(
+          result.requiresConfirmation
+            ? 'Your booking was created and is pending your friend\u2019s confirmation.'
+            : 'Your booking has been created successfully.',
+          'success'
+        );
+
+        // Keep the ticket details available for the confirmation page.
+        try {
+          sessionStorage.setItem('csnLatestBooking', JSON.stringify(result.booking));
+        } catch (_) {
+          // sessionStorage may be unavailable; the inline confirmation still shows.
+        }
+
         showConfirmation(result.booking);
       } catch (error) {
         if (error instanceof TypeError) {
