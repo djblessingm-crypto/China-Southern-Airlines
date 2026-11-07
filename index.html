@@ -711,9 +711,86 @@ h3{font-size:1.3rem}
   *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}
   .reveal{opacity:1;transform:none}
 }
+
+/* CINEMATIC INTRO LOADER */
+
+@keyframes introAppear{
+  from{opacity:0;transform:translateY(22px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+.intro-loader{
+  position:fixed;
+  inset:0;
+  z-index:2000;
+  display:grid;
+  place-items:center;
+  padding:26px;
+  text-align:center;
+  background:
+    radial-gradient(ellipse at 50% 0%,rgba(68,169,255,.24),transparent 42%),
+    radial-gradient(ellipse at 12% 88%,rgba(8,120,209,.20),transparent 38%),
+    linear-gradient(160deg,#0b2a52,#061a34 55%,#020817);
+  transition:opacity .8s ease,visibility .8s ease;
+}
+.intro-loader.hidden{opacity:0;visibility:hidden;pointer-events:none}
+.intro-loader-inner{
+  display:grid;
+  justify-items:center;
+  gap:16px;
+  max-width:540px;
+  animation:introAppear .9s ease both;
+}
+.intro-loader-logo{
+  width:88px;
+  height:88px;
+  object-fit:cover;
+  border-radius:26px;
+  border:1px solid rgba(255,255,255,.35);
+  box-shadow:0 20px 55px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.4);
+}
+.intro-loader .eyebrow{color:#72b6ff;margin-bottom:0}
+.intro-loader h2{
+  margin:0;
+  color:#f4f8ff;
+  font-size:clamp(2.1rem,5vw,3.4rem);
+}
+.intro-loader h2 .accent{color:#72b6ff}
+.intro-loader p{
+  margin:0;
+  max-width:420px;
+  color:#a9bad0;
+  font-size:1rem;
+}
+.intro-loader-start{
+  min-width:240px;
+  margin-top:8px;
+}
+.intro-loader-note{
+  font-size:.78rem;
+  color:#8da1bd;
+}
+body.intro-locked{overflow:hidden}
+
+@media(max-width:560px){
+  .intro-loader-logo{width:72px;height:72px;border-radius:22px}
+}
 </style>
 </head>
 <body>
+
+<div class="intro-loader" id="introLoader" role="dialog" aria-modal="true" aria-label="Welcome to China Southern Airlines Virtual">
+  <div class="intro-loader-inner">
+    <img class="intro-loader-logo" src="https://raw.githubusercontent.com/djblessingm-crypto/SOUT-IMAGE/refs/heads/main/China%20Southern%20Airlines%20%C4%B0stanbul%20Acentas%C4%B1.jfif" alt="">
+    <span class="eyebrow">China Southern Airlines Virtual</span>
+    <h2>Fly towards your <span class="accent">dreams.</span></h2>
+    <p>A community-run virtual airline for Roblox PTFS. 224 destinations across 46 countries, waiting for you.</p>
+    <button class="btn intro-loader-start" id="startExperience" type="button">Start Experience <span aria-hidden="true">↗</span></button>
+    <p class="intro-loader-note">Boarding audio begins only when you start the experience.</p>
+  </div>
+</div>
+
+<noscript><style>.intro-loader{display:none}</style></noscript>
 
 <div class="topbar">
   <div class="container topbar-inner">
@@ -731,7 +808,7 @@ h3{font-size:1.3rem}
     </a>
 
     <nav class="desktop-nav" aria-label="Main navigation">
-      <a href="index.html">Home</a>
+      <a href="index.html" class="active" aria-current="page">Home</a>
       <a href="about.html">About</a>
       <a href="destinations.html">Destinations</a>
       <a href="flights.html">Flights</a>
@@ -1051,6 +1128,40 @@ h3{font-size:1.3rem}
 
 <script>
 "use strict";
+
+/* Cinematic intro loader.
+   Boarding audio is only ever started from the START EXPERIENCE
+   click, because browsers block autoplay without a user gesture. */
+(function(){
+  const loader=document.getElementById("introLoader");
+  const startBtn=document.getElementById("startExperience");
+  if(!loader||!startBtn)return;
+
+  document.body.classList.add("intro-locked");
+
+  function playBoardingAudio(){
+    fetch("/api/audio-status",{headers:{"Accept":"application/json"}})
+      .then(response=>response.ok?response.json():null)
+      .then(data=>{
+        if(!data||!data.boardingAudioAvailable)return;
+        const audio=new Audio("/audio/boarding.mp3");
+        audio.volume=0.55;
+        const promise=audio.play();
+        if(promise&&typeof promise.catch==="function")promise.catch(()=>{});
+      })
+      .catch(()=>{});
+  }
+
+  function dismiss(){
+    loader.classList.add("hidden");
+    document.body.classList.remove("intro-locked");
+    loader.setAttribute("aria-hidden","true");
+    playBoardingAudio();
+  }
+
+  startBtn.addEventListener("click",dismiss);
+  startBtn.focus({preventScroll:true});
+})();
 
 /* Footer year */
 document.getElementById("currentYear").textContent=new Date().getFullYear();

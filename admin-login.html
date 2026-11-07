@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0878d1">
+<meta name="description" content="Secure administrator access to China Southern Airlines Virtual.">
+<title>Admin access | China Southern Airlines Virtual</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="csn.css">
+<style>
+  .gate{max-width:540px;margin:0 auto}
+  .gate h2{margin-bottom:8px}
+  .gate .field{margin-bottom:18px}
+  .gate-help{margin-top:20px}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="container topbar-inner">
+    <span>China Southern Airlines Virtual</span>
+    <span>Fly towards your dreams — <span lang="zh">飞向您的梦想</span></span>
+    <a href="https://discord.gg/uUcc6bxXmG" target="_blank" rel="noopener noreferrer">Join our community ↗</a>
+  </div>
+</div>
+
+<header class="navbar">
+  <div class="container nav-inner">
+    <a class="brand" href="index.html" aria-label="China Southern Airlines Virtual home">
+      <img src="https://raw.githubusercontent.com/djblessingm-crypto/SOUT-IMAGE/refs/heads/main/China%20Southern%20Airlines%20%C4%B0stanbul%20Acentas%C4%B1.jfif" alt="China Southern Airlines Virtual logo">
+      <span>CHINA SOUTHERN<span>AIRLINES VIRTUAL</span></span>
+    </a>
+    <nav class="desktop-nav" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="destinations.html">Destinations</a>
+      <a href="flights.html">Flights</a>
+      <a href="recruitment.html">recruitment</a>
+      <a href="community.html">Community</a>
+      <a href="booking.html">Booking</a>
+      <a class="nav-cta" href="Login.html">Login with Discord ↗</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="section page-hero">
+    <div class="container">
+      <span class="eyebrow">Administration</span>
+      <h1>Admin <span class="accent">access.</span></h1>
+      <p>Enter the CSN administrator key to open the content management and operations console.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="glass panel gate">
+        <h2>Unlock the console.</h2>
+        <p class="muted small">Managing flights, fleet, destinations, news, announcements, recruitment and settings requires the CSN administrator key.</p>
+
+        <form id="adminLoginForm" novalidate style="margin-top:24px">
+          <div class="field">
+            <label for="adminKey">Administrator key <span class="required">*</span></label>
+            <input id="adminKey" name="adminKey" type="password" autocomplete="off" placeholder="Enter the administrator key" required>
+          </div>
+          <button class="btn" id="gateSubmit" type="submit" style="width:100%">Unlock admin panel ↗</button>
+          <div class="message" id="gateMessage" role="status" aria-live="polite"></div>
+        </form>
+
+        <p class="muted small gate-help">
+          Your key is checked on the CSN server and kept only in this browser.
+          It is never shared with anyone else.
+        </p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <a class="brand" href="index.html" style="color:white;margin-bottom:18px">
+          <span class="brand-name">CHINA SOUTHERN<span style="color:#c7d8ed">AIRLINES VIRTUAL</span></span>
+        </a>
+        <p>Fly towards your dreams — 飞向您的梦想.</p>
+        <p class="small">An independent virtual airline community inspired by China Southern Airlines.</p>
+      </div>
+      <div>
+        <h3>Explore</h3>
+        <div class="footer-links">
+          <a href="about.html">About CSN Virtual</a>
+          <a href="destinations.html">Destinations</a>
+          <a href="flights.html">Flights</a>
+          <a href="fleet.html">Our fleet</a>
+          <a href="recruitment.html">Careers</a>
+        </div>
+      </div>
+      <div>
+        <h3>Community</h3>
+        <div class="footer-links">
+          <a href="community.html">Our community</a>
+          <a href="news.html">News</a>
+          <a href="my-bookings.html">My bookings</a>
+          <a href="Login.html">Login with Discord</a>
+          <a href="https://discord.gg/uUcc6bxXmG" target="_blank" rel="noopener noreferrer">Discord ↗</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span class="js-year"></span> China Southern Airlines Virtual. All rights reserved.</span>
+      <a href="#">Back to top ↑</a>
+    </div>
+  </div>
+</footer>
+
+<button class="back-to-top" id="backToTop" type="button" aria-label="Back to top">↑</button>
+
+<script>
+  document.querySelectorAll('.js-year').forEach(el => el.textContent = new Date().getFullYear());
+
+  const STAFF_KEY_STORAGE = 'csnStaffKey';
+
+  const form = document.getElementById('adminLoginForm');
+  const keyInput = document.getElementById('adminKey');
+  const submitBtn = document.getElementById('gateSubmit');
+  const message = document.getElementById('gateMessage');
+
+  try {
+    const saved = localStorage.getItem(STAFF_KEY_STORAGE);
+    if (saved) keyInput.value = saved;
+  } catch (_) {}
+
+  function setMessage(text, kind){
+    message.textContent = text;
+    message.className = 'message show ' + kind;
+  }
+
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    const key = keyInput.value.trim();
+
+    if (!key){
+      setMessage('Enter the administrator key to continue.', 'error');
+      return;
+    }
+
+    submitBtn.disabled = true;
+    setMessage('Verifying access key…', 'info');
+
+    try {
+      const response = await fetch('/api/admin/settings', {
+        headers: { 'x-csn-staff-key': key, 'Accept': 'application/json' }
+      });
+
+      if (response.status === 200){
+        try { localStorage.setItem(STAFF_KEY_STORAGE, key); } catch (_) {}
+        setMessage('Access verified. Opening the admin panel…', 'success');
+        window.location.href = 'admin.html';
+        return;
+      }
+
+      if (response.status === 403){
+        setMessage('That administrator key was not accepted. Please check it and try again.', 'error');
+      } else if (response.status === 503){
+        setMessage('Administrator access is not configured on this server yet. Please contact the project owner.', 'error');
+      } else {
+        setMessage('We could not verify your access right now. Please try again shortly.', 'error');
+      }
+    } catch (_){
+      setMessage('We could not reach the server. Please check your connection and try again.', 'error');
+    } finally {
+      submitBtn.disabled = false;
+    }
+  });
+
+  const backToTop = document.getElementById('backToTop');
+  window.addEventListener('scroll', () => backToTop.classList.toggle('visible', window.scrollY > 450), { passive:true });
+  backToTop.addEventListener('click', () => window.scrollTo({ top:0, behavior:'smooth' }));
+</script>
+</body>
+</html>

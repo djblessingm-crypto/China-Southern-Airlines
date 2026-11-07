@@ -462,6 +462,118 @@ footer{
 
 }
 
+/* CONTENT MANAGER */
+
+.cm-field{
+    display:grid;
+    gap:6px;
+}
+
+.cm-label{
+    color:var(--muted);
+    font-size:11px;
+    font-weight:800;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+}
+
+.cm-input,
+.cm-select,
+.cm-textarea{
+    width:100%;
+    min-height:44px;
+    padding:10px 13px;
+    border-radius:14px;
+    border:1px solid var(--border);
+    background:rgba(255,255,255,.06);
+    color:var(--text);
+}
+
+.cm-textarea{
+    min-height:180px;
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    font-size:12px;
+    line-height:1.5;
+    resize:vertical;
+}
+
+.cm-input:focus,
+.cm-select:focus,
+.cm-textarea:focus{
+    outline:none;
+    border-color:rgba(35,136,255,.5);
+    box-shadow:0 0 0 4px rgba(35,136,255,.16);
+}
+
+.cm-btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    min-height:44px;
+    padding:10px 18px;
+    border:1px solid transparent;
+    border-radius:999px;
+    background:linear-gradient(135deg,#2388ff,#0754b5);
+    color:white;
+    font-weight:800;
+    font-size:13px;
+}
+
+.cm-btn:hover{
+    transform:translateY(-2px);
+}
+
+.cm-btn.secondary{
+    background:rgba(255,255,255,.07);
+    border-color:var(--border);
+    color:var(--text);
+}
+
+.cm-btn.danger{
+    background:linear-gradient(135deg,#ff6474,#b5202f);
+}
+
+.cm-note{
+    margin-top:14px;
+    padding:13px 15px;
+    border-radius:16px;
+    font-size:13px;
+    display:none;
+}
+
+.cm-note.show{ display:block; }
+.cm-note.error{ background:rgba(255,100,116,.14); color:#ffc4cb; border:1px solid rgba(255,100,116,.32); }
+.cm-note.success{ background:rgba(53,212,138,.13); color:#b7f0d3; border:1px solid rgba(53,212,138,.32); }
+.cm-note.info{ background:rgba(35,136,255,.14); color:#c6dcff; border:1px solid rgba(35,136,255,.32); }
+
+.cm-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:14px;
+    padding:14px 16px;
+    border-radius:16px;
+    background:rgba(255,255,255,.05);
+    border:1px solid var(--border);
+}
+
+.cm-row-main{
+    min-width:0;
+}
+
+.cm-row-title{
+    font-weight:800;
+    font-size:13px;
+}
+
+.cm-row-sub{
+    margin-top:4px;
+    color:var(--muted);
+    font-size:11px;
+    word-break:break-all;
+}
+
 </style>
 </head>
 
@@ -909,6 +1021,126 @@ Loading destinations...
 </section>
 
 </section>
+
+
+<section class="panel" id="contentManager">
+
+<div class="panel-head">
+
+<div>
+
+<div class="panel-title">
+Content Management
+</div>
+
+<div class="panel-sub">
+Create, update and remove published records
+</div>
+
+</div>
+
+<span class="badge blue">
+STAFF KEY
+</span>
+
+</div>
+
+<div style="display:grid;gap:16px">
+
+<div style="display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end">
+
+<div class="cm-field" style="flex:1;min-width:240px">
+
+<span class="cm-label">
+Staff access key (x-csn-staff-key)
+</span>
+
+<input
+id="cmKey"
+class="cm-input"
+type="password"
+placeholder="Enter the staff access key"
+autocomplete="off"
+>
+
+</div>
+
+<div class="cm-field" style="min-width:200px">
+
+<span class="cm-label">
+Collection
+</span>
+
+<select id="cmCollection" class="cm-select">
+<option value="flights">Flights</option>
+<option value="fleet">Fleet</option>
+<option value="destinations">Destinations</option>
+<option value="news">News</option>
+<option value="announcements">Announcements</option>
+<option value="recruitment">Recruitment</option>
+<option value="settings">Settings (key/value)</option>
+</select>
+
+</div>
+
+<button class="cm-btn" id="cmLoad" type="button">
+Load records
+</button>
+
+</div>
+
+<div class="cm-note" id="cmMessage" role="status" aria-live="polite"></div>
+
+<div class="data-list" id="cmList">
+
+<div class="loading">
+Enter the staff key and load a collection to begin.
+</div>
+
+</div>
+
+<div class="cm-field">
+
+<span class="cm-label">
+Record JSON — used for create, and for update/delete by id
+</span>
+
+<textarea
+id="cmJson"
+class="cm-textarea"
+placeholder='{
+  "id": "existing-record-id",
+  "title": "Example",
+  "published": true
+}'
+></textarea>
+
+</div>
+
+<div style="display:flex;flex-wrap:wrap;gap:10px">
+
+<button class="cm-btn" id="cmCreate" type="button">
+Create record
+</button>
+
+<button class="cm-btn secondary" id="cmUpdate" type="button">
+Update by id
+</button>
+
+<button class="cm-btn danger" id="cmDelete" type="button">
+Delete by id
+</button>
+
+<button class="cm-btn secondary" id="cmSaveSettings" type="button">
+Save settings
+</button>
+
+</div>
+
+</div>
+
+</section>
+
 
 </main>
 
@@ -1446,6 +1678,603 @@ function escapeHTML(
     .replaceAll("'","&#039;");
 
 }
+
+
+/* CONTENT MANAGER */
+
+const cmKeyInput =
+    document.getElementById("cmKey");
+
+const cmCollection =
+    document.getElementById("cmCollection");
+
+const cmMessage =
+    document.getElementById("cmMessage");
+
+const cmList =
+    document.getElementById("cmList");
+
+const cmJson =
+    document.getElementById("cmJson");
+
+const STAFF_KEY_STORAGE =
+    "csnStaffKey";
+
+try{
+
+    const savedKey =
+        localStorage.getItem(
+            STAFF_KEY_STORAGE
+        );
+
+    if(savedKey){
+
+        cmKeyInput.value =
+            savedKey;
+
+    }
+
+}catch(error){
+    /* localStorage may be unavailable; the field still works. */
+}
+
+cmKeyInput.addEventListener(
+    "change",
+    function(){
+
+        try{
+
+            localStorage.setItem(
+                STAFF_KEY_STORAGE,
+                cmKeyInput.value.trim()
+            );
+
+        }catch(error){
+            /* Ignore storage failures. */
+        }
+
+    }
+);
+
+
+function cmSetMessage(
+    text,
+    kind
+){
+
+    cmMessage.textContent =
+        String(text || "");
+
+    cmMessage.className =
+        "cm-note show " +
+        (kind || "info");
+
+}
+
+
+async function cmRequest(
+    method,
+    path,
+    body
+){
+
+    const key =
+        cmKeyInput.value.trim();
+
+    if(!key){
+
+        throw new Error(
+            "Enter the staff access key first."
+        );
+
+    }
+
+    const options = {
+        method: method,
+        headers: {
+            "x-csn-staff-key": key
+        }
+    };
+
+    if(body !== undefined){
+
+        options.headers["Content-Type"] =
+            "application/json";
+
+        options.body =
+            JSON.stringify(body);
+
+    }
+
+    const response =
+        await fetch(path, options);
+
+    let payload = null;
+
+    try{
+        payload =
+            await response.json();
+    }catch(_){
+        payload = null;
+    }
+
+    if(!response.ok){
+
+        const message =
+            (payload &&
+             (payload.message ||
+              payload.error)) ||
+            ("Request failed with status " +
+             response.status);
+
+        const error =
+            new Error(message);
+
+        error.status =
+            response.status;
+
+        throw error;
+
+    }
+
+    return payload || {};
+
+}
+
+
+function cmParseRecord(){
+
+    let parsed;
+
+    try{
+        parsed =
+            JSON.parse(cmJson.value);
+    }catch(_){
+
+        throw new Error(
+            "The record JSON is not valid JSON."
+        );
+
+    }
+
+    if(
+        !parsed ||
+        typeof parsed !== "object" ||
+        Array.isArray(parsed)
+    ){
+
+        throw new Error(
+            "The record JSON must be an object."
+        );
+
+    }
+
+    return parsed;
+
+}
+
+
+function cmRenderList(
+    collection,
+    records
+){
+
+    let entries;
+
+    if(Array.isArray(records)){
+
+        entries =
+            records.map(function(item,index){
+
+                const title =
+                    (item &&
+                     (item.title ||
+                      item.name ||
+                      item.flightNumber ||
+                      item.city ||
+                      item.reference)) ||
+                    (collection +
+                     " record " +
+                     (index + 1));
+
+                return {
+                    title:
+                        String(title),
+                    sub:
+                        item && item.id
+                            ? String(item.id)
+                            : "no id",
+                    record: item
+                };
+
+            });
+
+    }else if(
+        records &&
+        typeof records === "object"
+    ){
+
+        entries =
+            Object.keys(records).map(function(key){
+
+                const value =
+                    records[key];
+
+                return {
+                    title: key,
+                    sub:
+                        typeof value === "object"
+                            ? JSON.stringify(value)
+                            : String(value),
+                    record: value
+                };
+
+            });
+
+    }else{
+        entries = [];
+    }
+
+    if(!entries.length){
+
+        cmList.innerHTML =
+            '<div class="loading">No records available.</div>';
+
+        return;
+
+    }
+
+    cmList.innerHTML =
+        entries
+        .map(function(entry,index){
+
+            return ''
+
+                + '<div class="cm-row">'
+
+                + '<div class="cm-row-main">'
+
+                + '<div class="cm-row-title">'
+                + escapeHTML(entry.title)
+                + '</div>'
+
+                + '<div class="cm-row-sub">'
+                + escapeHTML(entry.sub)
+                + '</div>'
+
+                + '</div>'
+
+                + '<button class="cm-btn secondary"'
+                + ' type="button"'
+                + ' data-index="' + index + '">'
+                + 'Edit'
+                + '</button>'
+
+                + '</div>';
+
+        })
+        .join("");
+
+    Array.prototype.forEach.call(
+        cmList.querySelectorAll(
+            "button[data-index]"
+        ),
+        function(button){
+
+            button.addEventListener(
+                "click",
+                function(){
+
+                    const entry =
+                        entries[
+                            Number(
+                                button.dataset.index
+                            )
+                        ];
+
+                    cmJson.value =
+                        JSON.stringify(
+                            entry.record,
+                            null,
+                            2
+                        );
+
+                    cmSetMessage(
+                        'Loaded "' +
+                        entry.title +
+                        '" into the editor.',
+                        "info"
+                    );
+
+                }
+            );
+
+        }
+    );
+
+}
+
+
+async function cmLoadRecords(){
+
+    const collection =
+        cmCollection.value;
+
+    cmSetMessage(
+        "Loading...",
+        "info"
+    );
+
+    try{
+
+        if(collection === "settings"){
+
+            const payload =
+                await cmRequest(
+                    "GET",
+                    "/api/admin/settings"
+                );
+
+            cmRenderList(
+                "settings",
+                payload.settings || {}
+            );
+
+        }else{
+
+            const payload =
+                await cmRequest(
+                    "GET",
+                    "/api/admin/" + collection
+                );
+
+            cmRenderList(
+                collection,
+                payload.items || []
+            );
+
+        }
+
+        cmSetMessage(
+            "Loaded " +
+            collection +
+            " successfully.",
+            "success"
+        );
+
+    }catch(error){
+
+        cmList.innerHTML =
+            '<div class="loading error">'
+            + escapeHTML(error.message)
+            + '</div>';
+
+        cmSetMessage(
+            error.message,
+            "error"
+        );
+
+    }
+
+}
+
+
+async function cmCreateRecord(){
+
+    const collection =
+        cmCollection.value;
+
+    try{
+
+        const body =
+            cmParseRecord();
+
+        const payload =
+            await cmRequest(
+                "POST",
+                "/api/admin/" + collection,
+                body
+            );
+
+        cmSetMessage(
+            "Created record " +
+            (payload.item &&
+             payload.item.id
+                ? payload.item.id
+                : "") +
+            ".",
+            "success"
+        );
+
+        await cmLoadRecords();
+
+    }catch(error){
+
+        cmSetMessage(
+            error.message,
+            "error"
+        );
+
+    }
+
+}
+
+
+async function cmUpdateRecord(){
+
+    const collection =
+        cmCollection.value;
+
+    try{
+
+        const body =
+            cmParseRecord();
+
+        if(!body.id){
+
+            throw new Error(
+                "The record JSON must include an id to update."
+            );
+
+        }
+
+        const payload =
+            await cmRequest(
+                "PUT",
+                "/api/admin/" +
+                collection +
+                "/" +
+                encodeURIComponent(body.id),
+                body
+            );
+
+        cmSetMessage(
+            "Updated record " +
+            (payload.item &&
+             payload.item.id
+                ? payload.item.id
+                : body.id) +
+            ".",
+            "success"
+        );
+
+        await cmLoadRecords();
+
+    }catch(error){
+
+        cmSetMessage(
+            error.message,
+            "error"
+        );
+
+    }
+
+}
+
+
+async function cmDeleteRecord(){
+
+    const collection =
+        cmCollection.value;
+
+    try{
+
+        const body =
+            cmParseRecord();
+
+        if(!body.id){
+
+            throw new Error(
+                "The record JSON must include an id to delete."
+            );
+
+        }
+
+        await cmRequest(
+            "DELETE",
+            "/api/admin/" +
+            collection +
+            "/" +
+            encodeURIComponent(body.id)
+        );
+
+        cmJson.value = "";
+
+        cmSetMessage(
+            "Deleted record " +
+            body.id +
+            ".",
+            "success"
+        );
+
+        await cmLoadRecords();
+
+    }catch(error){
+
+        cmSetMessage(
+            error.message,
+            "error"
+        );
+
+    }
+
+}
+
+
+async function cmSaveSettings(){
+
+    try{
+
+        const body =
+            cmParseRecord();
+
+        const payload =
+            await cmRequest(
+                "PUT",
+                "/api/admin/settings",
+                body
+            );
+
+        cmSetMessage(
+            "Settings saved.",
+            "success"
+        );
+
+        if(cmCollection.value === "settings"){
+
+            cmRenderList(
+                "settings",
+                payload.settings || {}
+            );
+
+        }
+
+    }catch(error){
+
+        cmSetMessage(
+            error.message,
+            "error"
+        );
+
+    }
+
+}
+
+
+document
+.getElementById("cmLoad")
+.addEventListener(
+    "click",
+    cmLoadRecords
+);
+
+document
+.getElementById("cmCreate")
+.addEventListener(
+    "click",
+    cmCreateRecord
+);
+
+document
+.getElementById("cmUpdate")
+.addEventListener(
+    "click",
+    cmUpdateRecord
+);
+
+document
+.getElementById("cmDelete")
+.addEventListener(
+    "click",
+    cmDeleteRecord
+);
+
+document
+.getElementById("cmSaveSettings")
+.addEventListener(
+    "click",
+    cmSaveSettings
+);
 
 
 /* START */

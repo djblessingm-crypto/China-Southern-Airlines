@@ -431,7 +431,7 @@ Fly towards your dreams · 飞向您的梦想
 </div>
 </div>
 
-<div class="confirmed">
+<div class="confirmed" id="statusBadge">
 CONFIRMED
 </div>
 
@@ -604,50 +604,96 @@ Present your ticket to CSN Virtual staff
 const raw =
 sessionStorage.getItem("csnLatestBooking");
 
-if(!raw){
+let booking = null;
+try {
+    if (raw) booking = JSON.parse(raw);
+} catch (_) {
+    booking = null;
+}
 
-    window.location.href =
-        "booking.html";
+if(!booking || typeof booking !== "object"){
+
+    // No recent booking is available in this browser session.
+    // Show an honest, styled notice instead of silently bouncing.
+    document.getElementById("origin").textContent = "---";
+    document.getElementById("destination").textContent = "---";
+    document
+        .querySelectorAll(
+            ".value,.code-value,#passengerList"
+        )
+        .forEach(el => { el.textContent = "—"; });
+
+    const qrCard =
+        document.querySelector(".qr-card");
+
+    if(qrCard){
+        qrCard.innerHTML =
+            "<div style='padding:6px;text-align:center;font-size:12px;line-height:1.5'>" +
+            "No recent booking found.<br>" +
+            "Open <a style='color:#7fd0ff' href='my-bookings.html'>My bookings</a> " +
+            "or create one on the <a style='color:#7fd0ff' href='booking.html'>Booking</a> page." +
+            "</div>";
+    }
+
+    const badge =
+        document.getElementById("statusBadge");
+
+    if(badge){ badge.textContent = "NO TICKET"; }
 
 }else{
 
-    const booking =
-        JSON.parse(raw);
-
     document.getElementById("origin")
         .textContent =
-        booking.origin;
+        booking.origin || "---";
 
     document.getElementById("destination")
         .textContent =
-        booking.destination;
+        booking.destination || "---";
 
     document.getElementById("flight")
         .textContent =
-        booking.flightNumber;
+        booking.flightNumber || "—";
 
     document.getElementById("aircraft")
         .textContent =
-        booking.aircraft;
+        booking.aircraft || "—";
 
     document.getElementById("date")
         .textContent =
-        booking.departureDate;
+        booking.departureDate || "—";
 
     document.getElementById("bookingReference")
         .textContent =
-        booking.bookingReference;
+        booking.bookingReference || "—";
 
     document.getElementById("passengerCode")
         .textContent =
-        booking.passengerCode;
+        booking.passengerCode || "—";
 
     document.getElementById("securityCode")
         .textContent =
-        booking.securityCode;
+        booking.securityCode || "—";
+
+    const statusBadge =
+        document.getElementById("statusBadge");
+
+    if(statusBadge){
+
+        statusBadge.textContent =
+            String(
+                booking.status ||
+                "confirmed"
+            ).toUpperCase();
+
+    }
+
+    const passengers =
+        Array.isArray(booking.passengers)
+            ? booking.passengers
+            : [];
 
     const firstPassenger =
-        booking.passengers?.[0];
+        passengers[0];
 
     document.getElementById("passenger")
         .textContent =
@@ -661,7 +707,21 @@ if(!raw){
 
     passengerList.innerHTML = "";
 
-    booking.passengers.forEach(
+    if(!passengers.length){
+
+        const row =
+            document.createElement("div");
+
+        row.className = "passenger";
+
+        row.innerHTML =
+            "<strong>—</strong><span></span>";
+
+        passengerList.appendChild(row);
+
+    }
+
+    passengers.forEach(
         (passenger,index) => {
 
             const row =
@@ -673,11 +733,15 @@ if(!raw){
             row.innerHTML = `
 
                 <strong>
-                    ${index + 1}. ${escapeHTML(passenger.name)}
+                    ${index + 1}. ${escapeHTML(passenger.name || "Passenger")}
                 </strong>
 
                 <span>
-                    ${escapeHTML(passenger.roblox)}
+                    ${escapeHTML(
+                        passenger.robloxUsername ||
+                        passenger.discordUsername ||
+                        ""
+                    )}
                 </span>
 
             `;
@@ -687,18 +751,34 @@ if(!raw){
         }
     );
 
-    new QRCode(
-        document.getElementById("qrcode"),
-        {
-            text:booking.qrPayload,
-            width:150,
-            height:150,
-            colorDark:"#071d43",
-            colorLight:"#ffffff",
-            correctLevel:
-                QRCode.CorrectLevel.H
-        }
-    );
+    // The QR payload is only issued to the member who created the
+    // booking (public lookups are sanitised), so render it only when
+    // it is actually present.
+    const qrTarget =
+        document.getElementById("qrcode");
+
+    if(booking.qrPayload && qrTarget && typeof QRCode !== "undefined"){
+
+        new QRCode(
+            qrTarget,
+            {
+                text:booking.qrPayload,
+                width:150,
+                height:150,
+                colorDark:"#071d43",
+                colorLight:"#ffffff",
+                correctLevel:
+                    QRCode.CorrectLevel.H
+            }
+        );
+
+    }else if(qrTarget){
+
+        qrTarget.innerHTML =
+            "<div style='color:#071d43;font-size:11px;padding:14px;text-align:center'>" +
+            "QR unavailable for this lookup</div>";
+
+    }
 
 }
 

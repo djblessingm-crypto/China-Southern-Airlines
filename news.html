@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0878d1">
+<meta name="description" content="News and announcements from China Southern Airlines Virtual.">
+<title>News | China Southern Airlines Virtual</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="csn.css">
+</head>
+<body>
+
+<div class="topbar">
+  <div class="container topbar-inner">
+    <span>China Southern Airlines Virtual</span>
+    <span>Fly towards your dreams — <span lang="zh">飞向您的梦想</span></span>
+    <a href="https://discord.gg/uUcc6bxXmG" target="_blank" rel="noopener noreferrer">Join our community ↗</a>
+  </div>
+</div>
+
+<header class="navbar">
+  <div class="container nav-inner">
+    <a class="brand" href="index.html" aria-label="China Southern Airlines Virtual home">
+      <img src="https://raw.githubusercontent.com/djblessingm-crypto/SOUT-IMAGE/refs/heads/main/China%20Southern%20Airlines%20%C4%B0stanbul%20Acentas%C4%B1.jfif" alt="China Southern Airlines Virtual logo">
+      <span>CHINA SOUTHERN<span>AIRLINES VIRTUAL</span></span>
+    </a>
+    <nav class="desktop-nav" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="destinations.html">Destinations</a>
+      <a href="flights.html">Flights</a>
+      <a href="recruitment.html">recruitment</a>
+      <a href="community.html">Community</a>
+      <a href="booking.html">Booking</a>
+      <a class="nav-cta" href="Login.html">Login with Discord ↗</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="section page-hero">
+    <div class="container">
+      <span class="eyebrow">Newsroom</span>
+      <h1>News & <span class="accent">announcements.</span></h1>
+      <p>The latest updates, route news and operational announcements from CSN Virtual headquarters at Guangzhou Baiyun (CAN).</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-heading">
+        <span class="eyebrow">Announcements</span>
+        <h2>Operational notices.</h2>
+      </div>
+      <div class="stack" id="announcementList"></div>
+    </div>
+  </section>
+
+  <section class="section section-soft">
+    <div class="container">
+      <div class="section-heading">
+        <span class="eyebrow">News</span>
+        <h2>Latest stories.</h2>
+      </div>
+      <div class="grid grid-3" id="newsGrid"></div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <a class="brand" href="index.html" style="color:white;margin-bottom:18px">
+          <span class="brand-name">CHINA SOUTHERN<span style="color:#c7d8ed">AIRLINES VIRTUAL</span></span>
+        </a>
+        <p>Fly towards your dreams — 飞向您的梦想.</p>
+        <p class="small">An independent virtual airline community inspired by China Southern Airlines.</p>
+      </div>
+      <div>
+        <h3>Explore</h3>
+        <div class="footer-links">
+          <a href="about.html">About CSN Virtual</a>
+          <a href="destinations.html">Destinations</a>
+          <a href="flights.html">Flights</a>
+          <a href="fleet.html">Our fleet</a>
+          <a href="recruitment.html">Careers</a>
+        </div>
+      </div>
+      <div>
+        <h3>Community</h3>
+        <div class="footer-links">
+          <a href="community.html">Our community</a>
+          <a href="news.html">News</a>
+          <a href="my-bookings.html">My bookings</a>
+          <a href="Login.html">Login with Discord</a>
+          <a href="https://discord.gg/uUcc6bxXmG" target="_blank" rel="noopener noreferrer">Discord ↗</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span class="js-year"></span> China Southern Airlines Virtual. All rights reserved.</span>
+      <a href="#">Back to top ↑</a>
+    </div>
+  </div>
+</footer>
+
+<button class="back-to-top" id="backToTop" type="button" aria-label="Back to top">↑</button>
+
+<script>
+  document.querySelectorAll('.js-year').forEach(el => el.textContent = new Date().getFullYear());
+
+  function escapeHTML(value){
+    return String(value == null ? '' : value)
+      .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+      .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+  }
+
+  function formatDate(value){
+    const text = escapeHTML(value || '').slice(0, 10);
+    return text || '';
+  }
+
+  async function loadCollection(url, key){
+    const response = await fetch(url, { headers:{ 'Accept':'application/json' } });
+    if (!response.ok) throw new Error('Request failed');
+    const data = await response.json();
+    return Array.isArray(data[key]) ? data[key] : [];
+  }
+
+  async function loadAnnouncements(){
+    const list = document.getElementById('announcementList');
+    try {
+      const items = await loadCollection('/api/announcements', 'announcements');
+      if (!items.length) {
+        list.innerHTML = '<div class="empty-state">There are no announcements at the moment.</div>';
+        return;
+      }
+      list.innerHTML = items.map(item => {
+        const title = escapeHTML(item.title || item.name || 'Announcement');
+        const body = escapeHTML(item.summary || item.body || item.message || item.content || '');
+        const date = formatDate(item.date || item.publishedAt || item.createdAt);
+        return '<div class="glass panel"><span class="badge blue">' + (date || 'Announcement') + '</span>' +
+               '<h3 style="margin-top:12px">' + title + '</h3>' +
+               (body ? '<p class="muted" style="margin-top:8px">' + body + '</p>' : '') + '</div>';
+      }).join('');
+    } catch (error) {
+      list.innerHTML = '<div class="empty-state">Announcements could not be loaded right now. Please try again later.</div>';
+    }
+  }
+
+  async function loadNews(){
+    const grid = document.getElementById('newsGrid');
+    try {
+      const items = await loadCollection('/api/news', 'news');
+      if (!items.length) {
+        grid.innerHTML = '<div class="empty-state" style="grid-column:1/-1">There are no news stories at the moment.</div>';
+        return;
+      }
+      grid.innerHTML = items.map(item => {
+        const title = escapeHTML(item.title || item.name || 'News');
+        const body = escapeHTML(item.summary || item.body || item.content || '');
+        const date = formatDate(item.date || item.publishedAt || item.createdAt);
+        return '<article class="card reveal"><div class="card-body">' +
+               (date ? '<span class="pill">' + date + '</span>' : '') +
+               '<h3 style="margin-top:12px">' + title + '</h3>' +
+               (body ? '<p class="muted small" style="margin-top:8px">' + body + '</p>' : '') +
+               '</div></article>';
+      }).join('');
+      revealNow();
+    } catch (error) {
+      grid.innerHTML = '<div class="empty-state" style="grid-column:1/-1">News could not be loaded right now. Please try again later.</div>';
+    }
+  }
+
+  const backToTop = document.getElementById('backToTop');
+  window.addEventListener('scroll', () => backToTop.classList.toggle('visible', window.scrollY > 450), { passive:true });
+  backToTop.addEventListener('click', () => window.scrollTo({ top:0, behavior:'smooth' }));
+
+  let revealObserver = null;
+  function revealNow(){
+    const revealElements = document.querySelectorAll('.reveal');
+    if (!('IntersectionObserver' in window)) {
+      revealElements.forEach(el => el.classList.add('visible'));
+      return;
+    }
+    if (!revealObserver){
+      revealObserver = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) { entry.target.classList.add('visible'); revealObserver.unobserve(entry.target); }
+        });
+      }, { threshold:.12 });
+    }
+    revealElements.forEach(el => { if (!el.classList.contains('visible')) revealObserver.observe(el); });
+  }
+
+  revealNow();
+  loadAnnouncements();
+  loadNews();
+</script>
+</body>
+</html>
