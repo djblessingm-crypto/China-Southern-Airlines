@@ -1,0 +1,970 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0878d1">
+  <title>Flights | China Southern Airlines Virtual</title>
+
+  <style>
+    :root {
+      --white: #fff;
+      --blue: #0878d1;
+      --blue-dark: #063b76;
+      --blue-light: #eaf5ff;
+      --navy: #10243d;
+      --muted: #63748a;
+      --border: rgba(12,76,135,.13);
+      --glass: rgba(255,255,255,.72);
+      --shadow: 0 22px 70px rgba(10,69,125,.13);
+      --radius: 28px;
+      --max: 1240px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at 10% 5%, #d9efff 0, transparent 30%),
+        radial-gradient(circle at 90% 25%, #e8f4ff 0, transparent 28%),
+        #f7fbff;
+      color: var(--navy);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button, input {
+      font: inherit;
+    }
+
+    .container {
+      width: min(var(--max), calc(100% - 40px));
+      margin: auto;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 12px;
+      z-index: 20;
+      width: min(var(--max), calc(100% - 28px));
+      margin: 12px auto 0;
+      padding: 13px 20px;
+      border: 1px solid rgba(255,255,255,.8);
+      border-radius: 24px;
+      background: rgba(255,255,255,.78);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+      box-shadow: 0 10px 35px rgba(10,69,125,.09);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      color: var(--blue-dark);
+      white-space: nowrap;
+    }
+
+    .brand img {
+      width: 46px;
+      height: 46px;
+      object-fit: contain;
+      border-radius: 14px;
+    }
+
+    .desktop-nav {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 7px;
+      flex-wrap: wrap;
+    }
+
+    .desktop-nav a {
+      padding: 9px 12px;
+      border-radius: 30px;
+      color: #43566e;
+      font-size: 13px;
+      font-weight: 650;
+      transition: .25s ease;
+    }
+
+    .desktop-nav a:hover,
+    .desktop-nav a.active {
+      color: var(--blue);
+      background: var(--blue-light);
+    }
+
+    .desktop-nav .nav-cta {
+      background: var(--blue);
+      color: white;
+      padding-inline: 17px;
+    }
+
+    .desktop-nav .nav-cta:hover {
+      background: var(--blue-dark);
+      color: white;
+    }
+
+    .hero {
+      padding: 90px 0 65px;
+      text-align: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 15px;
+      border: 1px solid #c9e5fa;
+      border-radius: 30px;
+      background: rgba(255,255,255,.75);
+      color: var(--blue);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 1.4px;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #18a66a;
+    }
+
+    .hero h1 {
+      max-width: 850px;
+      margin: 22px auto 15px;
+      color: var(--blue-dark);
+      font-size: clamp(42px, 7vw, 76px);
+      line-height: 1.04;
+      letter-spacing: -3px;
+    }
+
+    .hero p {
+      max-width: 650px;
+      margin: auto;
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    .hero-actions {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 28px;
+    }
+
+    .btn {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 48px;
+      padding: 12px 22px;
+      border: 0;
+      border-radius: 30px;
+      background: var(--blue);
+      color: white;
+      font-weight: 750;
+      cursor: pointer;
+      transition: .25s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      background: var(--blue-dark);
+    }
+
+    .btn.secondary {
+      background: white;
+      color: var(--blue-dark);
+      border: 1px solid var(--border);
+    }
+
+    .section {
+      padding: 35px 0 65px;
+    }
+
+    .section-heading {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 25px;
+    }
+
+    .section-heading h2 {
+      color: var(--blue-dark);
+      font-size: clamp(27px, 4vw, 40px);
+      letter-spacing: -1.3px;
+    }
+
+    .section-heading p {
+      max-width: 600px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .section-label {
+      display: block;
+      margin-bottom: 7px;
+      color: var(--blue);
+      font-size: 11px;
+      font-weight: 850;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    .virtual-panel {
+      padding: 25px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--glass);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+    }
+
+    .panel-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .live-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #168657;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .live-status::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #18a66a;
+      box-shadow: 0 0 0 5px rgba(24,166,106,.12);
+    }
+
+    .search-box {
+      width: min(100%, 340px);
+      padding: 13px 17px;
+      border: 1px solid var(--border);
+      border-radius: 30px;
+      outline: none;
+      background: white;
+      color: var(--navy);
+    }
+
+    .search-box:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 4px rgba(8,120,209,.1);
+    }
+
+    .flight-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 290px), 1fr));
+      gap: 17px;
+    }
+
+    .flight-card {
+      padding: 22px;
+      border: 1px solid var(--border);
+      border-radius: 23px;
+      background: white;
+      transition: .25s ease;
+    }
+
+    .flight-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(10,69,125,.1);
+    }
+
+    .flight-card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 22px;
+    }
+
+    .flight-number {
+      color: var(--blue-dark);
+      font-size: 18px;
+      font-weight: 850;
+    }
+
+    .flight-status {
+      padding: 6px 11px;
+      border-radius: 20px;
+      background: var(--blue-light);
+      color: var(--blue);
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: capitalize;
+    }
+
+    .route {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .route-place:last-child {
+      text-align: right;
+    }
+
+    .route-place strong {
+      display: block;
+      color: var(--navy);
+      font-size: 25px;
+    }
+
+    .route-place span {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .route-line {
+      width: 45px;
+      height: 1px;
+      background: #9fc9e8;
+      position: relative;
+    }
+
+    .route-line::after {
+      content: "";
+      position: absolute;
+      right: -1px;
+      top: -4px;
+      width: 8px;
+      height: 8px;
+      border-top: 1px solid var(--blue);
+      border-right: 1px solid var(--blue);
+      transform: rotate(45deg);
+    }
+
+    .flight-details {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+
+    .detail span {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .detail strong {
+      display: block;
+      margin-top: 3px;
+      font-size: 13px;
+    }
+
+    .state-message {
+      padding: 40px 20px;
+      text-align: center;
+      border: 1px dashed #b7d7ef;
+      border-radius: 22px;
+      background: rgba(234,245,255,.55);
+    }
+
+    .state-message h3 {
+      margin-bottom: 7px;
+      color: var(--blue-dark);
+      font-size: 21px;
+    }
+
+    .state-message p {
+      max-width: 520px;
+      margin: auto;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .state-message .btn {
+      margin-top: 18px;
+    }
+
+    .network-intro {
+      margin-bottom: 25px;
+      padding: 23px;
+      border: 1px solid #cce5f8;
+      border-radius: 23px;
+      background: linear-gradient(120deg, #e9f6ff, #fff);
+    }
+
+    .network-intro strong {
+      color: var(--blue-dark);
+    }
+
+    .network-intro p {
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr));
+      gap: 17px;
+    }
+
+    .info-card {
+      padding: 23px;
+      border: 1px solid var(--border);
+      border-radius: 23px;
+      background: white;
+      box-shadow: 0 12px 35px rgba(10,69,125,.06);
+      transition: .25s ease;
+    }
+
+    .info-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .info-card h3 {
+      margin-bottom: 8px;
+      color: var(--blue-dark);
+      font-size: 18px;
+    }
+
+    .info-card p {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .destination-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .destination-tag {
+      padding: 9px 14px;
+      border: 1px solid #d4e9f8;
+      border-radius: 25px;
+      background: #f5fbff;
+      color: var(--blue-dark);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .aircraft-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin-top: 17px;
+    }
+
+    .aircraft-tag {
+      padding: 9px 13px;
+      border-radius: 20px;
+      background: var(--blue-light);
+      color: var(--blue-dark);
+      font-size: 12px;
+      font-weight: 750;
+    }
+
+    .source-note {
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .source-note a {
+      color: var(--blue);
+      font-weight: 750;
+      text-decoration: underline;
+    }
+
+    .hub-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+      padding: 25px;
+      border-radius: 25px;
+      background: linear-gradient(115deg, #063b76, #0878d1);
+      color: white;
+    }
+
+    .hub-card small {
+      display: block;
+      margin-bottom: 5px;
+      color: #c8e7ff;
+      font-weight: 750;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .hub-card h3 {
+      font-size: 23px;
+    }
+
+    .hub-card p {
+      color: #e0f2ff;
+      font-size: 13px;
+    }
+
+    .hub-code {
+      font-size: 35px;
+      font-weight: 900;
+      letter-spacing: 2px;
+    }
+
+    footer {
+      margin-top: 40px;
+      padding: 35px 20px;
+      border-top: 1px solid var(--border);
+      background: rgba(255,255,255,.7);
+      text-align: center;
+    }
+
+    footer p {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    footer p + p {
+      margin-top: 6px;
+    }
+
+    @media (max-width: 760px) {
+      .site-header {
+        position: relative;
+        top: 0;
+      }
+
+      .nav-inner {
+        justify-content: center;
+      }
+
+      .brand {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .desktop-nav {
+        justify-content: center;
+      }
+
+      .desktop-nav a {
+        padding: 8px 10px;
+        font-size: 12px;
+      }
+
+      .hero {
+        padding: 65px 0 40px;
+      }
+
+      .hero h1 {
+        letter-spacing: -2px;
+      }
+
+      .section {
+        padding: 25px 0 45px;
+      }
+
+      .virtual-panel {
+        padding: 17px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+        animation-duration: .01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header class="site-header">
+  <div class="nav-inner">
+    <a class="brand" href="index.html">
+      <img
+        src="https://raw.githubusercontent.com/djblessingm-crypto/SOUT-IMAGE/refs/heads/main/China%20Southern%20Airlines%20%C4%B0stanbul%20Acentas%C4%B1.jfif"
+        alt="China Southern Airlines logo">
+      <span>CHINA SOUTHERN VIRTUAL</span>
+    </a>
+
+    <nav class="desktop-nav" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="destinations.html">Destinations</a>
+      <a href="flights.html">Flights</a>
+      <a href="recruitment.html">recruitment</a>
+      <a href="community.html">Community</a>
+      <a href="booking.html">Booking</a>
+      <a class="nav-cta" href="https://discord.gg/uUcc6bxXmG"
+         target="_blank" rel="noopener noreferrer">Join CSN ↗</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="container">
+      <span class="eyebrow">Explore the skies</span>
+      <h1>Every journey<br>starts somewhere.</h1>
+      <p>
+        Explore CSN Virtual's published flights and discover the real-world
+        China Southern Airlines network.
+      </p>
+
+      <div class="hero-actions">
+        <a class="btn" href="#virtual-flights">Explore Virtual Flights</a>
+        <a class="btn secondary" href="#real-network">Discover the Airline</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CSN VIRTUAL FLIGHTS -->
+  <section class="section" id="virtual-flights">
+    <div class="container">
+      <div class="section-heading">
+        <div>
+          <span class="section-label">Our virtual airline</span>
+          <h2>CSN Virtual Flights</h2>
+          <p>Flights published by our CSN Virtual operations team.</p>
+        </div>
+      </div>
+
+      <div class="virtual-panel">
+        <div class="panel-top">
+          <span class="live-status">Connected to CSN flight data</span>
+          <input
+            class="search-box"
+            id="flightSearch"
+            type="search"
+            placeholder="Search flight number or destination..."
+            aria-label="Search CSN Virtual flights">
+        </div>
+
+        <div id="flightState" class="state-message" aria-live="polite">
+          <h3>Loading CSN Virtual flights</h3>
+          <p>Connecting to the flight information service...</p>
+        </div>
+
+        <div class="flight-grid" id="flightGrid" hidden></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REAL-WORLD AIRLINE INFORMATION -->
+  <section class="section" id="real-network">
+    <div class="container">
+      <div class="section-heading">
+        <div>
+          <span class="section-label">Real-world airline information</span>
+          <h2>Discover China Southern</h2>
+          <p>
+            Explore information about the actual airline that inspires
+            our virtual aviation experience.
+          </p>
+        </div>
+      </div>
+
+      <div class="network-intro">
+        <strong>Important distinction</strong>
+        <p>
+          This section describes the real-world China Southern Airlines.
+          These destinations and aircraft are not automatically CSN Virtual
+          flight schedules or the aircraft available in PTFS.
+        </p>
+      </div>
+
+      <div class="info-grid">
+        <article class="info-card">
+          <h3>Global destinations</h3>
+          <p>
+            China Southern's official website provides a destination
+            city search. These are examples of cities featured in its
+            destination information, not a promise of a current direct flight.
+          </p>
+
+          <div class="destination-list">
+            <span class="destination-tag">Guangzhou</span>
+            <span class="destination-tag">Beijing</span>
+            <span class="destination-tag">Tokyo</span>
+            <span class="destination-tag">London</span>
+            <span class="destination-tag">Paris</span>
+            <span class="destination-tag">Sydney</span>
+            <span class="destination-tag">Singapore</span>
+            <span class="destination-tag">Dubai</span>
+            <span class="destination-tag">Cape Town</span>
+          </div>
+
+          <p class="source-note">
+            Source:
+            <a href="https://www.csair.com/gb/en/index-new.shtml"
+               target="_blank" rel="noopener noreferrer">
+              China Southern Airlines official website
+            </a>
+          </p>
+        </article>
+
+        <article class="info-card">
+          <h3>Aircraft family</h3>
+          <p>
+            China Southern operates a range of aircraft types across
+            its real-world airline operations.
+          </p>
+
+          <div class="aircraft-list">
+            <span class="aircraft-tag">Airbus A350</span>
+            <span class="aircraft-tag">Airbus A330</span>
+            <span class="aircraft-tag">Airbus A320</span>
+            <span class="aircraft-tag">Airbus A321</span>
+            <span class="aircraft-tag">Boeing 787</span>
+            <span class="aircraft-tag">Boeing 777</span>
+            <span class="aircraft-tag">Boeing 737</span>
+            <span class="aircraft-tag">Boeing 747</span>
+            <span class="aircraft-tag">ARJ21</span>
+          </div>
+
+          <p class="source-note">
+            Source:
+            <a href="https://www.csair.com/sg/en/about/gongsijianjie"
+               target="_blank" rel="noopener noreferrer">
+              China Southern official company profile
+            </a>
+          </p>
+        </article>
+      </div>
+
+      <div class="hub-card">
+        <div>
+          <small>Our real-world inspiration</small>
+          <h3>Guangzhou Baiyun International Airport</h3>
+          <p>China Southern Airlines' home base is in Guangzhou, China.</p>
+        </div>
+        <div class="hub-code">CAN</div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p>© <span id="year"></span> China Southern Airlines Virtual. All rights reserved.</p>
+  <p>
+    This is an independent virtual airline community and is not the official
+    China Southern Airlines website.
+  </p>
+</footer>
+
+<script>
+  const flightGrid = document.getElementById("flightGrid");
+  const flightState = document.getElementById("flightState");
+  const flightSearch = document.getElementById("flightSearch");
+
+  let allFlights = [];
+
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  function showState(title, message, retry = false) {
+    flightGrid.hidden = true;
+    flightState.hidden = false;
+
+    flightState.innerHTML = `
+      <h3>${escapeHTML(title)}</h3>
+      <p>${escapeHTML(message)}</p>
+      ${retry ? '<button class="btn" id="retryFlights" type="button">Try again</button>' : ""}
+    `;
+
+    const retryButton = document.getElementById("retryFlights");
+    if (retryButton) {
+      retryButton.addEventListener("click", loadFlights);
+    }
+  }
+
+  function escapeHTML(value) {
+    return String(value ?? "").replace(/[&<>"']/g, character => ({
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#039;"
+    })[character]);
+  }
+
+  function displayValue(value, fallback = "Not provided") {
+    return value === undefined || value === null || value === ""
+      ? fallback
+      : escapeHTML(value);
+  }
+
+  function createFlightCard(flight) {
+    const number = displayValue(flight.flightNumber, "CSN Flight");
+    const origin = displayValue(flight.origin, "—");
+    const destination = displayValue(flight.destination, "—");
+    const originName = displayValue(flight.originName, "");
+    const destinationName = displayValue(flight.destinationName, "");
+    const status = displayValue(flight.status, "Scheduled");
+
+    const details = [
+      ["Departure", flight.departureDate],
+      ["Time", flight.departureTime],
+      ["Arrival", flight.arrivalTime],
+      ["Aircraft", flight.aircraft],
+      ["Gate", flight.gate]
+    ].filter(item => item[1] !== undefined && item[1] !== null && item[1] !== "");
+
+    return `
+      <article class="flight-card">
+        <div class="flight-card-top">
+          <span class="flight-number">${number}</span>
+          <span class="flight-status">${status}</span>
+        </div>
+
+        <div class="route">
+          <div class="route-place">
+            <strong>${origin}</strong>
+            <span>${originName}</span>
+          </div>
+
+          <div class="route-line" aria-hidden="true"></div>
+
+          <div class="route-place">
+            <strong>${destination}</strong>
+            <span>${destinationName}</span>
+          </div>
+        </div>
+
+        <div class="flight-details">
+          ${details.map(([label, value]) => `
+            <div class="detail">
+              <span>${escapeHTML(label)}</span>
+              <strong>${escapeHTML(value)}</strong>
+            </div>
+          `).join("")}
+        </div>
+      </article>
+    `;
+  }
+
+  function renderFlights(flights) {
+    if (!flights.length) {
+      showState(
+        "No matching flights",
+        "Try another flight number, airport code or destination."
+      );
+      return;
+    }
+
+    flightState.hidden = true;
+    flightGrid.hidden = false;
+    flightGrid.innerHTML = flights.map(createFlightCard).join("");
+  }
+
+  function searchFlights() {
+    const query = flightSearch.value.trim().toLowerCase();
+
+    const filtered = allFlights.filter(flight => {
+      const searchable = [
+        flight.flightNumber,
+        flight.origin,
+        flight.destination,
+        flight.originName,
+        flight.destinationName,
+        flight.aircraft,
+        flight.status
+      ].join(" ").toLowerCase();
+
+      return searchable.includes(query);
+    });
+
+    renderFlights(filtered);
+  }
+
+  async function loadFlights() {
+    showState("Loading CSN Virtual flights", "Connecting to the flight information service...");
+
+    try {
+      const response = await fetch("/api/flights", {
+        method: "GET",
+        headers: { "Accept": "application/json" },
+        cache: "no-store"
+      });
+
+      if (!response.ok) {
+        throw new Error("Flight service returned HTTP " + response.status);
+      }
+
+      const result = await response.json();
+
+      if (!result.success || !Array.isArray(result.flights)) {
+        throw new Error("The flight service returned an unexpected response.");
+      }
+
+      allFlights = result.flights;
+      searchFlights();
+
+      if (allFlights.length === 0) {
+        showState(
+          "No CSN Virtual flights published yet",
+          "Our real-world airline information is available below. Check back when the CSN Virtual operations team publishes its next flights."
+        );
+      }
+    } catch (error) {
+      console.error("Could not load CSN Virtual flights:", error);
+
+      showState(
+        "Flight information is temporarily unavailable",
+        "We couldn't connect to the CSN Virtual flight service. Please try again.",
+        true
+      );
+    }
+  }
+
+  flightSearch.addEventListener("input", searchFlights);
+
+  loadFlights();
+</script>
+
+</body>
+</html>

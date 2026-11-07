@@ -1,0 +1,845 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0878d1">
+<meta name="description" content="Discover China Southern Airlines Virtual, our mission, identity, destinations and community.">
+<title>About Us | China Southern Airlines Virtual</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --white:#fff;
+  --blue:#0878d1;
+  --blue-dark:#063b76;
+  --blue-light:#eaf5ff;
+  --navy:#10243d;
+  --muted:#63748a;
+  --border:rgba(12,76,135,.13);
+  --glass:rgba(255,255,255,.62);
+  --shadow:0 22px 70px rgba(10,69,125,.13),inset 0 1px 0 rgba(255,255,255,.9);
+  --radius:28px;
+  --max:1240px;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:110px}
+body{
+  font-family:Inter,system-ui,sans-serif;
+  color:var(--navy);
+  background:
+    radial-gradient(circle at 10% 8%,rgba(8,120,209,.08),transparent 27%),
+    radial-gradient(circle at 90% 35%,rgba(8,120,209,.06),transparent 25%),
+    linear-gradient(180deg,#fff,#f6fbff 55%,#fff);
+  overflow-x:hidden;
+}
+a{color:inherit;text-decoration:none}
+button{font:inherit}
+img{display:block;max-width:100%}
+.container{width:min(var(--max),calc(100% - 48px));margin:auto}
+section{padding:88px 0;position:relative}
+.section-heading{max-width:760px;margin-bottom:38px}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:9px;
+  color:var(--blue);font-size:11px;font-weight:800;
+  letter-spacing:2px;text-transform:uppercase;margin-bottom:17px
+}
+.eyebrow:before{
+  content:"";width:25px;height:2px;
+  background:var(--blue);border-radius:9px
+}
+h1,h2,h3{letter-spacing:-1.5px}
+h2{font-size:clamp(32px,5vw,53px);line-height:1.08;margin-bottom:17px}
+h3{font-size:21px;line-height:1.25}
+.lead{font-size:17px;line-height:1.85;color:var(--muted)}
+.muted{color:var(--muted)}
+
+.glass{
+  background:var(--glass);
+  border:1px solid rgba(255,255,255,.9);
+  box-shadow:var(--shadow);
+  backdrop-filter:blur(22px);
+  -webkit-backdrop-filter:blur(22px);
+  border-radius:var(--radius);
+}
+
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  padding:14px 22px;border-radius:999px;border:1px solid transparent;
+  background:linear-gradient(135deg,var(--blue),#0561b0);
+  color:#fff;font-size:13px;font-weight:800;
+  box-shadow:0 12px 28px rgba(8,120,209,.2);
+  transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s;
+}
+.btn:hover{transform:translateY(-3px);box-shadow:0 17px 35px rgba(8,120,209,.28)}
+.btn.secondary{
+  background:rgba(255,255,255,.75);color:var(--blue-dark);
+  border-color:var(--border);box-shadow:none
+}
+.btn.secondary:hover{background:#fff}
+
+.pill{
+  display:inline-flex;padding:8px 13px;border-radius:99px;
+  background:var(--blue-light);color:var(--blue-dark);
+  font-size:11px;font-weight:800
+}
+.grid-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+.grid-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.grid-4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.card{padding:27px;min-width:0}
+.card p{color:var(--muted);line-height:1.8;font-size:14px;margin-top:12px}
+.card h3{margin-top:12px}
+
+.icon-box{
+  width:48px;height:48px;border-radius:17px;
+  display:grid;place-items:center;color:var(--blue);
+  background:linear-gradient(145deg,#fff,#e5f3ff);
+  border:1px solid rgba(8,120,209,.12)
+}
+.icon-box svg{width:23px;height:23px}
+
+.photo{
+  width:100%;height:100%;min-height:260px;
+  object-fit:cover;border-radius:24px
+}
+.photo-wrap{
+  position:relative;overflow:hidden;border-radius:var(--radius);
+  background:var(--blue-light)
+}
+.photo-wrap img{transition:transform .8s cubic-bezier(.2,.8,.2,1)}
+.photo-wrap:hover img{transform:scale(1.035)}
+
+/* HOTBAR - MATCHES INDEX NAVIGATION */
+.topbar{
+  position:sticky;top:0;z-index:100;
+  background:rgba(255,255,255,.76);
+  border-bottom:1px solid rgba(12,76,135,.08);
+  backdrop-filter:blur(24px);
+  -webkit-backdrop-filter:blur(24px)
+}
+.nav{
+  min-height:78px;display:flex;align-items:center;
+  justify-content:space-between;gap:20px
+}
+.brand{display:flex;align-items:center;gap:12px;min-width:0}
+.brand img{
+  width:48px;height:48px;object-fit:contain;
+  border-radius:14px;background:#fff
+}
+.brand strong{font-size:13px;line-height:1.35;letter-spacing:-.3px}
+.brand small{
+  display:block;color:var(--muted);
+  font-size:10px;font-weight:600;margin-top:3px
+}
+
+/* Same navigation labels, order and CTA as index */
+.desktop-nav{
+  display:flex;align-items:center;justify-content:flex-end;
+  gap:5px;flex-wrap:wrap
+}
+.desktop-nav a{
+  padding:10px 12px;border-radius:99px;
+  font-size:11px;font-weight:750;color:var(--muted);
+  transition:background .25s,color .25s,transform .25s
+}
+.desktop-nav a:hover{
+  background:var(--blue-light);color:var(--blue);
+  transform:translateY(-1px)
+}
+.desktop-nav a[href="about.html"]{
+  background:var(--blue-light);color:var(--blue)
+}
+.desktop-nav .nav-cta{
+  color:#fff;background:linear-gradient(135deg,var(--blue),#0561b0);
+  padding:11px 17px;
+  box-shadow:0 8px 20px rgba(8,120,209,.18)
+}
+.desktop-nav .nav-cta:hover{color:#fff;background:var(--blue-dark)}
+
+.hero{padding:72px 0 80px}
+.hero-layout{
+  display:grid;grid-template-columns:1fr 1.08fr;
+  align-items:center;gap:48px
+}
+.hero h1{
+  font-size:clamp(43px,6vw,76px);
+  line-height:.99;letter-spacing:-4px;margin:15px 0 22px
+}
+.hero h1 span{color:var(--blue)}
+.hero-copy .lead{max-width:540px}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+.hero-visual{position:relative}
+.hero-visual .photo-wrap{
+  min-height:440px;border-radius:36px;box-shadow:var(--shadow)
+}
+.hero-visual img{width:100%;height:440px;object-fit:cover}
+.hero-logo{
+  position:absolute;left:-22px;bottom:25px;padding:17px 20px;
+  display:flex;align-items:center;gap:13px;max-width:260px
+}
+.hero-logo img{
+  width:53px;height:53px;object-fit:contain;
+  border-radius:13px;background:#fff
+}
+.hero-logo strong{font-size:12px;line-height:1.5}
+.hero-logo small{display:block;color:var(--muted);font-size:10px;margin-top:4px}
+.hero-orb{
+  position:absolute;width:115px;height:115px;border-radius:50%;
+  border:1px solid rgba(8,120,209,.2);right:-28px;top:-28px;
+  animation:float 7s ease-in-out infinite;pointer-events:none
+}
+@keyframes float{50%{transform:translateY(-13px) rotate(8deg)}}
+
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:35px;max-width:560px}
+.stat{padding:18px;border-radius:20px;background:rgba(255,255,255,.72);border:1px solid var(--border)}
+.stat strong{display:block;font-size:27px;color:var(--blue);letter-spacing:-1px}
+.stat span{font-size:10px;color:var(--muted);font-weight:700}
+
+.split{display:grid;grid-template-columns:1fr 1fr;gap:42px;align-items:center}
+.split.reverse .split-image{order:2}
+.split-image{min-height:340px}
+.split-image img{width:100%;height:100%;min-height:340px;object-fit:cover;border-radius:var(--radius)}
+
+.feature-list{display:grid;gap:13px;margin-top:24px}
+.feature{display:flex;align-items:flex-start;gap:13px}
+.feature .icon-box{flex-shrink:0;width:39px;height:39px;border-radius:14px}
+.feature strong{font-size:13px}
+.feature p{font-size:12px;color:var(--muted);line-height:1.7;margin-top:4px}
+
+.blue-section{
+  background:linear-gradient(135deg,#eaf5ff,#f7fbff);
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border)
+}
+.blue-section .card{background:rgba(255,255,255,.75)}
+
+.big-quote{
+  padding:42px;border-radius:32px;
+  background:linear-gradient(130deg,#0878d1,#063b76);
+  color:#fff;box-shadow:0 25px 65px rgba(6,59,118,.2)
+}
+.big-quote p{
+  font-size:clamp(24px,3.5vw,38px);
+  font-weight:800;line-height:1.3;letter-spacing:-1px
+}
+.big-quote span{display:block;margin-top:17px;color:rgba(255,255,255,.75);font-size:12px}
+
+.value-card{min-height:220px}
+.value-number{font-size:12px;color:var(--blue);font-weight:900;letter-spacing:1px}
+
+.identity-panel{display:grid;grid-template-columns:1fr 1fr;gap:0;overflow:hidden}
+.identity-panel>div{padding:35px}
+.identity-panel .identity-blue{
+  background:linear-gradient(145deg,#0878d1,#063b76);color:#fff
+}
+.identity-panel .identity-blue p{color:rgba(255,255,255,.8)}
+.identity-panel p{font-size:14px;line-height:1.9;margin-top:13px;color:var(--muted)}
+
+.hub-card{overflow:hidden}
+.hub-card img{width:100%;height:260px;object-fit:cover}
+.hub-content{padding:25px}
+.hub-content p{color:var(--muted);font-size:13px;line-height:1.8;margin-top:10px}
+
+.network-number{
+  font-size:clamp(42px,6vw,70px);
+  font-weight:900;color:var(--blue);letter-spacing:-4px
+}
+.network-card{padding:30px}
+.network-card p{color:var(--muted);font-size:13px;margin-top:6px}
+
+.aircraft-note{
+  padding:22px;border-radius:20px;background:var(--blue-light);
+  color:var(--blue-dark);font-size:13px;line-height:1.8;margin-top:22px
+}
+.crew-card{text-align:center}
+.crew-card .icon-box{margin:auto}
+.crew-card p{font-size:13px}
+
+.community-panel{
+  display:grid;grid-template-columns:1fr auto;align-items:center;gap:25px;
+  padding:38px;background:linear-gradient(130deg,#0878d1,#063b76);color:#fff
+}
+.community-panel p{
+  color:rgba(255,255,255,.8);line-height:1.8;
+  margin-top:12px;max-width:650px;font-size:14px
+}
+.community-panel .btn{background:#fff;color:var(--blue-dark);box-shadow:none}
+
+.faq-list{display:grid;gap:12px;max-width:900px}
+.faq-item{padding:0 22px;overflow:hidden}
+.faq-question{
+  width:100%;display:flex;justify-content:space-between;align-items:center;
+  gap:20px;padding:20px 0;background:none;border:0;text-align:left;
+  color:var(--navy);font-weight:800;font-size:14px;cursor:pointer
+}
+.faq-question span:last-child{font-size:22px;color:var(--blue);transition:transform .25s}
+.faq-answer{display:grid;grid-template-rows:0fr;transition:grid-template-rows .3s}
+.faq-answer>div{overflow:hidden}
+.faq-answer p{
+  font-size:13px;line-height:1.8;color:var(--muted);
+  padding-bottom:0;transition:padding .3s
+}
+.faq-item.open .faq-answer{grid-template-rows:1fr}
+.faq-item.open .faq-answer p{padding-bottom:20px}
+.faq-item.open .faq-question span:last-child{transform:rotate(45deg)}
+
+.contact-panel{padding:35px}
+.contact-panel p{font-size:14px;line-height:1.8;color:var(--muted);margin-top:12px}
+
+/* COPYRIGHT FOOTER */
+.footer{
+  padding:55px 0 25px;background:#fff;
+  border-top:1px solid var(--border)
+}
+.footer-top{
+  display:flex;justify-content:space-between;
+  gap:30px;flex-wrap:wrap;padding-bottom:30px
+}
+.footer-links{display:flex;gap:15px;flex-wrap:wrap}
+.footer-links a{font-size:12px;color:var(--muted);font-weight:700}
+.footer-links a:hover{color:var(--blue)}
+.footer-bottom{
+  border-top:1px solid var(--border);padding-top:20px;
+  display:flex;justify-content:space-between;gap:15px;
+  flex-wrap:wrap;color:var(--muted);font-size:11px
+}
+.copyright{
+  text-align:center;padding-top:17px;
+  color:var(--muted);font-size:11px;line-height:1.8
+}
+
+.back-top{
+  position:fixed;right:22px;bottom:22px;z-index:90;
+  width:48px;height:48px;border:1px solid var(--border);
+  border-radius:50%;background:rgba(255,255,255,.85);
+  color:var(--blue);font-size:20px;box-shadow:var(--shadow);
+  backdrop-filter:blur(15px);opacity:0;pointer-events:none;
+  transform:translateY(12px);transition:.3s;cursor:pointer
+}
+.back-top.show{opacity:1;pointer-events:auto;transform:translateY(0)}
+
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s,transform .7s}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+@media(max-width:1050px){
+  .hero-layout{grid-template-columns:1fr 1fr;gap:25px}
+  .hero-visual .photo-wrap,.hero-visual img{height:360px;min-height:360px}
+  .grid-4{grid-template-columns:repeat(2,1fr)}
+  .nav{align-items:flex-start;padding:13px 0;flex-direction:column}
+  .desktop-nav{justify-content:flex-start}
+}
+@media(max-width:700px){
+  .container{width:min(100% - 30px,var(--max))}
+  section{padding:65px 0}
+  .hero{padding:48px 0 60px}
+  .hero-layout,.split,.grid-2,.identity-panel{grid-template-columns:1fr}
+  .hero h1{letter-spacing:-2.5px}
+  .hero-visual .photo-wrap,.hero-visual img{height:300px;min-height:300px}
+  .hero-logo{left:10px;bottom:12px}
+  .hero-orb{right:-8px}
+  .stats{gap:8px}
+  .stat{padding:13px}
+  .stat strong{font-size:22px}
+  .stat span{font-size:9px}
+  .grid-3{grid-template-columns:1fr}
+  .grid-4{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .split.reverse .split-image{order:0}
+  .community-panel{grid-template-columns:1fr;padding:27px}
+  .identity-panel>div{padding:27px}
+  .big-quote{padding:28px}
+  .footer-top{flex-direction:column}
+  .desktop-nav a{padding:8px 10px;font-size:10px}
+}
+@media(max-width:420px){
+  .grid-4{grid-template-columns:1fr}
+  .brand strong{font-size:12px}
+  .hero-actions .btn{width:100%}
+  .stats{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    scroll-behavior:auto!important;
+    animation-duration:.01ms!important;
+    transition-duration:.01ms!important
+  }
+  .reveal{opacity:1;transform:none}
+}
+</style>
+</head>
+
+<body>
+
+<!-- HOTBAR: SAME AS INDEX -->
+<header class="topbar">
+  <div class="container nav">
+    <a class="brand" href="index.html" aria-label="China Southern Airlines Virtual home">
+      <img src="https://raw.githubusercontent.com/djblessingm-crypto/SOUT-IMAGE/refs/heads/main/China%20Southern%20Airlines%20%C4%B0stanbul%20Acentas%C4%B1.jfif" alt="China Southern Airlines logo">
+      <span>
+        <strong>CHINA SOUTHERN AIRLINES</strong>
+        <small>VIRTUAL · CSN</small>
+      </span>
+    </a>
+
+    <nav class="desktop-nav" aria-label="Main navigation">
+      <   <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="destinations.html">Destinations</a>
+      <a href="flights.html">Flights</a>
+      <a href="recruitment.html">recruitment</a>
+      <a href="community.html">Community</a>
+      <a href="booking.html">Booking</a>
+      <a class="nav-cta" href="https://discord.gg/uUcc6bxXmG" target="_blank" rel="noopener noreferrer">Join CSN ↗</a>
+    </nav>
+  </div>
+</header>
+
+<main id="home">
+
+<!-- 1. HERO -->
+<section class="hero" id="top">
+  <div class="container hero-layout">
+    <div class="hero-copy reveal">
+      <span class="eyebrow">Discover CSN Virtual</span>
+      <h1>More than a flight.<br><span>A shared journey.</span></h1>
+      <p class="lead">Welcome to China Southern Airlines Virtual — a virtual aviation community built around the experience of flying, exploring destinations and bringing people together.</p>
+      <div class="hero-actions">
+        <a class="btn" href="https://discord.gg/uUcc6bxXmG" target="_blank" rel="noopener noreferrer">Join our community →</a>
+        <a class="btn secondary" href="#our-story">Discover our story</a>
+      </div>
+      <div class="stats">
+        <div class="stat"><strong>CSN</strong><span>Virtual airline code</span></div>
+        <div class="stat"><strong>224</strong><span>Destinations</span></div>
+        <div class="stat"><strong>46</strong><span>Countries</span></div>
+      </div>
+    </div>
+    <div class="hero-visual reveal">
+      <div class="hero-orb"></div>
+      <div class="photo-wrap">
+        <img src="https://raw.githubusercontent.com/djblessingm-crypto/SOUT-IMAGE/refs/heads/main/2023%E5%B9%B4%E5%9B%BD%E5%AE%B6%E7%89%A9%E6%B5%81%E6%9E%A2%E7%BA%BD%E5%BB%BA%E8%AE%BE%E5%90%8D%E5%8D%95%E5%8F%91%E5%B8%83%EF%BC%8C%E9%9D%92%E5%B2%9B%E7%A9%BA%E6%B8%AF%E5%9E%8B%E5%9B%BD%E5%AE%B6%E7%89%A9%E6%B5%81%E6%9E%A2%E7%BA%BD%E6%88%90%E5%8A%9F%E8%8E%B7%E6%89%B9%E3%80%82%20%E8%87%B3%E6%AD%A4%EF%BC%8C%E9%9D%92%E5%B2%9B%E5%B7%B2%E7%BB%8F%E8%8E%B7%E6%89%B9%E7%94%9F%E4%BA%A7%E6%9C%8D%E5%8A%A1%E5%9E%8B%EF%BC%88%E6%B8%AF%E5%8F%A3%E5%9E%8B%EF%BC%89%E3%80%81%E5%95%86%E8%B4%B8%E6%9C%8D%E5%8A%A1%E5%9E%8B%E5%92%8C%E7%A9%BA%E6%B8%AF%E5%9E%8B%E4%B8%89%E4%B8%AA%E3%80%81%E2%80%9C%E5%9B%9B%E5%9E%8B%E2%80%9D%E5%9B%BD%E5%AE%B6%E7%89%A9%E6%B5%81%E6%9E%A2%E7%BA%BD%EF%BC%8C%E8%A1%A5%E9%BD%90%E4%BA%86%E5%9B%BD%E5%AE%B6%E8%B5%8B%E4%BA%88%E9%9D%92%E5%B2%9B%E7%9A%84%E2%80%9C%E5%9B%9B%E5%9E%8B%E2%80%9D%E5%9B%BD%E5%AE%B6%E7%89%A9%E6%B5%81%E6%9E%A2%E7%BA%BD%E5%8A%9F%E8%83%BD%E7%9A%84%E6%9C%80%E5%90%8E%E4%B8%80%E5%9D%97%E6%8B%BC%E5%9B%BE%E3%80%82.jfif" alt="China Southern Airlines aircraft at an airport">
+      </div>
+      <div class="hero-logo glass">
+        <img src="https://raw.githubusercontent.com/djblessingm-crypto/SOUT-IMAGE/refs/heads/main/China%20Southern%20Airlines%20%C4%B0stanbul%20Acentas%C4%B1.jfif" alt="CSN logo">
+        <div><strong>Fly towards your dreams</strong><small>飞向您的梦想</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2. OUR STORY -->
+<section id="our-story">
+  <div class="container split">
+    <div class="split-image photo-wrap reveal">
+      <img class="photo" src="https://media.aeroxplorer.com/large/3fVQIYCVgMeJdVoslp7i.jpg" alt="China Southern aircraft at an airport gate">
+    </div>
+    <div class="reveal">
+      <span class="eyebrow">01 · Our story</span>
+      <h2>A journey shaped by aviation.</h2>
+      <p class="lead">China Southern Airlines Virtual brings the excitement of aviation into a shared virtual environment. Every flight is an opportunity to explore, learn and enjoy the world of flight simulation.</p>
+      <p class="lead" style="margin-top:15px">Our story is not just about aircraft or destinations. It is about the people who make every virtual journey worth taking.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 3. WHO WE ARE -->
+<section class="blue-section" id="who-we-are">
+  <div class="container">
+    <div class="section-heading reveal">
+      <span class="eyebrow">02 · Who we are</span>
+      <h2>A virtual airline with a community at its heart.</h2>
+      <p class="lead">We are a virtual airline community inspired by China Southern Airlines and the shared passion for aviation.</p>
+    </div>
+    <div class="grid-3">
+      <article class="card glass reveal">
+        <div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 17l8-8 4 4 6-8"/><path d="M15 5h6v6"/></svg></div>
+        <h3>Virtual aviation</h3><p>Experience the world of airline operations through virtual flight simulation.</p>
+      </article>
+      <article class="card glass reveal">
+        <div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M16 5a3 3 0 010 6m2 3c2 .8 3 2.7 3 5"/></svg></div>
+        <h3>People first</h3><p>Our community is an important part of the experience, from new members to experienced virtual pilots.</p>
+      </article>
+      <article class="card glass reveal">
+        <div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l2.5 5.5L20 11l-5.5 2.5L12 19l-2.5-5.5L4 11l5.5-2.5L12 3z"/></svg></div>
+        <h3>Shared passion</h3><p>We bring together people who enjoy aircraft, routes, airports and the experience of flight.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- 4. OUR MISSION -->
+<section id="mission">
+  <div class="container split reverse">
+    <div class="split-image photo-wrap reveal">
+      <img class="photo" src="https://wenhui.whb.cn/u/cms/www/201907/03154802zy08.jpeg" alt="China Southern aircraft being prepared for a flight">
+    </div>
+    <div class="reveal">
+      <span class="eyebrow">03 · Our mission</span>
+      <h2>Make every virtual journey meaningful.</h2>
+      <p class="lead">Our mission is to create an enjoyable and welcoming virtual airline experience where members can take part in flights, discover destinations and share their love of aviation.</p>
+      <div class="feature-list">
+        <div class="feature"><div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l4 4L19 6"/></svg></div><div><strong>Build a welcoming community</strong><p>Make aviation enjoyable for people at different experience levels.</p></div></div>
+        <div class="feature"><div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M12 3v18"/></svg></div><div><strong>Create memorable flights</strong><p>Make each virtual journey an opportunity to explore and participate.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. OUR VISION -->
+<section class="blue-section" id="vision">
+  <div class="container">
+    <div class="big-quote reveal">
+      <p>“Fly towards your dreams.”</p>
+      <span>飞向您的梦想 · The spirit behind CSN Virtual</span>
+    </div>
+    <div class="section-heading reveal" style="margin-top:45px;margin-bottom:0">
+      <span class="eyebrow">04 · Our vision</span>
+      <h2>Keep looking beyond the horizon.</h2>
+      <p class="lead">Our vision is to keep developing a virtual airline experience that gives members more ways to fly, connect and explore. We want every visitor to feel that there is a place for them in our aviation community.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 6. OUR VALUES -->
+<section id="values">
+  <div class="container">
+    <div class="section-heading reveal">
+      <span class="eyebrow">05 · Our values</span>
+      <h2>The principles behind every journey.</h2>
+      <p class="lead">The way we treat our members matters just as much as the flights we operate.</p>
+    </div>
+    <div class="grid-3">
+      <article class="card glass value-card reveal"><span class="value-number">01 / RESPECT</span><h3>Respect</h3><p>We believe every member deserves to be treated with kindness and consideration.</p></article>
+      <article class="card glass value-card reveal"><span class="value-number">02 / COMMUNITY</span><h3>Community</h3><p>We value teamwork, communication and the friendships built through aviation.</p></article>
+      <article class="card glass value-card reveal"><span class="value-number">03 / PASSION</span><h3>Passion</h3><p>We celebrate the curiosity and excitement that bring people into virtual aviation.</p></article>
+      <article class="card glass value-card reveal"><span class="value-number">04 / LEARNING</span><h3>Learning</h3><p>Every flight can be a chance to improve, discover and gain experience.</p></article>
+      <article class="card glass value-card reveal"><span class="value-number">05 / TEAMWORK</span><h3>Teamwork</h3><p>A great community grows when members support one another.</p></article>
+      <article class="card glass value-card reveal"><span class="value-number">06 / ENJOYMENT</span><h3>Enjoyment</h3><p>Above all, virtual aviation should be an exciting and enjoyable experience.</p></article>
+    </div>
+  </div>
+</section>
+
+<!-- 7. OUR IDENTITY -->
+<section class="blue-section" id="identity">
+  <div class="container">
+    <div class="section-heading reveal">
+      <span class="eyebrow">06 · Our identity</span>
+      <h2>Recognisable. Purposeful. Connected to aviation.</h2>
+      <p class="lead">Our identity brings together the CSN name, our visual branding and the promise behind our slogan.</p>
+    </div>
+    <div class="identity-panel glass reveal">
+      <div style="display:grid;place-items:center;text-align:center">
+        <img src="https://raw.githubusercontent.com/djblessingm-crypto/SOUT-IMAGE/refs/heads/main/China%20Southern%20Airlines%20%C4%B0stanbul%20Acentas%C4%B1.jfif" alt="Official CSN Virtual logo" style="width:min(100%,230px);height:190px;object-fit:contain;border-radius:24px;background:#fff;padding:12px">
+        <span class="pill" style="margin-top:20px">OUR LOGO</span>
+      </div>
+      <div class="identity-blue">
+        <span class="eyebrow" style="color:#fff">Our slogan</span>
+        <h2 style="font-size:clamp(30px,4vw,45px)">Fly towards your dreams.</h2>
+        <p>飞向您的梦想</p>
+        <p>These words represent the spirit of discovery, ambition and shared experiences that we want our virtual airline community to celebrate.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 8. OUR HUB -->
+<section id="hub">
+  <div class="container">
+    <div class="section-heading reveal">
+      <span class="eyebrow">07 · Our hub</span>
+      <h2>Guangzhou — our home in the skies.</h2>
+      <p class="lead">Our main hub is Guangzhou Baiyun International Airport, connecting our virtual airline identity to one of China's major aviation gateways.</p>
+    </div>
+    <div class="grid-2">
+      <article class="hub-card glass reveal">
+        <img src="https://raw.githubusercontent.com/djblessingm-crypto/SOUT-IMAGE/refs/heads/main/2023%E5%B9%B4%E5%9B%BD%E5%AE%B6%E7%89%A9%E6%B5%81%E6%9E%A2%E7%BA%BD%E5%BB%BA%E8%AE%BE%E5%90%8D%E5%8D%95%E5%8F%91%E5%B8%83%EF%BC%8C%E9%9D%92%E5%B2%9B%E7%A9%BA%E6%B8%AF%E5%9E%8B%E5%9B%BD%E5%AE%B6%E7%89%A9%E6%B5%81%E6%9E%A2%E7%BA%BD%E6%88%90%E5%8A%9F%E8%8E%B7%E6%89%B9%E3%80%82%20%E8%87%B3%E6%AD%A4%EF%BC%8C%E9%9D%92%E5%B2%9B%E5%B7%B2%E7%BB%8F%E8%8E%B7%E6%89%B9%E7%94%9F%E4%BA%A7%E6%9C%8D%E5%8A%A1%E5%9E%8B%EF%BC%88%E6%B8%AF%E5%8F%A3%E5%9E%8B%EF%BC%89%E3%80%81%E5%95%86%E8%B4%B8%E6%9C%8D%E5%8A%A1%E5%9E%8B%E5%92%8C%E7%A9%BA%E6%B8%AF%E5%9E%8B%E4%B8%89%E4%B8%AA%E3%80%81%E2%80%9C%E5%9B%9B%E5%9E%8B%E2%80%9D%E5%9B%BD%E5%AE%B6%E7%89%A9%E6%B5%81%E6%9E%A2%E7%BA%BD%EF%BC%8C%E8%A1%A5%E9%BD%90%E4%BA%86%E5%9B%BD%E5%AE%B6%E8%B5%8B%E4%BA%88%E9%9D%92%E5%B2%9B%E7%9A%84%E2%80%9C%E5%9B%9B%E5%9E%8B%E2%80%9D%E5%9B%BD%E5%AE%B6%E7%89%A9%E6%B5%81%E6%9E%A2%E7%BA%BD%E5%8A%9F%E8%83%BD%E7%9A%84%E6%9C%80%E5%90%8E%E4%B8%80%E5%9D%97%E6%8B%BC%E5%9B%BE%E3%80%82.jfif" alt="China Southern aircraft">
+        <div class="hub-content"><span class="pill">MAIN HUB</span><h3>Guangzhou Baiyun International Airport</h3><p>Guangzhou, China · CAN / ZGGG</p></div>
+      </article>
+      <article class="card glass reveal" style="display:flex;flex-direction:column;justify-content:center">
+        <span class="eyebrow">The starting point</span>
+        <h3>One hub. Many possibilities.</h3>
+        <p>Our hub is an important part of the CSN Virtual identity. It gives our network a central point from which members can plan and enjoy virtual journeys.</p>
+        <a class="btn secondary" href="index.html#destinations" style="margin-top:24px;align-self:flex-start">Explore destinations →</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- 9. OUR NETWORK -->
+<section class="blue-section" id="network">
+  <div class="container">
+    <div class="section-heading reveal">
+      <span class="eyebrow">08 · Our network</span>
+      <h2>Explore a world of destinations.</h2>
+      <p class="lead">Our CSN Virtual network is presented across destinations in different parts of the world.</p>
+    </div>
+    <div class="grid-2">
+      <div class="network-card glass reveal"><div class="network-number" data-count="224">224</div><h3>Destinations</h3><p>Places represented across our virtual network.</p></div>
+      <div class="network-card glass reveal"><div class="network-number" data-count="46">46</div><h3>Countries</h3><p>Countries included in our destination network.</p></div>
+    </div>
+    <div style="margin-top:25px" class="reveal">
+      <a class="btn" href="index.html#destinations">Discover destinations →</a>
+    </div>
+  </div>
+</section>
+
+<!-- 10. OUR FLIGHTS -->
+<section id="flights">
+  <div class="container split">
+    <div class="split-image photo-wrap reveal">
+      <img class="photo" src="https://campus-cdhk.oss-cn-hongkong.aliyuncs.com/store_manager/photo_pre/7/255/121/4bf9d32a-2f85-4d15-9790-3936ffe57269/high_wm.jpg" alt="China Southern aircraft on the airport apron">
+    </div>
+    <div class="reveal">
+      <span class="eyebrow">09 · Our flights</span>
+      <h2>Every flight is another opportunity.</h2>
+      <p class="lead">Flights are at the centre of the CSN Virtual experience. They bring our members together and turn destinations into journeys.</p>
+      <p class="lead" style="margin-top:15px">Whether you are exploring the network or preparing for your next virtual departure, there is always more to discover.</p>
+      <a class="btn" href="index.html#fleet" style="margin-top:25px">Explore flights →</a>
+    </div>
+  </div>
+</section>
+
+<!-- 11. OUR AIRCRAFT -->
+<section class="blue-section" id="aircraft">
+  <div class="container">
+    <div class="section-heading reveal">
+      <span class="eyebrow">10 · Our aircraft</span>
+      <h2>Inspired by the world of aviation.</h2>
+      <p class="lead">Aircraft are an essential part of the airline experience. Our virtual aircraft information should reflect the aircraft actually available in the CSN Virtual operation.</p>
+    </div>
+    <div class="grid-2">
+      <article class="card glass reveal">
+        <div class="photo-wrap"><img src="https://raw.githubusercontent.com/djblessingm-crypto/SOUT-IMAGE/refs/heads/main/2023%E5%B9%B4%E5%9B%BD%E5%AE%B6%E7%89%A9%E6%B5%81%E6%9E%A2%E7%BA%BD%E5%BB%BA%E8%AE%BE%E5%90%8D%E5%8D%95%E5%8F%91%E5%B8%83%EF%BC%8C%E9%9D%92%E5%B2%9B%E7%A9%BA%E6%B8%AF%E5%9E%8B%E5%9B%BD%E5%AE%B6%E7%89%A9%E6%B5%81%E6%9E%A2%E7%BA%BD%E6%88%90%E5%8A%9F%E8%8E%B7%E6%89%B9%E3%80%82%20%E8%87%B3%E6%AD%A4%EF%BC%8C%E9%9D%92%E5%B2%9B%E5%B7%B2%E7%BB%8F%E8%8E%B7%E6%89%B9%E7%94%9F%E4%BA%A7%E6%9C%8D%E5%8A%A1%E5%9E%8B%EF%BC%88%E6%B8%AF%E5%8F%A3%E5%9E%8B%EF%BC%89%E3%80%81%E5%95%86%E8%B4%B8%E6%9C%8D%E5%8A%A1%E5%9E%8B%E5%92%8C%E7%A9%BA%E6%B8%AF%E5%9E%8B%E4%B8%89%E4%B8%AA%E3%80%81%E2%80%9C%E5%9B%9B%E5%9E%8B%E2%80%9D%E5%9B%BD%E5%AE%B6%E7%89%A9%E6%B5%81%E6%9E%A2%E7%BA%BD%EF%BC%8C%E8%A1%A5%E9%BD%90%E4%BA%86%E5%9B%BD%E5%AE%B6%E8%B5%8B%E4%BA%88%E9%9D%92%E5%B2%9B%E7%9A%84%E2%80%9C%E5%9B%9B%E5%9E%8B%E2%80%9D%E5%9B%BD%E5%AE%B6%E7%89%A9%E6%B5%81%E6%9E%A2%E7%BA%BD%E5%8A%9F%E8%83%BD%E7%9A%84%E6%9C%80%E5%90%8E%E4%B8%80%E5%9D%97%E6%8B%BC%E5%9B%BE%E3%80%82.jfif" alt="China Southern aircraft" style="width:100%;height:230px;object-fit:cover"></div>
+        <h3>Aircraft and operations</h3>
+        <p>Aircraft information belongs alongside the flights and routes that members can experience in our virtual airline.</p>
+      </article>
+      <article class="card glass reveal">
+        <div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 16l20-8-8 14-3-7-9 1z"/><path d="M11 15l5-5"/></svg></div>
+        <h3>Built around the virtual experience</h3>
+        <p>Our website should clearly distinguish real-world airline information from the aircraft and operations used by CSN Virtual in the simulator.</p>
+        <a href="index.html#fleet" class="btn secondary" style="margin-top:20px">View flights →</a>
+      </article>
+    </div>
+    <div class="aircraft-note reveal"><strong>Aircraft information note:</strong> This page does not claim that every real-world China Southern aircraft type is available in CSN Virtual. The virtual fleet list should be added once the approved simulator aircraft list is confirmed.</div>
+  </div>
+</section>
+
+<!-- 12. OUR CREW -->
+<section id="crew">
+  <div class="container">
+    <div class="section-heading reveal">
+      <span class="eyebrow">11 · Our crew</span>
+      <h2>People make the journey.</h2>
+      <p class="lead">Behind every community experience are the members who participate, help others and bring the virtual airline to life.</p>
+    </div>
+    <div class="grid-3">
+      <article class="card glass crew-card reveal">
+        <div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l2.5 5 5.5.8-4 3.9 1 5.5-5-2.6-5 2.6 1-5.5-4-3.9 5.5-.8L12 3z"/></svg></div>
+        <h3>Virtual pilots</h3><p>Members who take part in our virtual flights and explore our network.</p>
+      </article>
+      <article class="card glass crew-card reveal">
+        <div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="3"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg></div>
+        <h3>Community members</h3><p>People who share their interest in aviation and help create a welcoming environment.</p>
+      </article>
+      <article class="card glass crew-card reveal">
+        <div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7l8-4z"/><path d="M9 12l2 2 4-4"/></svg></div>
+        <h3>Support and leadership</h3><p>People who help keep the community organised and support its members.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- 13. OUR COMMUNITY -->
+<section class="blue-section" id="community">
+  <div class="container">
+    <div class="split">
+      <div class="reveal">
+        <span class="eyebrow">12 · Our community</span>
+        <h2>Connected beyond the cockpit.</h2>
+        <p class="lead">CSN Virtual is about more than individual flights. It is about sharing experiences, meeting other aviation enthusiasts and being part of something together.</p>
+        <div class="feature-list">
+          <div class="feature"><div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.4 8.4 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.4 8.4 0 01-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.4 8.4 0 013.8-.9h.5a8.5 8.5 0 018 8v.5z"/></svg></div><div><strong>Stay connected</strong><p>Find the community and keep up with CSN Virtual.</p></div></div>
+          <div class="feature"><div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M20 8v6m3-3h-6"/></svg></div><div><strong>Meet other aviation fans</strong><p>Share your enthusiasm with people who enjoy flying.</p></div></div>
+        </div>
+      </div>
+      <div class="split-image photo-wrap reveal">
+        <img class="photo" src="https://wenhui.whb.cn/u/cms/www/201907/03154802zy08.jpeg" alt="China Southern aircraft on the airport apron">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 14. JOIN CSN -->
+<section id="join">
+  <div class="container">
+    <div class="community-panel glass reveal">
+      <div>
+        <span class="eyebrow" style="color:#fff">13 · Join CSN Virtual</span>
+        <h2 style="margin:0">Your next journey starts here.</h2>
+        <p>Become part of the CSN Virtual community. Connect with other members, discover the airline and take your place in our shared aviation experience.</p>
+      </div>
+      <a class="btn" href="https://discord.gg/uUcc6bxXmG" target="_blank" rel="noopener noreferrer">Join our Discord →</a>
+    </div>
+  </div>
+</section>
+
+<!-- 15. FAQ AND CONTACT -->
+<section id="faq">
+  <div class="container">
+    <div class="section-heading reveal">
+      <span class="eyebrow">14 · Frequently asked questions</span>
+      <h2>Good to know before take-off.</h2>
+      <p class="lead">A few answers to help you understand CSN Virtual.</p>
+    </div>
+    <div class="faq-list">
+      <article class="faq-item glass reveal">
+        <button class="faq-question" aria-expanded="false"><span>What is China Southern Airlines Virtual?</span><span>+</span></button>
+        <div class="faq-answer"><div><p>CSN Virtual is a virtual airline community inspired by China Southern Airlines and built around virtual aviation and flight simulation.</p></div></div>
+      </article>
+      <article class="faq-item glass reveal">
+        <button class="faq-question" aria-expanded="false"><span>Where is the main hub?</span><span>+</span></button>
+        <div class="faq-answer"><div><p>Our main hub is Guangzhou Baiyun International Airport in Guangzhou, China (CAN / ZGGG).</p></div></div>
+      </article>
+      <article class="faq-item glass reveal">
+        <button class="faq-question" aria-expanded="false"><span>How many destinations are in the network?</span><span>+</span></button>
+        <div class="faq-answer"><div><p>The CSN Virtual network is presented with 224 destinations across 46 countries.</p></div></div>
+      </article>
+      <article class="faq-item glass reveal">
+        <button class="faq-question" aria-expanded="false"><span>How can I join the community?</span><span>+</span></button>
+        <div class="faq-answer"><div><p>Use the Join our Discord link on this page to visit the CSN Virtual community.</p></div></div>
+      </article>
+    </div>
+
+    <div class="contact-panel glass reveal" style="margin-top:35px">
+      <span class="eyebrow">Stay connected</span>
+      <h2>Keep your journey moving.</h2>
+      <p>Explore the website, discover destinations and connect with the CSN Virtual community.</p>
+      <div class="hero-actions">
+        <a class="btn" href="https://discord.gg/uUcc6bxXmG" target="_blank" rel="noopener noreferrer">Visit our Discord →</a>
+        <a class="btn secondary" href="index.html">Back to homepage</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER WITH COPYRIGHT -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-top">
+      <a class="brand" href="index.html">
+        <img src="https://raw.githubusercontent.com/djblessingm-crypto/SOUT-IMAGE/refs/heads/main/China%20Southern%20Airlines%20%C4%B0stanbul%20Acentas%C4%B1.jfif" alt="CSN logo">
+        <span>
+          <strong>CHINA SOUTHERN AIRLINES</strong>
+          <small>VIRTUAL · CSN</small>
+        </span>
+      </a>
+
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="index.html#destinations">Destinations</a>
+        <a href="index.html#fleet">Flights</a>
+        <a href="index.html#experience">Careers</a>
+        <a href="index.html#community">Community</a>
+        <a href="index.html#booking">Booking</a>
+        <a href="https://discord.gg/uUcc6bxXmG" target="_blank" rel="noopener noreferrer">Join CSN</a>
+      </nav>
+    </div>
+
+    <div class="footer-bottom">
+      <span>Fly towards your dreams · 飞向您的梦想</span>
+      <span>China Southern Airlines Virtual</span>
+    </div>
+
+    <div class="copyright">
+      © <span id="year"></span> China Southern Airlines Virtual. All rights reserved.
+      <br>
+      This is an independent virtual airline community and is not the official China Southern Airlines website.
+    </div>
+  </div>
+</footer>
+
+<button class="back-top" id="backTop" aria-label="Back to top">↑</button>
+
+<script>
+document.addEventListener("DOMContentLoaded",()=>{
+
+  // Automatically update copyright year
+  document.getElementById("year").textContent=new Date().getFullYear();
+
+  // Reveal animations
+  const revealItems=document.querySelectorAll(".reveal");
+
+  if("IntersectionObserver" in window){
+    const observer=new IntersectionObserver((entries,obs)=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          entry.target.classList.add("visible");
+          obs.unobserve(entry.target);
+        }
+      });
+    },{threshold:.12});
+
+    revealItems.forEach(item=>observer.observe(item));
+  }else{
+    revealItems.forEach(item=>item.classList.add("visible"));
+  }
+
+  // FAQ accordion
+  document.querySelectorAll(".faq-question").forEach(button=>{
+    button.addEventListener("click",()=>{
+      const item=button.closest(".faq-item");
+      const isOpen=item.classList.toggle("open");
+      button.setAttribute("aria-expanded",String(isOpen));
+    });
+  });
+
+  // Back to top button
+  const backTop=document.getElementById("backTop");
+
+  window.addEventListener("scroll",()=>{
+    backTop.classList.toggle("show",window.scrollY>500);
+  },{passive:true});
+
+  backTop.addEventListener("click",()=>{
+    window.scrollTo({top:0,behavior:"smooth"});
+  });
+
+  // Animated network counters
+  const counters=document.querySelectorAll("[data-count]");
+
+  if("IntersectionObserver" in window){
+    const countObserver=new IntersectionObserver((entries,obs)=>{
+      entries.forEach(entry=>{
+        if(!entry.isIntersecting)return;
+
+        const el=entry.target;
+        const target=Number(el.dataset.count);
+        const start=performance.now();
+        const duration=1000;
+
+        function step(now){
+          const progress=Math.min((now-start)/duration,1);
+          const eased=1-Math.pow(1-progress,3);
+          el.textContent=Math.round(target*eased);
+
+          if(progress<1)requestAnimationFrame(step);
+        }
+
+        requestAnimationFrame(step);
+        obs.unobserve(el);
+      });
+    },{threshold:.5});
+
+    counters.forEach(counter=>countObserver.observe(counter));
+  }
+});
+</script>
+
+</body>
+</html>

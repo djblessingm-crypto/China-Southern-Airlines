@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Digital Ticket | CSN Virtual</title>
+
+<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    min-height:100vh;
+    font-family:-apple-system,BlinkMacSystemFont,
+    "SF Pro Display","Segoe UI",sans-serif;
+
+    background:
+        radial-gradient(circle at 15% 10%,rgba(0,120,255,.22),transparent 30%),
+        radial-gradient(circle at 85% 30%,rgba(0,190,255,.16),transparent 30%),
+        linear-gradient(135deg,#eaf5ff,#f8fbff);
+
+    color:#10223d;
+    padding:25px 15px 60px;
+}
+
+.page{
+    width:min(850px,100%);
+    margin:auto;
+}
+
+.topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:25px;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.brand img{
+    width:52px;
+    height:52px;
+    padding:7px;
+    border-radius:17px;
+    background:white;
+    object-fit:contain;
+    box-shadow:0 10px 30px rgba(0,70,150,.12);
+}
+
+.brand strong{
+    display:block;
+}
+
+.brand span{
+    font-size:11px;
+    color:#71819a;
+}
+
+.back{
+    text-decoration:none;
+    color:#086cf2;
+    background:rgba(255,255,255,.75);
+    padding:12px 17px;
+    border-radius:999px;
+    font-size:13px;
+    font-weight:800;
+}
+
+.ticket{
+    overflow:hidden;
+    border-radius:42px;
+    background:rgba(255,255,255,.82);
+    border:1px solid rgba(255,255,255,.95);
+    box-shadow:0 35px 100px rgba(0,55,120,.18);
+    backdrop-filter:blur(25px);
+    animation:ticketIn .8s cubic-bezier(.2,.8,.2,1);
+}
+
+@keyframes ticketIn{
+
+    from{
+        opacity:0;
+        transform:translateY(35px) scale(.97);
+    }
+
+    to{
+        opacity:1;
+        transform:none;
+    }
+
+}
+
+.ticket-top{
+    padding:32px;
+    color:white;
+
+    background:
+        linear-gradient(
+            135deg,
+            #03183a,
+            #086cf2
+        );
+
+    position:relative;
+    overflow:hidden;
+}
+
+.ticket-top:after{
+    content:"";
+    position:absolute;
+    width:350px;
+    height:350px;
+    border-radius:50%;
+    right:-140px;
+    top:-180px;
+    background:rgba(100,210,255,.28);
+    filter:blur(25px);
+    animation:orb 8s ease-in-out infinite;
+}
+
+@keyframes orb{
+
+    50%{
+        transform:translate(-40px,40px);
+    }
+
+}
+
+.airline{
+    position:relative;
+    z-index:2;
+    display:flex;
+    justify-content:space-between;
+    gap:20px;
+}
+
+.airline-name{
+    font-size:19px;
+    font-weight:900;
+}
+
+.slogan{
+    opacity:.7;
+    font-size:11px;
+    margin-top:5px;
+}
+
+.confirmed{
+    padding:9px 14px;
+    height:max-content;
+    border-radius:999px;
+    background:rgba(255,255,255,.15);
+    border:1px solid rgba(255,255,255,.2);
+    font-size:10px;
+    font-weight:900;
+    letter-spacing:.12em;
+}
+
+.route{
+    position:relative;
+    z-index:2;
+
+    display:grid;
+    grid-template-columns:1fr auto 1fr;
+    gap:20px;
+    align-items:center;
+
+    margin-top:45px;
+}
+
+.airport-code{
+    font-size:58px;
+    font-weight:950;
+    letter-spacing:-.07em;
+}
+
+.airport-name{
+    color:rgba(255,255,255,.7);
+    font-size:12px;
+}
+
+.destination{
+    text-align:right;
+}
+
+.route-line{
+    width:120px;
+    height:2px;
+    background:rgba(255,255,255,.28);
+    position:relative;
+}
+
+.route-line:after{
+    content:"✈";
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+    font-size:22px;
+    animation:plane 3s ease-in-out infinite;
+}
+
+@keyframes plane{
+
+    50%{
+        transform:
+            translate(-50%,-50%)
+            translateX(28px);
+    }
+
+}
+
+.ticket-body{
+    padding:32px;
+}
+
+.info-grid{
+    display:grid;
+    grid-template-columns:
+        repeat(4,1fr);
+    gap:14px;
+}
+
+.info{
+    padding:17px;
+    border-radius:22px;
+    background:#f5f9ff;
+    border:1px solid #e0eaf5;
+}
+
+.label{
+    color:#7b8aa1;
+    font-size:9px;
+    font-weight:900;
+    text-transform:uppercase;
+    letter-spacing:.12em;
+}
+
+.value{
+    margin-top:7px;
+    font-weight:900;
+    font-size:14px;
+}
+
+.security{
+    margin-top:20px;
+    display:grid;
+    grid-template-columns:1fr 190px;
+    gap:16px;
+}
+
+.code-card{
+    padding:20px;
+    border-radius:25px;
+    background:#f5f9ff;
+    border:1px solid #e0eaf5;
+}
+
+.code-value{
+    margin-top:8px;
+    font-size:21px;
+    font-weight:950;
+    letter-spacing:.09em;
+    color:#086cf2;
+}
+
+.qr-card{
+    padding:18px;
+    border-radius:25px;
+    background:#071d43;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+#qrcode{
+    padding:8px;
+    border-radius:18px;
+    background:white;
+}
+
+.passenger-list{
+    margin-top:20px;
+    padding:20px;
+    border-radius:25px;
+    background:#f5f9ff;
+}
+
+.passenger{
+    display:flex;
+    justify-content:space-between;
+    padding:12px 0;
+    border-bottom:1px solid #dce6f2;
+}
+
+.passenger:last-child{
+    border-bottom:0;
+}
+
+.actions{
+    display:flex;
+    gap:10px;
+    margin-top:25px;
+}
+
+.action{
+    flex:1;
+    border:0;
+    padding:16px;
+    border-radius:20px;
+    font-weight:900;
+    text-decoration:none;
+    text-align:center;
+}
+
+.primary{
+    background:#086cf2;
+    color:white;
+}
+
+.secondary{
+    background:#eaf3ff;
+    color:#086cf2;
+}
+
+.footer{
+    padding:20px 32px;
+    border-top:1px dashed #cad7e6;
+    display:flex;
+    justify-content:space-between;
+    color:#74839a;
+    font-size:11px;
+}
+
+@media(max-width:700px){
+
+    .ticket-top,
+    .ticket-body{
+        padding:23px;
+    }
+
+    .airline{
+        flex-direction:column;
+    }
+
+    .route{
+        grid-template-columns:1fr;
+        text-align:center;
+    }
+
+    .destination{
+        text-align:center;
+    }
+
+    .route-line{
+        margin:auto;
+    }
+
+    .info-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .security{
+        grid-template-columns:1fr;
+    }
+
+    .actions{
+        flex-direction:column;
+    }
+
+    .footer{
+        flex-direction:column;
+        gap:7px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="page">
+
+<div class="topbar">
+
+<div class="brand">
+
+<img
+src="https://raw.githubusercontent.com/djblessingm-crypto/SOUT-IMAGE/refs/heads/main/China%20Southern%20Airlines%20%C4%B0stanbul%20Acentas%C4%B1.jfif"
+alt="CSN Virtual">
+
+<div>
+<strong>CSN Virtual</strong>
+<span>Digital Ticket</span>
+</div>
+
+</div>
+
+<a class="back" href="my-bookings.html">
+My Bookings
+</a>
+
+</div>
+
+<div class="ticket">
+
+<section class="ticket-top">
+
+<div class="airline">
+
+<div>
+<div class="airline-name">
+China Southern Airlines Virtual
+</div>
+
+<div class="slogan">
+Fly towards your dreams · 飞向您的梦想
+</div>
+</div>
+
+<div class="confirmed">
+CONFIRMED
+</div>
+
+</div>
+
+<div class="route">
+
+<div>
+<div class="airport-code" id="origin">
+---
+</div>
+
+<div class="airport-name">
+Departure
+</div>
+</div>
+
+<div class="route-line"></div>
+
+<div class="destination">
+
+<div class="airport-code" id="destination">
+---
+</div>
+
+<div class="airport-name">
+Arrival
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="ticket-body">
+
+<div class="info-grid">
+
+<div class="info">
+<div class="label">Passenger</div>
+<div class="value" id="passenger">
+---
+</div>
+</div>
+
+<div class="info">
+<div class="label">Flight</div>
+<div class="value" id="flight">
+---
+</div>
+</div>
+
+<div class="info">
+<div class="label">Date</div>
+<div class="value" id="date">
+---
+</div>
+</div>
+
+<div class="info">
+<div class="label">Aircraft</div>
+<div class="value" id="aircraft">
+---
+</div>
+</div>
+
+</div>
+
+<div class="security">
+
+<div>
+
+<div class="code-card">
+
+<div class="label">
+Booking Reference
+</div>
+
+<div
+class="code-value"
+id="bookingReference">
+---
+</div>
+
+</div>
+
+<div class="code-card" style="margin-top:12px">
+
+<div class="label">
+Passenger Code
+</div>
+
+<div
+class="code-value"
+id="passengerCode">
+---
+</div>
+
+</div>
+
+<div class="code-card" style="margin-top:12px">
+
+<div class="label">
+Security Code
+</div>
+
+<div
+class="code-value"
+id="securityCode">
+---
+</div>
+
+</div>
+
+</div>
+
+<div class="qr-card">
+
+<div id="qrcode"></div>
+
+</div>
+
+</div>
+
+<div class="passenger-list">
+
+<div class="label">
+Passengers
+</div>
+
+<div id="passengerList"></div>
+
+</div>
+
+<div class="actions">
+
+<button
+class="action primary"
+id="downloadButton">
+DOWNLOAD TICKET
+</button>
+
+<a
+class="action secondary"
+href="index.html">
+RETURN HOME
+</a>
+
+</div>
+
+</section>
+
+<div class="footer">
+
+<span>China Southern Airlines Virtual</span>
+
+<span>
+Present your ticket to CSN Virtual staff
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+const raw =
+sessionStorage.getItem("csnLatestBooking");
+
+if(!raw){
+
+    window.location.href =
+        "booking.html";
+
+}else{
+
+    const booking =
+        JSON.parse(raw);
+
+    document.getElementById("origin")
+        .textContent =
+        booking.origin;
+
+    document.getElementById("destination")
+        .textContent =
+        booking.destination;
+
+    document.getElementById("flight")
+        .textContent =
+        booking.flightNumber;
+
+    document.getElementById("aircraft")
+        .textContent =
+        booking.aircraft;
+
+    document.getElementById("date")
+        .textContent =
+        booking.departureDate;
+
+    document.getElementById("bookingReference")
+        .textContent =
+        booking.bookingReference;
+
+    document.getElementById("passengerCode")
+        .textContent =
+        booking.passengerCode;
+
+    document.getElementById("securityCode")
+        .textContent =
+        booking.securityCode;
+
+    const firstPassenger =
+        booking.passengers?.[0];
+
+    document.getElementById("passenger")
+        .textContent =
+        firstPassenger?.name ||
+        "Passenger";
+
+    const passengerList =
+        document.getElementById(
+            "passengerList"
+        );
+
+    passengerList.innerHTML = "";
+
+    booking.passengers.forEach(
+        (passenger,index) => {
+
+            const row =
+                document.createElement("div");
+
+            row.className =
+                "passenger";
+
+            row.innerHTML = `
+
+                <strong>
+                    ${index + 1}. ${escapeHTML(passenger.name)}
+                </strong>
+
+                <span>
+                    ${escapeHTML(passenger.roblox)}
+                </span>
+
+            `;
+
+            passengerList.appendChild(row);
+
+        }
+    );
+
+    new QRCode(
+        document.getElementById("qrcode"),
+        {
+            text:booking.qrPayload,
+            width:150,
+            height:150,
+            colorDark:"#071d43",
+            colorLight:"#ffffff",
+            correctLevel:
+                QRCode.CorrectLevel.H
+        }
+    );
+
+}
+
+function escapeHTML(value){
+
+    return String(value)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+
+}
+
+document
+.getElementById("downloadButton")
+.addEventListener("click",() => {
+
+    window.print();
+
+});
+
+</script>
+
+</body>
+</html>
