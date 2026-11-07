@@ -1,1 +1,99 @@
-[]
+[
+  {
+    "id": "9503bf5b-8e76-42d8-a42c-2390d8b35775",
+    "bookingReference": "CSN-QJSFZ4F",
+    "passengerCode": "X3CR8LC2",
+    "securityCode": "DY44RSSS",
+    "ticketToken": "c9c23d5fcf7a5eeef63107bbed6a7103b2fa25ebcc1abfc710f27fa6122d55c1",
+    "qrPayload": "{\"reference\":\"CSN-QJSFZ4F\",\"token\":\"c9c23d5fcf7a5eeef63107bbed6a7103b2fa25ebcc1abfc710f27fa6122d55c1\"}",
+    "flightNumber": "CSN100",
+    "origin": "CAN",
+    "destination": "PEK",
+    "departureDate": "2027-01-15",
+    "returnDate": null,
+    "tripType": "one-way",
+    "aircraft": "",
+    "gate": "",
+    "passengers": [
+      {
+        "name": "Test Pilot"
+      }
+    ],
+    "owner": null,
+    "bookedFor": null,
+    "status": "confirmed",
+    "requiresConfirmation": false,
+    "confirmedAt": "2026-11-07T16:36:53.233Z",
+    "declinedAt": null,
+    "checkedIn": true,
+    "boarded": true,
+    "createdAt": "2026-11-07T16:36:53.233Z",
+    "updatedAt": "2026-11-07T16:36:53.540Z",
+    "checkedInAt": "2026-11-07T16:36:53.531Z",
+    "boardedAt": "2026-11-07T16:36:53.540Z"
+  },
+  {
+    "id": "20d5551b-6f9d-4aba-b87a-0ea5596890a4",
+    "bookingReference": "CSN-V9FGH9H",
+    "passengerCode": "D8KEDVBJ",
+    "securityCode": "Z5QBF4J8",
+    "ticketToken": "f89ccc711f5647c84c37e8f17993e7534ad49225b2d0ed3c13bb8cf8908ca48d",
+    "qrPayload": "{\"reference\":\"CSN-V9FGH9H\",\"token\":\"f89ccc711f5647c84c37e8f17993e7534ad49225b2d0ed3c13bb8cf8908ca48d\"}",
+    "flightNumber": "CSN200",
+    "origin": "CAN",
+    "destination": "SHA",
+    "departureDate": "2027-02-01",
+    "returnDate": null,
+    "tripType": "one-way",
+    "aircraft": "",
+    "gate": "",
+    "passengers": [
+      {
+        "name": "Friend Flyer"
+      }
+    ],
+    "owner": null,
+    "bookedFor": {
+      "discordUsername": "somefriend"
+    },
+    "status": "confirmed",
+    "requiresConfirmation": false,
+    "confirmedAt": "2026-11-07T16:36:53.723Z",
+    "declinedAt": null,
+    "checkedIn": false,
+    "boarded": false,
+    "createdAt": "2026-11-07T16:36:53.549Z",
+    "updatedAt": "2026-11-07T16:36:53.723Z"
+  },
+  {
+    "id": "7867a479-9c47-49fe-9660-e6eb6b1b995c",
+    "bookingReference": "CSN-B9S7PWK",
+    "passengerCode": "LPWBMPW3",
+    "securityCode": "57SGARJ2",
+    "ticketToken": "c6b809196596be28023b7ea6304b76064f4bc7a8587eb9950c2cfad5da21eb59",
+    "qrPayload": "{\"reference\":\"CSN-B9S7PWK\",\"token\":\"c6b809196596be28023b7ea6304b76064f4bc7a8587eb9950c2cfad5da21eb59\"}",
+    "flightNumber": "CSN100",
+    "origin": "CAN",
+    "destination": "PEK",
+    "departureDate": "2027-01-15",
+    "returnDate": null,
+    "tripType": "one-way",
+    "aircraft": "",
+    "gate": "",
+    "passengers": [
+      {
+        "name": "Test Pilot"
+      }
+    ],
+    "owner": null,
+    "bookedFor": null,
+    "status": "confirmed",
+    "requiresConfirmation": false,
+    "confirmedAt": "2026-11-07T16:37:02.193Z",
+    "declinedAt": null,
+    "checkedIn": false,
+    "boarded": false,
+    "createdAt": "2026-11-07T16:37:02.193Z",
+    "updatedAt": "2026-11-07T16:37:02.193Z"
+  }
+]
