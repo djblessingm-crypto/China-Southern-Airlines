@@ -1,0 +1,596 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0878d1">
+<meta name="description" content="Explore destinations in the China Southern Airlines Virtual network.">
+<title>Destinations | China Southern Airlines Virtual</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --white:#fff;
+  --blue:#0878d1;
+  --blue-dark:#063b76;
+  --blue-light:#eaf5ff;
+  --navy:#10243d;
+  --muted:#63748a;
+  --border:rgba(12,76,135,.13);
+  --glass:rgba(255,255,255,.62);
+  --shadow:0 22px 70px rgba(10,69,125,.13),inset 0 1px 0 rgba(255,255,255,.9);
+  --radius:28px;
+  --max:1240px;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:110px}
+body{
+  font-family:Inter,system-ui,sans-serif;
+  color:var(--navy);
+  background:
+    radial-gradient(circle at 10% 8%,rgba(8,120,209,.08),transparent 27%),
+    radial-gradient(circle at 90% 35%,rgba(8,120,209,.06),transparent 25%),
+    linear-gradient(180deg,#fff,#f6fbff 55%,#fff);
+  overflow-x:hidden;
+}
+a{color:inherit;text-decoration:none}
+button,input{font:inherit}
+.container{width:min(var(--max),calc(100% - 48px));margin:auto}
+section{padding:85px 0}
+h1,h2,h3{letter-spacing:-1.5px}
+h1{font-size:clamp(42px,6vw,72px);line-height:1.03;letter-spacing:-3px}
+h2{font-size:clamp(30px,4.5vw,48px);line-height:1.1}
+h3{font-size:20px}
+p{line-height:1.8}
+.lead{font-size:16px;color:var(--muted);max-width:720px}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:9px;
+  color:var(--blue);font-size:11px;font-weight:800;
+  letter-spacing:2px;text-transform:uppercase;margin-bottom:17px
+}
+.eyebrow:before{content:"";width:25px;height:2px;background:var(--blue);border-radius:9px}
+.glass{
+  background:var(--glass);
+  border:1px solid rgba(255,255,255,.9);
+  box-shadow:var(--shadow);
+  backdrop-filter:blur(22px);
+  -webkit-backdrop-filter:blur(22px);
+  border-radius:var(--radius)
+}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  padding:14px 22px;border-radius:99px;
+  background:linear-gradient(135deg,var(--blue),#0561b0);
+  color:white;font-size:13px;font-weight:800;
+  box-shadow:0 12px 28px rgba(8,120,209,.2);
+  transition:.3s
+}
+.btn:hover{transform:translateY(-3px)}
+.pill{
+  display:inline-flex;padding:8px 13px;border-radius:99px;
+  background:var(--blue-light);color:var(--blue-dark);
+  font-size:10px;font-weight:800;letter-spacing:.5px
+}
+
+/* HOTBAR */
+.topbar{
+  position:sticky;top:0;z-index:100;
+  background:rgba(255,255,255,.76);
+  border-bottom:1px solid rgba(12,76,135,.08);
+  backdrop-filter:blur(24px);
+  -webkit-backdrop-filter:blur(24px)
+}
+.nav{
+  min-height:78px;display:flex;align-items:center;
+  justify-content:space-between;gap:20px
+}
+.brand{display:flex;align-items:center;gap:12px}
+.brand img{width:48px;height:48px;object-fit:contain;border-radius:14px;background:#fff}
+.brand strong{font-size:13px;line-height:1.35}
+.brand small{display:block;color:var(--muted);font-size:10px;font-weight:600;margin-top:3px}
+.desktop-nav{display:flex;align-items:center;justify-content:flex-end;gap:5px;flex-wrap:wrap}
+.desktop-nav a{
+  padding:10px 12px;border-radius:99px;
+  font-size:11px;font-weight:750;color:var(--muted);
+  transition:.25s
+}
+.desktop-nav a:hover,.desktop-nav a[href="destinations.html"]{
+  background:var(--blue-light);color:var(--blue)
+}
+.desktop-nav .nav-cta{
+  color:#fff;background:linear-gradient(135deg,var(--blue),#0561b0);
+  padding:11px 17px
+}
+.desktop-nav .nav-cta:hover{color:#fff;background:var(--blue-dark)}
+
+/* HERO */
+.hero{padding:75px 0 65px}
+.hero-content{max-width:850px}
+.hero h1 span{color:var(--blue)}
+.hero .lead{margin-top:20px}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+.hero-image{
+  margin-top:45px;height:340px;overflow:hidden;border-radius:34px;
+  box-shadow:var(--shadow);position:relative
+}
+.hero-image img{width:100%;height:100%;object-fit:cover}
+.hero-image:after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(90deg,rgba(6,35,68,.35),transparent 75%)
+}
+.hero-image-label{
+  position:absolute;z-index:2;left:28px;bottom:25px;
+  color:white;font-size:13px;font-weight:800
+}
+
+/* SEARCH AND FILTERS */
+.directory-head{
+  display:flex;align-items:end;justify-content:space-between;
+  gap:20px;flex-wrap:wrap;margin-bottom:28px
+}
+.search-wrap{position:relative;width:min(100%,390px)}
+.search-wrap input{
+  width:100%;padding:16px 20px 16px 46px;
+  border:1px solid var(--border);border-radius:99px;
+  background:rgba(255,255,255,.85);outline:none;
+  color:var(--navy);font-size:13px;
+  box-shadow:0 8px 25px rgba(10,69,125,.05)
+}
+.search-wrap input:focus{border-color:var(--blue);box-shadow:0 0 0 4px rgba(8,120,209,.1)}
+.search-icon{
+  position:absolute;left:18px;top:50%;transform:translateY(-50%);
+  color:var(--blue);font-size:18px
+}
+.filters{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:27px}
+.filter{
+  padding:10px 16px;border-radius:99px;
+  border:1px solid var(--border);background:rgba(255,255,255,.8);
+  color:var(--muted);font-size:11px;font-weight:800;cursor:pointer;
+  transition:.25s
+}
+.filter:hover,.filter.active{
+  background:var(--blue);color:#fff;border-color:var(--blue)
+}
+.result-count{font-size:12px;color:var(--muted);font-weight:700}
+
+/* DESTINATION CARDS */
+.destination-grid{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px
+}
+.destination-card{
+  overflow:hidden;min-width:0;transition:transform .35s,box-shadow .35s
+}
+.destination-card:hover{transform:translateY(-7px);box-shadow:0 28px 75px rgba(10,69,125,.18)}
+.destination-image{height:220px;position:relative;overflow:hidden;background:var(--blue-light)}
+.destination-image img{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform .7s
+}
+.destination-card:hover .destination-image img{transform:scale(1.05)}
+.destination-code{
+  position:absolute;left:15px;top:15px;
+  padding:8px 12px;border-radius:99px;
+  background:rgba(255,255,255,.9);color:var(--blue-dark);
+  font-size:11px;font-weight:900;backdrop-filter:blur(12px)
+}
+.destination-info{padding:23px}
+.destination-info h3{margin-top:10px}
+.destination-info p{color:var(--muted);font-size:12px;margin-top:7px}
+.destination-bottom{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:10px;margin-top:20px;padding-top:16px;
+  border-top:1px solid var(--border)
+}
+.destination-bottom span{font-size:10px;color:var(--muted);font-weight:700}
+.destination-bottom a{font-size:11px;font-weight:900;color:var(--blue)}
+.empty-state{
+  display:none;text-align:center;padding:55px 20px;
+  border-radius:var(--radius);background:rgba(255,255,255,.8);
+  border:1px solid var(--border)
+}
+.empty-state h3{margin-bottom:9px}
+.empty-state p{font-size:13px;color:var(--muted)}
+
+/* HUB */
+.hub-section{background:linear-gradient(135deg,#eaf5ff,#f7fbff);border-block:1px solid var(--border)}
+.hub-card{
+  display:grid;grid-template-columns:1fr 1fr;overflow:hidden
+}
+.hub-card img{width:100%;height:330px;object-fit:cover}
+.hub-copy{padding:35px;display:flex;flex-direction:column;justify-content:center}
+.hub-copy h2{margin:14px 0}
+.hub-copy p{font-size:14px;color:var(--muted)}
+
+/* ROUTES */
+.route-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:15px}
+.route{
+  padding:21px;border-radius:22px;background:rgba(255,255,255,.8);
+  border:1px solid var(--border);display:flex;align-items:center;
+  justify-content:space-between;gap:15px
+}
+.route strong{font-size:13px}
+.route small{display:block;font-size:10px;color:var(--muted);margin-top:5px}
+.route-line{height:1px;flex:1;min-width:20px;background:linear-gradient(90deg,var(--blue),rgba(8,120,209,.15));position:relative}
+.route-line:after{
+  content:"";position:absolute;right:0;top:-4px;width:8px;height:8px;
+  border-radius:50%;background:var(--blue)
+}
+.route-label{font-size:10px;font-weight:800;color:var(--blue)}
+
+/* CTA AND FOOTER */
+.cta{
+  padding:40px;border-radius:32px;
+  background:linear-gradient(130deg,#0878d1,#063b76);
+  color:#fff;display:flex;justify-content:space-between;
+  align-items:center;gap:25px;flex-wrap:wrap
+}
+.cta p{font-size:13px;color:rgba(255,255,255,.8);margin-top:10px}
+.cta .btn{background:white;color:var(--blue-dark);box-shadow:none}
+.footer{padding:55px 0 25px;background:#fff;border-top:1px solid var(--border)}
+.footer-top{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap;padding-bottom:30px}
+.footer-links{display:flex;gap:15px;flex-wrap:wrap}
+.footer-links a{font-size:12px;color:var(--muted);font-weight:700}
+.footer-links a:hover{color:var(--blue)}
+.footer-bottom{
+  border-top:1px solid var(--border);padding-top:20px;
+  display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;
+  color:var(--muted);font-size:11px
+}
+.copyright{text-align:center;padding-top:17px;color:var(--muted);font-size:11px;line-height:1.8}
+
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .7s,transform .7s}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+@media(max-width:1050px){
+  .nav{align-items:flex-start;padding:13px 0;flex-direction:column}
+  .desktop-nav{justify-content:flex-start}
+  .destination-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:700px){
+  .container{width:calc(100% - 30px)}
+  section{padding:60px 0}
+  .hero{padding:48px 0}
+  .hero-image{height:240px}
+  .destination-grid,.hub-card,.route-grid{grid-template-columns:1fr}
+  .hub-card img{height:240px}
+  .hub-copy{padding:25px}
+  .destination-image{height:210px}
+  .directory-head{align-items:stretch}
+  .search-wrap{width:100%}
+  .desktop-nav a{font-size:10px;padding:8px 10px}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+</head>
+
+<body>
+
+<header class="topbar">
+  <div class="container nav">
+    <a class="brand" href="index.html" aria-label="China Southern Airlines Virtual home">
+      <img src="https://raw.githubusercontent.com/djblessingm-crypto/SOUT-IMAGE/refs/heads/main/China%20Southern%20Airlines%20%C4%B0stanbul%20Acentas%C4%B1.jfif" alt="China Southern Airlines logo">
+      <span>
+        <strong>CHINA SOUTHERN AIRLINES</strong>
+        <small>VIRTUAL · CSN</small>
+      </span>
+    </a>
+
+    <nav class="desktop-nav" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="destinations.html">Destinations</a>
+      <a href="flights.html">Flights</a>
+      <a href="recruitment.html">recruitment</a>
+      <a href="community.html">Community</a>
+      <a href="booking.html">Booking</a>
+      <a class="nav-cta" href="https://discord.gg/uUcc6bxXmG" target="_blank" rel="noopener noreferrer">Join CSN ↗</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-content reveal">
+      <span class="eyebrow">Explore the network</span>
+      <h1>Discover the world.<br><span>One destination at a time.</span></h1>
+      <p class="lead">Explore the destinations featured in the CSN Virtual network, discover cities around the world and find your next virtual journey.</p>
+      <div class="hero-actions">
+        <a class="btn" href="#directory">Explore destinations ↓</a>
+        <a class="btn" href="index.html" style="background:#fff;color:var(--blue-dark);box-shadow:none;border:1px solid var(--border)">Back to homepage</a>
+      </div>
+    </div>
+
+    <div class="hero-image reveal">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/B-30AL%40SHA_%2820191112121707%29.jpg/1280px-B-30AL%40SHA_%2820191112121707%29.jpg" alt="China Southern Airlines aircraft">
+      <div class="hero-image-label">Your journey begins with CSN Virtual.</div>
+    </div>
+  </div>
+</section>
+
+<!-- MAIN HUB -->
+<section class="hub-section" id="hub">
+  <div class="container">
+    <div class="hub-card glass reveal">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/B-30AL%40SHA_%2820191112121707%29.jpg/1280px-B-30AL%40SHA_%2820191112121707%29.jpg" alt="China Southern Airlines aircraft">
+      <div class="hub-copy">
+        <span class="pill">OUR MAIN HUB</span>
+        <h2>Guangzhou, China</h2>
+        <p>Guangzhou Baiyun International Airport is the main hub of China Southern Airlines Virtual.</p>
+        <p style="margin-top:12px"><strong>Airport code:</strong> CAN</p>
+        <a class="btn" href="#directory" style="align-self:flex-start;margin-top:22px">Explore the network →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DESTINATION DIRECTORY -->
+<section id="directory">
+  <div class="container">
+    <div class="directory-head">
+      <div>
+        <span class="eyebrow">Destination directory</span>
+        <h2>Where will you fly next?</h2>
+        <p class="lead" style="margin-top:12px">Browse the destinations recovered from the existing homepage.</p>
+      </div>
+      <div class="search-wrap">
+        <span class="search-icon">⌕</span>
+        <input type="search" id="destinationSearch" placeholder="Search a city or country..." aria-label="Search destinations">
+      </div>
+    </div>
+
+    <div class="filters" aria-label="Destination filters">
+      <button class="filter active" data-filter="all">All destinations</button>
+      <button class="filter" data-filter="asia">Asia</button>
+      <button class="filter" data-filter="europe">Europe</button>
+      <button class="filter" data-filter="middle-east">Middle East</button>
+    </div>
+
+    <div class="result-count" id="resultCount" aria-live="polite">6 destinations</div>
+
+    <div class="destination-grid" id="destinationGrid" style="margin-top:18px">
+
+      <!-- Guangzhou -->
+      <article class="destination-card glass reveal" data-city="guangzhou" data-country="china" data-region="asia">
+        <div class="destination-image">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/B-30AL%40SHA_%2820191112121707%29.jpg/1280px-B-30AL%40SHA_%2820191112121707%29.jpg" alt="China Southern aircraft in China">
+          <span class="destination-code">CAN</span>
+        </div>
+        <div class="destination-info">
+          <span class="pill">MAIN HUB</span>
+          <h3>Guangzhou</h3>
+          <p>China</p>
+          <div class="destination-bottom"><span>Asia</span><a href="#hub">Explore hub ↗</a></div>
+        </div>
+      </article>
+
+      <!-- Tokyo -->
+      <article class="destination-card glass reveal" data-city="tokyo" data-country="japan" data-region="asia">
+        <div class="destination-image">
+          <img src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=1000&q=85" alt="Tokyo city skyline">
+          <span class="destination-code">HND</span>
+        </div>
+        <div class="destination-info">
+          <span class="pill">DESTINATION</span>
+          <h3>Tokyo</h3>
+          <p>Japan</p>
+          <div class="destination-bottom"><span>Asia</span><span>CSN Network</span></div>
+        </div>
+      </article>
+
+      <!-- Singapore -->
+      <article class="destination-card glass reveal" data-city="singapore" data-country="singapore" data-region="asia">
+        <div class="destination-image">
+          <img src="https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=1000&q=85" alt="Singapore skyline">
+          <span class="destination-code">SIN</span>
+        </div>
+        <div class="destination-info">
+          <span class="pill">DESTINATION</span>
+          <h3>Singapore</h3>
+          <p>Singapore</p>
+          <div class="destination-bottom"><span>Asia</span><span>CSN Network</span></div>
+        </div>
+      </article>
+
+      <!-- London -->
+      <article class="destination-card glass reveal" data-city="london" data-country="united kingdom" data-region="europe">
+        <div class="destination-image">
+          <img src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=1000&q=85" alt="London city skyline">
+          <span class="destination-code">LHR</span>
+        </div>
+        <div class="destination-info">
+          <span class="pill">DESTINATION</span>
+          <h3>London</h3>
+          <p>United Kingdom</p>
+          <div class="destination-bottom"><span>Europe</span><span>CSN Network</span></div>
+        </div>
+      </article>
+
+      <!-- Paris -->
+      <article class="destination-card glass reveal" data-city="paris" data-country="france" data-region="europe">
+        <div class="destination-image">
+          <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=1000&q=85" alt="Paris city skyline">
+          <span class="destination-code">PARIS</span>
+        </div>
+        <div class="destination-info">
+          <span class="pill">ROUTE EXAMPLE</span>
+          <h3>Paris</h3>
+          <p>France</p>
+          <div class="destination-bottom"><span>Europe</span><span>Route mentioned on Index</span></div>
+        </div>
+      </article>
+
+      <!-- Dubai -->
+      <article class="destination-card glass reveal" data-city="dubai" data-country="united arab emirates" data-region="middle-east">
+        <div class="destination-image">
+          <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1000&q=85" alt="Dubai skyline">
+          <span class="destination-code">DUBAI</span>
+        </div>
+        <div class="destination-info">
+          <span class="pill">ROUTE EXAMPLE</span>
+          <h3>Dubai</h3>
+          <p>United Arab Emirates</p>
+          <div class="destination-bottom"><span>Middle East</span><span>Route mentioned on Index</span></div>
+        </div>
+      </article>
+
+    </div>
+
+    <div class="empty-state" id="emptyState" style="margin-top:20px">
+      <h3>No destinations found</h3>
+      <p>Try another city or country name.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ROUTE EXAMPLES -->
+<section class="hub-section" id="routes">
+  <div class="container">
+    <div class="section-heading">
+      <span class="eyebrow">Route inspiration</span>
+      <h2>Journeys from Guangzhou.</h2>
+      <p class="lead" style="margin-top:12px">These city pairs were mentioned as route examples in our earlier homepage work. They are not confirmation of currently scheduled flights.</p>
+    </div>
+
+    <div class="route-grid">
+      <div class="route glass"><div><strong>Guangzhou</strong><small>CAN · China</small></div><div class="route-line"></div><div><strong>London</strong><small>United Kingdom</small></div></div>
+      <div class="route glass"><div><strong>Guangzhou</strong><small>CAN · China</small></div><div class="route-line"></div><div><strong>Paris</strong><small>France</small></div></div>
+      <div class="route glass"><div><strong>Guangzhou</strong><small>CAN · China</small></div><div class="route-line"></div><div><strong>Tokyo</strong><small>Japan</small></div></div>
+      <div class="route glass"><div><strong>Guangzhou</strong><small>CAN · China</small></div><div class="route-line"></div><div><strong>Dubai</strong><small>United Arab Emirates</small></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section>
+  <div class="container">
+    <div class="cta reveal">
+      <div>
+        <span class="eyebrow" style="color:white">Your next journey</span>
+        <h2>Ready to explore with CSN?</h2>
+        <p>Connect with our community and discover the CSN Virtual experience.</p>
+      </div>
+      <a class="btn" href="https://discord.gg/uUcc6bxXmG" target="_blank" rel="noopener noreferrer">Join CSN Virtual ↗</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-top">
+      <a class="brand" href="index.html">
+        <img src="https://raw.githubusercontent.com/djblessingm-crypto/SOUT-IMAGE/refs/heads/main/China%20Southern%20Airlines%20%C4%B0stanbul%20Acentas%C4%B1.jfif" alt="CSN logo">
+        <span>
+          <strong>CHINA SOUTHERN AIRLINES</strong>
+          <small>VIRTUAL · CSN</small>
+        </span>
+      </a>
+
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="destinations.html">Destinations</a>
+        <a href="index.html#fleet">Flights</a>
+        <a href="index.html#experience">Careers</a>
+        <a href="index.html#community">Community</a>
+        <a href="index.html#booking">Booking</a>
+        <a href="https://discord.gg/uUcc6bxXmG" target="_blank" rel="noopener noreferrer">Join CSN</a>
+      </nav>
+    </div>
+
+    <div class="footer-bottom">
+      <span>Fly towards your dreams · 飞向您的梦想</span>
+      <span>China Southern Airlines Virtual</span>
+    </div>
+
+    <div class="copyright">
+      © <span id="year"></span> China Southern Airlines Virtual. All rights reserved.
+      <br>
+      This is an independent virtual airline community and is not the official China Southern Airlines website.
+    </div>
+  </div>
+</footer>
+
+<script>
+document.addEventListener("DOMContentLoaded",()=>{
+
+  // Current copyright year
+  document.getElementById("year").textContent=new Date().getFullYear();
+
+  // Destination search and filters
+  const search=document.getElementById("destinationSearch");
+  const cards=[...document.querySelectorAll(".destination-card")];
+  const filters=[...document.querySelectorAll(".filter")];
+  const resultCount=document.getElementById("resultCount");
+  const emptyState=document.getElementById("emptyState");
+
+  let activeFilter="all";
+
+  function updateDestinations(){
+    const query=search.value.trim().toLowerCase();
+    let visible=0;
+
+    cards.forEach(card=>{
+      const city=card.dataset.city;
+      const country=card.dataset.country;
+      const region=card.dataset.region;
+
+      const matchesSearch=city.includes(query)||country.includes(query);
+      const matchesFilter=activeFilter==="all"||region===activeFilter;
+      const show=matchesSearch&&matchesFilter;
+
+      card.style.display=show?"":"none";
+      if(show)visible++;
+    });
+
+    resultCount.textContent=visible+" destination"+(visible===1?"":"s");
+    emptyState.style.display=visible===0?"block":"none";
+  }
+
+  search.addEventListener("input",updateDestinations);
+
+  filters.forEach(button=>{
+    button.addEventListener("click",()=>{
+      filters.forEach(item=>item.classList.remove("active"));
+      button.classList.add("active");
+      activeFilter=button.dataset.filter;
+      updateDestinations();
+    });
+  });
+
+  // Reveal animation
+  const revealItems=document.querySelectorAll(".reveal");
+
+  if("IntersectionObserver" in window){
+    const observer=new IntersectionObserver((entries,obs)=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          entry.target.classList.add("visible");
+          obs.unobserve(entry.target);
+        }
+      });
+    },{threshold:.12});
+
+    revealItems.forEach(item=>observer.observe(item));
+  }else{
+    revealItems.forEach(item=>item.classList.add("visible"));
+  }
+
+});
+</script>
+
+</body>
+</html>

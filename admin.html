@@ -1,0 +1,1475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<title>Admin Operations | CSN Virtual</title>
+
+<style>
+:root{
+    --bg:#020817;
+    --panel:rgba(8,27,58,.72);
+    --panel2:rgba(255,255,255,.055);
+    --border:rgba(255,255,255,.11);
+    --blue:#2388ff;
+    --blue2:#0754b5;
+    --text:#f4f8ff;
+    --muted:#8da1bd;
+    --green:#35d48a;
+    --orange:#ffb454;
+    --red:#ff6474;
+}
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    min-height:100vh;
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+    color:var(--text);
+    background:
+        radial-gradient(
+            circle at 80% 0%,
+            rgba(35,136,255,.19),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 0% 50%,
+            rgba(15,91,180,.12),
+            transparent 28%
+        ),
+        var(--bg);
+}
+
+button,
+input,
+select,
+textarea{
+    font:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+a{
+    color:inherit;
+    text-decoration:none;
+}
+
+/* NAV */
+
+.nav-wrap{
+    position:sticky;
+    top:0;
+    z-index:100;
+    padding:16px;
+}
+
+.nav{
+    width:min(1200px,100%);
+    margin:auto;
+    padding:10px 12px 10px 18px;
+    border-radius:999px;
+    background:rgba(3,17,38,.86);
+    border:1px solid var(--border);
+    backdrop-filter:blur(25px);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    box-shadow:0 20px 70px rgba(0,0,0,.3);
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:11px;
+}
+
+.brand img{
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    object-fit:cover;
+}
+
+.brand-name{
+    font-size:13px;
+    font-weight:900;
+}
+
+.brand-sub{
+    margin-top:4px;
+    display:block;
+    color:var(--muted);
+    font-size:9px;
+}
+
+.links{
+    display:flex;
+    gap:4px;
+}
+
+.links a{
+    padding:11px 14px;
+    border-radius:999px;
+    color:#9fb0c8;
+    font-size:11px;
+    font-weight:800;
+}
+
+.links a:hover,
+.links a.active{
+    color:white;
+    background:rgba(35,136,255,.14);
+}
+
+.menu{
+    display:none;
+    width:43px;
+    height:43px;
+    border-radius:50%;
+    border:1px solid var(--border);
+    background:rgba(255,255,255,.06);
+    color:white;
+    font-size:18px;
+}
+
+/* MAIN */
+
+.container{
+    width:min(1200px,calc(100% - 32px));
+    margin:20px auto 70px;
+}
+
+.hero{
+    padding:45px;
+    border-radius:34px;
+    background:
+        radial-gradient(
+            circle at 85% 15%,
+            rgba(35,136,255,.24),
+            transparent 30%
+        ),
+        linear-gradient(
+            135deg,
+            #092c5b,
+            #04142e
+        );
+    border:1px solid var(--border);
+    box-shadow:0 30px 90px rgba(0,0,0,.25);
+}
+
+.kicker{
+    color:#72b6ff;
+    font-size:9px;
+    font-weight:900;
+    letter-spacing:.15em;
+    text-transform:uppercase;
+}
+
+.hero h1{
+    margin-top:12px;
+    max-width:800px;
+    font-size:clamp(40px,6vw,72px);
+    line-height:.96;
+    letter-spacing:-.06em;
+}
+
+.hero p{
+    max-width:680px;
+    margin-top:18px;
+    color:#a9bad0;
+    font-size:14px;
+    line-height:1.7;
+}
+
+/* STATS */
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:12px;
+    margin-top:18px;
+}
+
+.stat{
+    padding:20px;
+    border-radius:25px;
+    background:var(--panel);
+    border:1px solid var(--border);
+}
+
+.stat small{
+    display:block;
+    color:#7186a4;
+    font-size:8px;
+    font-weight:900;
+    text-transform:uppercase;
+    letter-spacing:.1em;
+}
+
+.stat strong{
+    display:block;
+    margin-top:8px;
+    font-size:25px;
+}
+
+/* GRID */
+
+.grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;
+    margin-top:18px;
+}
+
+.panel{
+    padding:27px;
+    border-radius:31px;
+    background:var(--panel);
+    border:1px solid var(--border);
+    backdrop-filter:blur(20px);
+}
+
+.panel.full{
+    grid-column:1/-1;
+}
+
+.panel-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:15px;
+    margin-bottom:20px;
+}
+
+.panel-title{
+    font-size:22px;
+    font-weight:900;
+    letter-spacing:-.035em;
+}
+
+.panel-sub{
+    margin-top:5px;
+    color:var(--muted);
+    font-size:10px;
+}
+
+/* DATA */
+
+.data-list{
+    display:grid;
+    gap:9px;
+}
+
+.data-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+    padding:15px;
+    border-radius:18px;
+    background:var(--panel2);
+    border:1px solid rgba(255,255,255,.06);
+}
+
+.data-name{
+    font-size:12px;
+    font-weight:850;
+}
+
+.data-info{
+    margin-top:4px;
+    color:var(--muted);
+    font-size:9px;
+}
+
+.badge{
+    padding:7px 10px;
+    border-radius:999px;
+    font-size:8px;
+    font-weight:900;
+    white-space:nowrap;
+}
+
+.badge.green{
+    color:#70edab;
+    background:rgba(53,212,138,.1);
+}
+
+.badge.blue{
+    color:#78baff;
+    background:rgba(35,136,255,.1);
+}
+
+.badge.orange{
+    color:#ffc56e;
+    background:rgba(255,180,84,.1);
+}
+
+/* ACTIONS */
+
+.actions{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+}
+
+.admin-action{
+    min-height:72px;
+    padding:16px;
+    border:1px solid var(--border);
+    border-radius:20px;
+    background:rgba(255,255,255,.045);
+    color:white;
+    text-align:left;
+    transition:.2s ease;
+}
+
+.admin-action:hover{
+    transform:translateY(-2px);
+    background:rgba(35,136,255,.09);
+    border-color:rgba(35,136,255,.3);
+}
+
+.admin-action strong{
+    display:block;
+    font-size:12px;
+}
+
+.admin-action span{
+    display:block;
+    margin-top:5px;
+    color:var(--muted);
+    font-size:9px;
+    line-height:1.4;
+}
+
+/* TABLE */
+
+.table-wrap{
+    overflow-x:auto;
+    border-radius:20px;
+    border:1px solid rgba(255,255,255,.07);
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:650px;
+}
+
+th{
+    padding:13px;
+    text-align:left;
+    color:#7186a4;
+    font-size:8px;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+}
+
+td{
+    padding:14px 13px;
+    border-top:1px solid rgba(255,255,255,.055);
+    font-size:10px;
+}
+
+.loading{
+    padding:25px;
+    color:var(--muted);
+    text-align:center;
+    font-size:11px;
+}
+
+.error{
+    color:#ff8995;
+}
+
+/* FOOTER */
+
+footer{
+    width:min(1200px,calc(100% - 32px));
+    margin:0 auto 40px;
+    padding:25px;
+    border-radius:28px;
+    border:1px solid var(--border);
+    background:rgba(7,25,54,.5);
+    color:#7186a4;
+    font-size:9px;
+    line-height:1.7;
+    text-align:center;
+}
+
+/* MOBILE */
+
+@media(max-width:950px){
+
+    .stats{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .grid{
+        grid-template-columns:1fr;
+    }
+
+    .panel.full{
+        grid-column:auto;
+    }
+
+}
+
+@media(max-width:700px){
+
+    .links{
+        display:none;
+    }
+
+    .menu{
+        display:block;
+    }
+
+    .hero{
+        padding:30px 22px;
+        border-radius:27px;
+    }
+
+    .panel{
+        padding:21px;
+        border-radius:26px;
+    }
+
+    .actions{
+        grid-template-columns:1fr;
+    }
+
+    .container{
+        width:calc(100% - 20px);
+    }
+
+    footer{
+        width:calc(100% - 20px);
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="nav-wrap">
+
+<nav class="nav">
+
+<a href="index.html" class="brand">
+
+<img
+src="https://raw.githubusercontent.com/djblessingm-crypto/SOUT-IMAGE/refs/heads/main/China%20Southern%20Airlines%20%C4%B0stanbul%20Acentas%C4%B1.jfif"
+alt="CSN Virtual"
+>
+
+<div>
+<span class="brand-name">
+CSN VIRTUAL
+</span>
+
+<span class="brand-sub">
+ADMIN OPERATIONS
+</span>
+</div>
+
+</a>
+
+<div class="links">
+
+<a href="index.html">
+Home
+</a>
+
+<a href="flights.html">
+Flights
+</a>
+
+<a href="destinations.html">
+Destinations
+</a>
+
+<a href="fleet.html">
+Fleet
+</a>
+
+<a href="staff.html">
+Staff
+</a>
+
+<a href="admin.html" class="active">
+Admin
+</a>
+
+</div>
+
+<button
+class="menu"
+id="menu"
+type="button"
+>
+☰
+</button>
+
+</nav>
+
+</div>
+
+
+<main class="container">
+
+<section class="hero">
+
+<div class="kicker">
+CSN Virtual Administration
+</div>
+
+<h1>
+Command the
+<span style="color:#72b6ff;">
+operation.
+</span>
+</h1>
+
+<p>
+The central administration workspace for monitoring
+CSN Virtual operations, flights, bookings, destinations
+and fleet information.
+</p>
+
+</section>
+
+
+<section class="stats">
+
+<div class="stat">
+<small>Flights</small>
+<strong id="flightCount">—</strong>
+</div>
+
+<div class="stat">
+<small>Bookings</small>
+<strong id="bookingCount">—</strong>
+</div>
+
+<div class="stat">
+<small>Fleet Types</small>
+<strong id="fleetCount">—</strong>
+</div>
+
+<div class="stat">
+<small>Destinations</small>
+<strong id="destinationCount">—</strong>
+</div>
+
+<div class="stat">
+<small>System</small>
+<strong id="systemStatus">ONLINE</strong>
+</div>
+
+</section>
+
+
+<section class="grid">
+
+
+<section class="panel">
+
+<div class="panel-head">
+
+<div>
+
+<div class="panel-title">
+Operations
+</div>
+
+<div class="panel-sub">
+Administration tools
+</div>
+
+</div>
+
+<span class="badge green">
+ONLINE
+</span>
+
+</div>
+
+
+<div class="actions">
+
+<button
+class="admin-action"
+data-action="flights"
+type="button"
+>
+
+<strong>
+Flight Management
+</strong>
+
+<span>
+View and manage the airline flight operation.
+</span>
+
+</button>
+
+
+<button
+class="admin-action"
+data-action="bookings"
+type="button"
+>
+
+<strong>
+Booking Management
+</strong>
+
+<span>
+Review passenger booking records.
+</span>
+
+</button>
+
+
+<button
+class="admin-action"
+data-action="destinations"
+type="button"
+>
+
+<strong>
+Destination Management
+</strong>
+
+<span>
+Review the CSN global network.
+</span>
+
+</button>
+
+
+<button
+class="admin-action"
+data-action="fleet"
+type="button"
+>
+
+<strong>
+Fleet Management
+</strong>
+
+<span>
+Review aircraft currently configured for CSN.
+</span>
+
+</button>
+
+</div>
+
+</section>
+
+
+<section class="panel">
+
+<div class="panel-head">
+
+<div>
+
+<div class="panel-title">
+Administration
+</div>
+
+<div class="panel-sub">
+Control center
+</div>
+
+</div>
+
+<span class="badge blue">
+ADMIN
+</span>
+
+</div>
+
+
+<div class="data-list">
+
+<div class="data-row">
+
+<div>
+
+<div class="data-name">
+Staff Operations
+</div>
+
+<div class="data-info">
+Open the live staff verification center.
+</div>
+
+</div>
+
+<a
+href="staff.html"
+class="badge blue"
+>
+OPEN
+</a>
+
+</div>
+
+
+<div class="data-row">
+
+<div>
+
+<div class="data-name">
+Flight Database
+</div>
+
+<div class="data-info">
+Connected to the CSN flight API.
+</div>
+
+</div>
+
+<span class="badge green">
+CONNECTED
+</span>
+
+</div>
+
+
+<div class="data-row">
+
+<div>
+
+<div class="data-name">
+Booking Database
+</div>
+
+<div class="data-info">
+Passenger booking records.
+</div>
+
+</div>
+
+<span class="badge green">
+CONNECTED
+</span>
+
+</div>
+
+
+<div class="data-row">
+
+<div>
+
+<div class="data-name">
+Fleet Database
+</div>
+
+<div class="data-info">
+Configured CSN aircraft.
+</div>
+
+</div>
+
+<span class="badge green">
+CONNECTED
+</span>
+
+</div>
+
+</div>
+
+</section>
+
+
+<section class="panel full">
+
+<div class="panel-head">
+
+<div>
+
+<div class="panel-title">
+Flight Operations
+</div>
+
+<div class="panel-sub">
+Live records returned by the CSN backend
+</div>
+
+</div>
+
+<a
+href="flights.html"
+class="badge blue"
+>
+VIEW FLIGHTS
+</a>
+
+</div>
+
+
+<div
+id="flightTable"
+class="loading"
+>
+Loading flight operations...
+</div>
+
+</section>
+
+
+<section class="panel">
+
+<div class="panel-head">
+
+<div>
+
+<div class="panel-title">
+Fleet
+</div>
+
+<div class="panel-sub">
+Configured aircraft types
+</div>
+
+</div>
+
+<span class="badge blue">
+CSN
+</span>
+
+</div>
+
+<div
+id="fleetList"
+class="data-list"
+>
+
+<div class="loading">
+Loading fleet...
+</div>
+
+</div>
+
+</section>
+
+
+<section class="panel">
+
+<div class="panel-head">
+
+<div>
+
+<div class="panel-title">
+Destinations
+</div>
+
+<div class="panel-sub">
+Configured network
+</div>
+
+</div>
+
+<span class="badge blue">
+NETWORK
+</span>
+
+</div>
+
+<div
+id="destinationList"
+class="data-list"
+>
+
+<div class="loading">
+Loading destinations...
+</div>
+
+</div>
+
+</section>
+
+</section>
+
+</main>
+
+
+<footer>
+
+© 2026 China Southern Airlines Virtual (CSN).
+All rights reserved.<br>
+
+China Southern Airlines Virtual is a fan-created
+virtual airline operated for PTFS and is not affiliated
+with or endorsed by China Southern Airlines.
+
+</footer>
+
+
+<script>
+
+const flightCount =
+document.getElementById("flightCount");
+
+const bookingCount =
+document.getElementById("bookingCount");
+
+const fleetCount =
+document.getElementById("fleetCount");
+
+const destinationCount =
+document.getElementById("destinationCount");
+
+const systemStatus =
+document.getElementById("systemStatus");
+
+
+async function getJSON(
+    endpoint
+){
+
+    const response =
+        await fetch(endpoint);
+
+    if(!response.ok){
+
+        throw new Error(
+            "Request failed"
+        );
+
+    }
+
+    return response.json();
+
+}
+
+
+/* FLIGHTS */
+
+async function loadFlights(){
+
+    const target =
+        document.getElementById(
+            "flightTable"
+        );
+
+    try{
+
+        const data =
+            await getJSON(
+                "/api/flights"
+            );
+
+        const flights =
+            Array.isArray(data)
+                ? data
+                : data.flights || [];
+
+        flightCount.textContent =
+            flights.length;
+
+
+        if(!flights.length){
+
+            target.innerHTML =
+                '<div class="loading">No flight records available.</div>';
+
+            return;
+
+        }
+
+
+        target.innerHTML = `
+
+        <div class="table-wrap">
+
+        <table>
+
+        <thead>
+
+        <tr>
+
+            <th>Flight</th>
+            <th>Route</th>
+            <th>Date</th>
+            <th>Aircraft</th>
+            <th>Status</th>
+
+        </tr>
+
+        </thead>
+
+        <tbody>
+
+        ${flights
+            .slice(0,50)
+            .map(function(f){
+
+                return `
+
+                <tr>
+
+                    <td>
+                        <strong>
+                            ${escapeHTML(
+                                f.flightNumber ||
+                                f.number ||
+                                "—"
+                            )}
+                        </strong>
+                    </td>
+
+                    <td>
+                        ${escapeHTML(
+                            f.origin ||
+                            "—"
+                        )}
+                        →
+                        ${escapeHTML(
+                            f.destination ||
+                            "—"
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(
+                            f.departureDate ||
+                            f.date ||
+                            "—"
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(
+                            f.aircraft ||
+                            "—"
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(
+                            f.status ||
+                            "Scheduled"
+                        )}
+                    </td>
+
+                </tr>
+
+                `;
+
+            })
+            .join("")}
+
+        </tbody>
+
+        </table>
+
+        </div>
+
+        `;
+
+    }catch(error){
+
+        flightCount.textContent =
+            "—";
+
+        target.innerHTML =
+            '<div class="loading error">Unable to load flight data.</div>';
+
+    }
+
+}
+
+
+/* BOOKINGS */
+
+async function loadBookings(){
+
+    try{
+
+        const data =
+            await getJSON(
+                "/api/bookings"
+            );
+
+        const bookings =
+            Array.isArray(data)
+                ? data
+                : data.bookings || [];
+
+        bookingCount.textContent =
+            bookings.length;
+
+    }catch(error){
+
+        bookingCount.textContent =
+            "—";
+
+    }
+
+}
+
+
+/* FLEET */
+
+async function loadFleet(){
+
+    const target =
+        document.getElementById(
+            "fleetList"
+        );
+
+    try{
+
+        const data =
+            await getJSON(
+                "/api/fleet"
+            );
+
+        const fleet =
+            Array.isArray(data)
+                ? data
+                : data.fleet || [];
+
+        fleetCount.textContent =
+            fleet.length;
+
+
+        if(!fleet.length){
+
+            target.innerHTML =
+                '<div class="loading">No fleet records available.</div>';
+
+            return;
+
+        }
+
+
+        target.innerHTML =
+            fleet
+            .slice(0,20)
+            .map(function(item){
+
+                const name =
+                    typeof item === "string"
+                        ? item
+                        : item.name ||
+                          item.aircraft ||
+                          item.type ||
+                          "Aircraft";
+
+                return `
+
+                <div class="data-row">
+
+                    <div>
+
+                        <div class="data-name">
+                            ${escapeHTML(name)}
+                        </div>
+
+                        <div class="data-info">
+                            CSN Virtual fleet
+                        </div>
+
+                    </div>
+
+                    <span class="badge blue">
+                        ACTIVE
+                    </span>
+
+                </div>
+
+                `;
+
+            })
+            .join("");
+
+    }catch(error){
+
+        fleetCount.textContent =
+            "—";
+
+        target.innerHTML =
+            '<div class="loading error">Unable to load fleet.</div>';
+
+    }
+
+}
+
+
+/* DESTINATIONS */
+
+async function loadDestinations(){
+
+    const target =
+        document.getElementById(
+            "destinationList"
+        );
+
+    try{
+
+        const data =
+            await getJSON(
+                "/api/destinations"
+            );
+
+        const destinations =
+            Array.isArray(data)
+                ? data
+                : data.destinations || [];
+
+        destinationCount.textContent =
+            destinations.length;
+
+
+        if(!destinations.length){
+
+            target.innerHTML =
+                '<div class="loading">No destination records available.</div>';
+
+            return;
+
+        }
+
+
+        target.innerHTML =
+            destinations
+            .slice(0,20)
+            .map(function(item){
+
+                const name =
+                    typeof item === "string"
+                        ? item
+                        : item.name ||
+                          item.city ||
+                          item.airport ||
+                          "Destination";
+
+                return `
+
+                <div class="data-row">
+
+                    <div>
+
+                        <div class="data-name">
+                            ${escapeHTML(name)}
+                        </div>
+
+                        <div class="data-info">
+                            CSN global network
+                        </div>
+
+                    </div>
+
+                    <span class="badge green">
+                        ACTIVE
+                    </span>
+
+                </div>
+
+                `;
+
+            })
+            .join("");
+
+    }catch(error){
+
+        destinationCount.textContent =
+            "—";
+
+        target.innerHTML =
+            '<div class="loading error">Unable to load destinations.</div>';
+
+    }
+
+}
+
+
+/* ACTIONS */
+
+document
+.querySelectorAll(".admin-action")
+.forEach(function(button){
+
+    button.addEventListener(
+        "click",
+        function(){
+
+            const action =
+                button.dataset.action;
+
+            if(
+                action === "flights"
+            ){
+
+                window.location.href =
+                    "flights.html";
+
+                return;
+
+            }
+
+            if(
+                action === "fleet"
+            ){
+
+                window.location.href =
+                    "fleet.html";
+
+                return;
+
+            }
+
+            if(
+                action === "destinations"
+            ){
+
+                window.location.href =
+                    "destinations.html";
+
+                return;
+
+            }
+
+            if(
+                action === "bookings"
+            ){
+
+                window.location.href =
+                    "my-bookings.html";
+
+                return;
+
+            }
+
+        }
+    );
+
+});
+
+
+/* MOBILE MENU */
+
+document
+.getElementById("menu")
+.addEventListener(
+    "click",
+    function(){
+
+        const links =
+            document.querySelector(
+                ".links"
+            );
+
+        if(
+            links.style.display ===
+            "flex"
+        ){
+
+            links.style.display =
+                "";
+
+            return;
+
+        }
+
+        links.style.display =
+            "flex";
+
+        links.style.position =
+            "absolute";
+
+        links.style.top =
+            "70px";
+
+        links.style.left =
+            "12px";
+
+        links.style.right =
+            "12px";
+
+        links.style.flexDirection =
+            "column";
+
+        links.style.padding =
+            "10px";
+
+        links.style.borderRadius =
+            "25px";
+
+        links.style.background =
+            "rgba(3,17,38,.96)";
+
+        links.style.border =
+            "1px solid rgba(255,255,255,.1)";
+
+        links.style.backdropFilter =
+            "blur(20px)";
+
+    }
+);
+
+
+/* ESCAPE */
+
+function escapeHTML(
+    value
+){
+
+    return String(
+        value ?? ""
+    )
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
+}
+
+
+/* START */
+
+Promise.all([
+    loadFlights(),
+    loadBookings(),
+    loadFleet(),
+    loadDestinations()
+])
+.then(function(){
+
+    systemStatus.textContent =
+        "ONLINE";
+
+})
+.catch(function(){
+
+    systemStatus.textContent =
+        "LIMITED";
+
+});
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,2438 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Staff Operations | CSN Virtual</title>
+
+<style>
+
+:root{
+
+    --blue-950:#020817;
+    --blue-900:#06152f;
+    --blue-800:#09254d;
+    --blue-700:#0b3b78;
+    --blue-600:#1264c7;
+    --blue-500:#2388ff;
+    --blue-300:#8fc5ff;
+
+    --text:#f4f8ff;
+    --muted:#93a6c2;
+
+    --glass:rgba(7,25,54,.72);
+    --glass-light:rgba(255,255,255,.065);
+
+    --border:rgba(255,255,255,.11);
+
+    --green:#35d48a;
+    --red:#ff6474;
+    --orange:#ffb454;
+
+    --radius-xl:32px;
+    --radius-lg:25px;
+    --radius-md:19px;
+}
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+
+    min-height:100vh;
+
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+    color:var(--text);
+
+    background:
+
+        radial-gradient(
+            circle at 80% 0%,
+            rgba(35,136,255,.18),
+            transparent 30%
+        ),
+
+        radial-gradient(
+            circle at 0% 40%,
+            rgba(18,100,199,.12),
+            transparent 28%
+        ),
+
+        var(--blue-950);
+
+    overflow-x:hidden;
+}
+
+button,
+input{
+    font:inherit;
+}
+
+button{
+    -webkit-tap-highlight-color:transparent;
+}
+
+a{
+    color:inherit;
+    text-decoration:none;
+}
+
+/* =========================================
+   TOP NAV
+========================================= */
+
+.nav-wrap{
+
+    position:sticky;
+
+    top:0;
+
+    z-index:1000;
+
+    padding:18px 16px 0;
+
+}
+
+.nav{
+
+    width:min(
+        1180px,
+        100%
+    );
+
+    margin:auto;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:15px;
+
+    padding:10px 12px 10px 18px;
+
+    border-radius:999px;
+
+    background:
+        rgba(3,17,38,.82);
+
+    border:
+        1px solid rgba(255,255,255,.12);
+
+    backdrop-filter:
+        blur(25px);
+
+    -webkit-backdrop-filter:
+        blur(25px);
+
+    box-shadow:
+        0 20px 70px rgba(0,0,0,.3);
+}
+
+.brand{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:11px;
+
+    min-width:max-content;
+}
+
+.brand img{
+
+    width:42px;
+    height:42px;
+
+    border-radius:50%;
+
+    object-fit:cover;
+
+    border:
+        1px solid rgba(255,255,255,.15);
+}
+
+.brand-text{
+
+    display:flex;
+
+    flex-direction:column;
+
+    line-height:1.05;
+}
+
+.brand-name{
+
+    font-size:13px;
+
+    font-weight:850;
+
+    letter-spacing:.04em;
+}
+
+.brand-sub{
+
+    margin-top:4px;
+
+    color:var(--muted);
+
+    font-size:10px;
+}
+
+.nav-links{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:4px;
+}
+
+.nav-link{
+
+    padding:11px 14px;
+
+    border-radius:999px;
+
+    color:#aebed4;
+
+    font-size:12px;
+
+    font-weight:750;
+
+    transition:.2s ease;
+}
+
+.nav-link:hover{
+
+    background:
+        rgba(255,255,255,.06);
+
+    color:white;
+}
+
+.nav-link.active{
+
+    background:
+        rgba(35,136,255,.18);
+
+    color:white;
+
+    box-shadow:
+        inset 0 0 0 1px
+        rgba(90,170,255,.16);
+}
+
+.menu{
+
+    display:none;
+
+    width:43px;
+    height:43px;
+
+    border:1px solid var(--border);
+
+    border-radius:50%;
+
+    background:
+        rgba(255,255,255,.06);
+
+    color:white;
+
+    cursor:pointer;
+
+    font-size:19px;
+}
+
+/* =========================================
+   MAIN
+========================================= */
+
+.container{
+
+    width:min(
+        1180px,
+        calc(100% - 32px)
+    );
+
+    margin:30px auto 80px;
+}
+
+/* =========================================
+   HERO
+========================================= */
+
+.hero{
+
+    position:relative;
+
+    overflow:hidden;
+
+    padding:50px;
+
+    border-radius:var(--radius-xl);
+
+    background:
+
+        radial-gradient(
+            circle at 85% 20%,
+            rgba(35,136,255,.25),
+            transparent 30%
+        ),
+
+        linear-gradient(
+            135deg,
+            rgba(9,38,79,.95),
+            rgba(3,15,33,.98)
+        );
+
+    border:
+        1px solid var(--border);
+
+    box-shadow:
+        0 25px 80px rgba(0,0,0,.25);
+}
+
+.hero::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:350px;
+    height:350px;
+
+    right:-150px;
+    top:-160px;
+
+    border:
+        1px solid
+        rgba(93,174,255,.16);
+
+    border-radius:50%;
+
+    box-shadow:
+        0 0 0 65px rgba(93,174,255,.025),
+        0 0 0 130px rgba(93,174,255,.018);
+}
+
+.kicker{
+
+    color:#6ab1ff;
+
+    font-size:10px;
+
+    font-weight:900;
+
+    letter-spacing:.13em;
+
+    text-transform:uppercase;
+}
+
+.hero h1{
+
+    position:relative;
+
+    z-index:2;
+
+    margin-top:12px;
+
+    max-width:750px;
+
+    font-size:
+        clamp(38px,6vw,70px);
+
+    line-height:.98;
+
+    letter-spacing:-.055em;
+}
+
+.hero p{
+
+    position:relative;
+
+    z-index:2;
+
+    max-width:650px;
+
+    margin-top:20px;
+
+    color:#aebed3;
+
+    font-size:14px;
+
+    line-height:1.7;
+}
+
+/* =========================================
+   STATUS STRIP
+========================================= */
+
+.status-strip{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap:12px;
+
+    margin-top:18px;
+}
+
+.stat{
+
+    padding:20px;
+
+    border-radius:var(--radius-lg);
+
+    background:
+        rgba(7,25,54,.68);
+
+    border:
+        1px solid var(--border);
+
+    backdrop-filter:
+        blur(18px);
+}
+
+.stat-label{
+
+    color:#7288a7;
+
+    font-size:9px;
+
+    font-weight:850;
+
+    letter-spacing:.1em;
+
+    text-transform:uppercase;
+}
+
+.stat-value{
+
+    display:block;
+
+    margin-top:8px;
+
+    font-size:25px;
+
+    font-weight:850;
+}
+
+/* =========================================
+   GRID
+========================================= */
+
+.operations{
+
+    display:grid;
+
+    grid-template-columns:
+        1fr 1.3fr;
+
+    gap:18px;
+
+    margin-top:18px;
+}
+
+/* =========================================
+   PANELS
+========================================= */
+
+.panel{
+
+    padding:27px;
+
+    border-radius:var(--radius-xl);
+
+    background:
+        rgba(7,25,54,.72);
+
+    border:
+        1px solid var(--border);
+
+    box-shadow:
+        0 20px 70px rgba(0,0,0,.18);
+
+    backdrop-filter:
+        blur(18px);
+}
+
+.panel-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:flex-start;
+
+    gap:15px;
+
+    margin-bottom:22px;
+}
+
+.panel-title{
+
+    font-size:23px;
+
+    font-weight:850;
+
+    letter-spacing:-.035em;
+}
+
+.panel-subtitle{
+
+    margin-top:5px;
+
+    color:var(--muted);
+
+    font-size:11px;
+
+    line-height:1.5;
+}
+
+/* =========================================
+   VERIFICATION FORM
+========================================= */
+
+.fields{
+
+    display:grid;
+
+    gap:11px;
+}
+
+.field{
+
+    padding:15px 16px;
+
+    border-radius:var(--radius-md);
+
+    background:
+        rgba(255,255,255,.045);
+
+    border:
+        1px solid rgba(255,255,255,.08);
+
+    transition:.2s ease;
+}
+
+.field:focus-within{
+
+    border-color:
+        rgba(69,157,255,.45);
+
+    background:
+        rgba(35,136,255,.07);
+
+    box-shadow:
+        0 0 0 3px
+        rgba(35,136,255,.08);
+}
+
+.field label{
+
+    display:block;
+
+    margin-bottom:7px;
+
+    color:#7288a7;
+
+    font-size:9px;
+
+    font-weight:900;
+
+    letter-spacing:.1em;
+
+    text-transform:uppercase;
+}
+
+.field input{
+
+    width:100%;
+
+    border:0;
+
+    outline:0;
+
+    background:transparent;
+
+    color:white;
+
+    font-size:14px;
+
+    font-weight:750;
+}
+
+.field input::placeholder{
+
+    color:#617590;
+}
+
+.verify-button{
+
+    width:100%;
+
+    min-height:55px;
+
+    margin-top:15px;
+
+    border:0;
+
+    border-radius:var(--radius-md);
+
+    background:
+        linear-gradient(
+            135deg,
+            #2388ff,
+            #0754b5
+        );
+
+    color:white;
+
+    font-size:12px;
+
+    font-weight:900;
+
+    letter-spacing:.05em;
+
+    cursor:pointer;
+
+    box-shadow:
+        0 15px 35px
+        rgba(14,105,220,.2);
+
+    transition:.2s ease;
+}
+
+.verify-button:hover{
+
+    transform:translateY(-2px);
+
+    filter:brightness(1.08);
+}
+
+.verify-button:disabled{
+
+    opacity:.55;
+
+    cursor:wait;
+
+    transform:none;
+}
+
+/* =========================================
+   RESULT
+========================================= */
+
+.result{
+
+    display:none;
+
+    margin-top:15px;
+
+    padding:20px;
+
+    border-radius:var(--radius-lg);
+
+    background:
+        rgba(255,255,255,.045);
+
+    border:
+        1px solid var(--border);
+}
+
+.result.show{
+    display:block;
+}
+
+.result.valid{
+
+    border-color:
+        rgba(53,212,138,.25);
+
+    background:
+        rgba(53,212,138,.055);
+}
+
+.result.invalid{
+
+    border-color:
+        rgba(255,100,116,.25);
+
+    background:
+        rgba(255,100,116,.055);
+}
+
+.result-title{
+
+    font-size:17px;
+
+    font-weight:850;
+}
+
+.result-message{
+
+    margin-top:6px;
+
+    color:var(--muted);
+
+    font-size:11px;
+
+    line-height:1.5;
+}
+
+/* =========================================
+   TICKET DETAILS
+========================================= */
+
+.ticket-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap:9px;
+
+    margin-top:17px;
+}
+
+.ticket-item{
+
+    padding:14px;
+
+    border-radius:16px;
+
+    background:
+        rgba(255,255,255,.055);
+
+    border:
+        1px solid
+        rgba(255,255,255,.065);
+}
+
+.ticket-item small{
+
+    display:block;
+
+    color:#7185a2;
+
+    font-size:8px;
+
+    font-weight:850;
+
+    text-transform:uppercase;
+
+    letter-spacing:.08em;
+}
+
+.ticket-item strong{
+
+    display:block;
+
+    margin-top:5px;
+
+    font-size:12px;
+
+    word-break:break-word;
+}
+
+/* =========================================
+   ACTIONS
+========================================= */
+
+.actions{
+
+    display:grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap:10px;
+
+    margin-top:15px;
+}
+
+.action{
+
+    min-height:48px;
+
+    border:0;
+
+    border-radius:16px;
+
+    color:white;
+
+    font-size:10px;
+
+    font-weight:900;
+
+    cursor:pointer;
+
+    transition:.2s ease;
+}
+
+.action:hover{
+
+    transform:translateY(-2px);
+}
+
+.action.check{
+
+    background:
+        linear-gradient(
+            135deg,
+            #2388ff,
+            #0754b5
+        );
+}
+
+.action.board{
+
+    background:
+        linear-gradient(
+            135deg,
+            #123865,
+            #071d43
+        );
+
+    border:
+        1px solid
+        rgba(255,255,255,.1);
+}
+
+.action:disabled{
+
+    opacity:.35;
+
+    cursor:not-allowed;
+
+    transform:none;
+}
+
+/* =========================================
+   OPERATIONS INFO
+========================================= */
+
+.info-list{
+
+    display:grid;
+
+    gap:10px;
+}
+
+.info-row{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:15px;
+
+    padding:16px;
+
+    border-radius:17px;
+
+    background:
+        rgba(255,255,255,.04);
+
+    border:
+        1px solid
+        rgba(255,255,255,.065);
+}
+
+.info-left strong{
+
+    display:block;
+
+    font-size:12px;
+}
+
+.info-left span{
+
+    display:block;
+
+    margin-top:4px;
+
+    color:var(--muted);
+
+    font-size:10px;
+}
+
+.badge{
+
+    padding:7px 10px;
+
+    border-radius:999px;
+
+    font-size:8px;
+
+    font-weight:900;
+
+    letter-spacing:.06em;
+
+    white-space:nowrap;
+}
+
+.badge.green{
+
+    color:#77f1b0;
+
+    background:
+        rgba(53,212,138,.1);
+}
+
+.badge.blue{
+
+    color:#7dbdff;
+
+    background:
+        rgba(35,136,255,.1);
+}
+
+/* =========================================
+   FOOTER
+========================================= */
+
+footer{
+
+    width:min(
+        1180px,
+        calc(100% - 32px)
+    );
+
+    margin:0 auto 50px;
+
+    padding:25px;
+
+    border-radius:var(--radius-xl);
+
+    background:
+        rgba(7,25,54,.5);
+
+    border:
+        1px solid var(--border);
+
+    color:#7185a2;
+
+    font-size:10px;
+
+    line-height:1.7;
+
+    text-align:center;
+}
+
+/* =========================================
+   TOAST
+========================================= */
+
+.toast{
+
+    position:fixed;
+
+    left:50%;
+
+    bottom:25px;
+
+    transform:
+        translate(-50%,20px);
+
+    z-index:2000;
+
+    width:min(
+        430px,
+        calc(100% - 30px)
+    );
+
+    padding:15px 18px;
+
+    border-radius:18px;
+
+    background:
+        rgba(3,17,38,.92);
+
+    border:
+        1px solid var(--border);
+
+    box-shadow:
+        0 20px 60px rgba(0,0,0,.35);
+
+    backdrop-filter:blur(20px);
+
+    opacity:0;
+
+    pointer-events:none;
+
+    transition:.25s ease;
+
+    font-size:11px;
+
+    font-weight:750;
+
+    text-align:center;
+}
+
+.toast.show{
+
+    opacity:1;
+
+    transform:
+        translate(-50%,0);
+}
+
+.toast.success{
+
+    border-color:
+        rgba(53,212,138,.3);
+}
+
+.toast.error{
+
+    border-color:
+        rgba(255,100,116,.3);
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media(max-width:850px){
+
+    .nav-links{
+        display:none;
+    }
+
+    .menu{
+        display:grid;
+        place-items:center;
+    }
+
+    .operations{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .status-strip{
+
+        grid-template-columns:
+            1fr 1fr;
+
+    }
+
+}
+
+@media(max-width:600px){
+
+    .nav-wrap{
+
+        padding:
+            12px 12px 0;
+
+    }
+
+    .container{
+
+        width:
+            calc(100% - 20px);
+
+        margin-top:18px;
+
+    }
+
+    .hero{
+
+        padding:30px 22px;
+
+        border-radius:26px;
+
+    }
+
+    .panel{
+
+        padding:20px;
+
+        border-radius:26px;
+
+    }
+
+    .status-strip{
+
+        grid-template-columns:1fr 1fr;
+
+    }
+
+    .ticket-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .actions{
+
+        grid-template-columns:1fr;
+
+    }
+
+    footer{
+
+        width:
+            calc(100% - 20px);
+
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- =========================================
+     NAVIGATION
+========================================= -->
+
+<div class="nav-wrap">
+
+<nav class="nav">
+
+    <a
+        href="index.html"
+        class="brand"
+    >
+
+        <img
+            src="https://raw.githubusercontent.com/djblessingm-crypto/SOUT-IMAGE/refs/heads/main/China%20Southern%20Airlines%20%C4%B0stanbul%20Acentas%C4%B1.jfif"
+            alt="CSN Virtual"
+            width="42"
+            height="42"
+        >
+
+        <span class="brand-text">
+
+            <span class="brand-name">
+                CSN VIRTUAL
+            </span>
+
+            <span class="brand-sub">
+                Staff Operations
+            </span>
+
+        </span>
+
+    </a>
+
+    <div class="nav-links">
+
+        <a
+            href="index.html"
+            class="nav-link"
+        >
+            Home
+        </a>
+
+        <a
+            href="flights.html"
+            class="nav-link"
+        >
+            Flights
+        </a>
+
+        <a
+            href="destinations.html"
+            class="nav-link"
+        >
+            Destinations
+        </a>
+
+        <a
+            href="fleet.html"
+            class="nav-link"
+        >
+            Fleet
+        </a>
+
+        <a
+            href="profile.html"
+            class="nav-link"
+        >
+            Profile
+        </a>
+
+    </div>
+
+    <button
+        class="menu"
+        id="menuButton"
+        type="button"
+        aria-label="Open navigation"
+    >
+        ☰
+    </button>
+
+</nav>
+
+</div>
+
+
+<main class="container">
+
+<!-- =========================================
+     HERO
+========================================= -->
+
+<section class="hero">
+
+    <div class="kicker">
+        CSN Operations
+    </div>
+
+    <h1>
+        Staff operations,
+        <br>
+        <span style="color:#74b8ff;">
+            connected.
+        </span>
+    </h1>
+
+    <p>
+        Verify passengers, manage check-in and control boarding
+        through the connected CSN Virtual ticket system.
+    </p>
+
+</section>
+
+
+<!-- =========================================
+     STATS
+========================================= -->
+
+<section class="status-strip">
+
+    <div class="stat">
+
+        <span class="stat-label">
+            Operations
+        </span>
+
+        <strong
+            class="stat-value"
+            id="operationStatus"
+        >
+            READY
+        </strong>
+
+    </div>
+
+    <div class="stat">
+
+        <span class="stat-label">
+            Verification
+        </span>
+
+        <strong
+            class="stat-value"
+            id="verificationStatus"
+        >
+            WAITING
+        </strong>
+
+    </div>
+
+    <div class="stat">
+
+        <span class="stat-label">
+            Check-in
+        </span>
+
+        <strong
+            class="stat-value"
+            id="checkInStatus"
+        >
+            —
+        </strong>
+
+    </div>
+
+    <div class="stat">
+
+        <span class="stat-label">
+            Boarding
+        </span>
+
+        <strong
+            class="stat-value"
+            id="boardingStatus"
+        >
+            —
+        </strong>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================
+     OPERATIONS
+========================================= -->
+
+<section class="operations">
+
+
+<!-- VERIFICATION -->
+
+<div class="panel">
+
+    <div class="panel-header">
+
+        <div>
+
+            <div class="panel-title">
+                Verify Ticket
+            </div>
+
+            <div class="panel-subtitle">
+                Enter all passenger verification credentials.
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="fields">
+
+        <div class="field">
+
+            <label>
+                QR / Ticket Token
+            </label>
+
+            <input
+                id="ticketToken"
+                autocomplete="off"
+                placeholder="Scan or enter ticket token"
+            >
+
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                Booking Reference
+            </label>
+
+            <input
+                id="bookingReference"
+                autocomplete="off"
+                placeholder="CSNXXXXX"
+            >
+
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                Passenger Code
+            </label>
+
+            <input
+                id="passengerCode"
+                autocomplete="off"
+                placeholder="XXXXXX"
+            >
+
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                Security Code
+            </label>
+
+            <input
+                id="securityCode"
+                autocomplete="off"
+                placeholder="XXXX-XXXX"
+            >
+
+        </div>
+
+    </div>
+
+
+    <button
+        class="verify-button"
+        id="verifyButton"
+        type="button"
+    >
+        VERIFY PASSENGER
+    </button>
+
+
+    <div
+        class="result"
+        id="result"
+    >
+
+        <div
+            class="result-title"
+            id="resultTitle"
+        ></div>
+
+        <div
+            class="result-message"
+            id="resultMessage"
+        ></div>
+
+        <div
+            class="ticket-grid"
+            id="ticketGrid"
+        ></div>
+
+
+        <div class="actions">
+
+            <button
+                class="action check"
+                id="checkInButton"
+                type="button"
+                disabled
+            >
+                CHECK IN
+            </button>
+
+            <button
+                class="action board"
+                id="boardButton"
+                type="button"
+                disabled
+            >
+                BOARD PASSENGER
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- OPERATIONS INFORMATION -->
+
+<div class="panel">
+
+    <div class="panel-header">
+
+        <div>
+
+            <div class="panel-title">
+                Operations Center
+            </div>
+
+            <div class="panel-subtitle">
+                Current staff-side operational controls.
+            </div>
+
+        </div>
+
+        <div class="badge green">
+            ONLINE
+        </div>
+
+    </div>
+
+
+    <div class="info-list">
+
+        <div class="info-row">
+
+            <div class="info-left">
+
+                <strong>
+                    Ticket verification
+                </strong>
+
+                <span>
+                    Verify QR token and three passenger codes.
+                </span>
+
+            </div>
+
+            <div class="badge blue">
+                ACTIVE
+            </div>
+
+        </div>
+
+
+        <div class="info-row">
+
+            <div class="info-left">
+
+                <strong>
+                    Passenger check-in
+                </strong>
+
+                <span>
+                    Available after successful verification.
+                </span>
+
+            </div>
+
+            <div class="badge blue">
+                READY
+            </div>
+
+        </div>
+
+
+        <div class="info-row">
+
+            <div class="info-left">
+
+                <strong>
+                    Boarding control
+                </strong>
+
+                <span>
+                    Boarding requires successful check-in.
+                </span>
+
+            </div>
+
+            <div class="badge blue">
+                READY
+            </div>
+
+        </div>
+
+
+        <div class="info-row">
+
+            <div class="info-left">
+
+                <strong>
+                    Ticket reuse protection
+                </strong>
+
+                <span>
+                    Already-boarded passengers cannot board again.
+                </span>
+
+            </div>
+
+            <div class="badge green">
+                PROTECTED
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</section>
+
+</main>
+
+
+<footer>
+
+    © 2026 China Southern Airlines Virtual (CSN).
+    All rights reserved.
+    China Southern Airlines Virtual is a fan-created
+    virtual airline operated for PTFS.
+
+</footer>
+
+
+<div
+    class="toast"
+    id="toast"
+    aria-live="polite"
+></div>
+
+
+<script>
+
+let verifiedBooking = null;
+
+
+/* =========================================
+   ELEMENTS
+========================================= */
+
+const ticketToken =
+    document.getElementById(
+        "ticketToken"
+    );
+
+const bookingReference =
+    document.getElementById(
+        "bookingReference"
+    );
+
+const passengerCode =
+    document.getElementById(
+        "passengerCode"
+    );
+
+const securityCode =
+    document.getElementById(
+        "securityCode"
+    );
+
+const verifyButton =
+    document.getElementById(
+        "verifyButton"
+    );
+
+const result =
+    document.getElementById(
+        "result"
+    );
+
+const resultTitle =
+    document.getElementById(
+        "resultTitle"
+    );
+
+const resultMessage =
+    document.getElementById(
+        "resultMessage"
+    );
+
+const ticketGrid =
+    document.getElementById(
+        "ticketGrid"
+    );
+
+const checkInButton =
+    document.getElementById(
+        "checkInButton"
+    );
+
+const boardButton =
+    document.getElementById(
+        "boardButton"
+    );
+
+const toast =
+    document.getElementById(
+        "toast"
+    );
+
+const operationStatus =
+    document.getElementById(
+        "operationStatus"
+    );
+
+const verificationStatus =
+    document.getElementById(
+        "verificationStatus"
+    );
+
+const checkInStatus =
+    document.getElementById(
+        "checkInStatus"
+    );
+
+const boardingStatus =
+    document.getElementById(
+        "boardingStatus"
+    );
+
+
+/* =========================================
+   TOAST
+========================================= */
+
+function showToast(
+    message,
+    type="success"
+){
+
+    toast.textContent =
+        message;
+
+    toast.className =
+        "toast show " +
+        type;
+
+    setTimeout(
+        function(){
+
+            toast.className =
+                "toast";
+
+        },
+        2800
+    );
+}
+
+
+/* =========================================
+   ESCAPE HTML
+========================================= */
+
+function escapeHTML(
+    value
+){
+
+    return String(
+        value ?? ""
+    )
+
+    .replaceAll(
+        "&",
+        "&amp;"
+    )
+
+    .replaceAll(
+        "<",
+        "&lt;"
+    )
+
+    .replaceAll(
+        ">",
+        "&gt;"
+    )
+
+    .replaceAll(
+        '"',
+        "&quot;"
+    )
+
+    .replaceAll(
+        "'",
+        "&#039;"
+    );
+
+}
+
+
+/* =========================================
+   RESET RESULT
+========================================= */
+
+function resetResult(){
+
+    verifiedBooking =
+        null;
+
+    result.className =
+        "result";
+
+    resultTitle.textContent =
+        "";
+
+    resultMessage.textContent =
+        "";
+
+    ticketGrid.innerHTML =
+        "";
+
+    checkInButton.disabled =
+        true;
+
+    boardButton.disabled =
+        true;
+
+    checkInStatus.textContent =
+        "—";
+
+    boardingStatus.textContent =
+        "—";
+
+}
+
+
+/* =========================================
+   VERIFY
+========================================= */
+
+verifyButton.addEventListener(
+    "click",
+    async function(){
+
+        const data = {
+
+            ticketToken:
+                ticketToken.value.trim(),
+
+            bookingReference:
+                bookingReference.value.trim(),
+
+            passengerCode:
+                passengerCode.value.trim(),
+
+            securityCode:
+                securityCode.value.trim()
+
+        };
+
+
+        if(
+            !data.ticketToken ||
+            !data.bookingReference ||
+            !data.passengerCode ||
+            !data.securityCode
+        ){
+
+            showToast(
+                "Enter all four verification fields.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        resetResult();
+
+
+        verifyButton.disabled =
+            true;
+
+        verifyButton.textContent =
+            "VERIFYING...";
+
+        operationStatus.textContent =
+            "VERIFYING";
+
+        verificationStatus.textContent =
+            "CHECKING";
+
+
+        try{
+
+            const response =
+                await fetch(
+                    "/api/tickets/verify",
+                    {
+
+                        method:"POST",
+
+                        headers:{
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body:
+                            JSON.stringify(data)
+
+                    }
+                );
+
+
+            const resultData =
+                await response.json();
+
+
+            if(
+                !response.ok
+            ){
+
+                result.className =
+                    "result show invalid";
+
+                resultTitle.textContent =
+                    "INVALID TICKET";
+
+                resultMessage.textContent =
+                    resultData.message ||
+                    "The ticket could not be verified.";
+
+                verificationStatus.textContent =
+                    "INVALID";
+
+                operationStatus.textContent =
+                    "READY";
+
+                showToast(
+                    resultData.message ||
+                    "Ticket verification failed.",
+                    "error"
+                );
+
+                return;
+
+            }
+
+
+            verifiedBooking =
+                resultData.booking;
+
+
+            const passenger =
+                verifiedBooking
+                    .passengers?.[0];
+
+
+            result.className =
+                "result show valid";
+
+
+            resultTitle.textContent =
+                "VALID CSN VIRTUAL TICKET";
+
+
+            resultMessage.textContent =
+                "Passenger credentials successfully matched the booking.";
+
+
+            ticketGrid.innerHTML = `
+
+                <div class="ticket-item">
+
+                    <small>
+                        Passenger
+                    </small>
+
+                    <strong>
+                        ${escapeHTML(
+                            passenger?.name ||
+                            "Passenger"
+                        )}
+                    </strong>
+
+                </div>
+
+
+                <div class="ticket-item">
+
+                    <small>
+                        Flight
+                    </small>
+
+                    <strong>
+                        ${escapeHTML(
+                            verifiedBooking.flightNumber ||
+                            "—"
+                        )}
+                    </strong>
+
+                </div>
+
+
+                <div class="ticket-item">
+
+                    <small>
+                        Route
+                    </small>
+
+                    <strong>
+                        ${escapeHTML(
+                            verifiedBooking.origin ||
+                            "—"
+                        )}
+                        →
+                        ${escapeHTML(
+                            verifiedBooking.destination ||
+                            "—"
+                        )}
+                    </strong>
+
+                </div>
+
+
+                <div class="ticket-item">
+
+                    <small>
+                        Date
+                    </small>
+
+                    <strong>
+                        ${escapeHTML(
+                            verifiedBooking.departureDate ||
+                            "—"
+                        )}
+                    </strong>
+
+                </div>
+
+
+                <div class="ticket-item">
+
+                    <small>
+                        Aircraft
+                    </small>
+
+                    <strong>
+                        ${escapeHTML(
+                            verifiedBooking.aircraft ||
+                            "—"
+                        )}
+                    </strong>
+
+                </div>
+
+
+                <div class="ticket-item">
+
+                    <small>
+                        Status
+                    </small>
+
+                    <strong>
+                        ${escapeHTML(
+                            verifiedBooking.status ||
+                            "—"
+                        )}
+                    </strong>
+
+                </div>
+
+            `;
+
+
+            verificationStatus.textContent =
+                "VALID";
+
+            operationStatus.textContent =
+                "READY";
+
+
+            checkInButton.disabled =
+                Boolean(
+                    verifiedBooking.checkedIn
+                );
+
+
+            boardButton.disabled =
+                !verifiedBooking.checkedIn ||
+                Boolean(
+                    verifiedBooking.boarded
+                );
+
+
+            checkInStatus.textContent =
+                verifiedBooking.checkedIn
+                    ? "DONE"
+                    : "WAITING";
+
+
+            boardingStatus.textContent =
+                verifiedBooking.boarded
+                    ? "DONE"
+                    : "WAITING";
+
+
+            if(
+                verifiedBooking.boarded
+            ){
+
+                resultTitle.textContent =
+                    "PASSENGER ALREADY BOARDED";
+
+                checkInButton.disabled =
+                    true;
+
+                boardButton.disabled =
+                    true;
+
+            }
+
+
+            showToast(
+                "Ticket verified successfully."
+            );
+
+
+        }catch(error){
+
+            result.className =
+                "result show invalid";
+
+            resultTitle.textContent =
+                "SERVER CONNECTION ERROR";
+
+            resultMessage.textContent =
+                "The staff panel could not connect to the CSN server.";
+
+            verificationStatus.textContent =
+                "OFFLINE";
+
+            operationStatus.textContent =
+                "SERVER ERROR";
+
+
+            showToast(
+                "Could not connect to the CSN server.",
+                "error"
+            );
+
+        }finally{
+
+            verifyButton.disabled =
+                false;
+
+            verifyButton.textContent =
+                "VERIFY PASSENGER";
+
+        }
+
+    }
+);
+
+
+/* =========================================
+   CHECK IN
+========================================= */
+
+checkInButton.addEventListener(
+    "click",
+    async function(){
+
+        if(
+            !verifiedBooking
+        ){
+            return;
+        }
+
+
+        checkInButton.disabled =
+            true;
+
+        checkInButton.textContent =
+            "CHECKING IN...";
+
+
+        try{
+
+            const response =
+                await fetch(
+                    "/api/tickets/check-in",
+                    {
+
+                        method:"POST",
+
+                        headers:{
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body:
+                            JSON.stringify({
+
+                                bookingReference:
+                                    verifiedBooking
+                                    .bookingReference
+
+                            })
+
+                    }
+                );
+
+
+            const data =
+                await response.json();
+
+
+            if(
+                !response.ok
+            ){
+
+                checkInButton.disabled =
+                    false;
+
+                showToast(
+                    data.message ||
+                    "Check-in failed.",
+                    "error"
+                );
+
+                return;
+
+            }
+
+
+            verifiedBooking =
+                data.booking;
+
+
+            checkInButton.disabled =
+                true;
+
+            checkInButton.textContent =
+                "CHECKED IN";
+
+
+            boardButton.disabled =
+                Boolean(
+                    verifiedBooking.boarded
+                );
+
+
+            checkInStatus.textContent =
+                "DONE";
+
+
+            showToast(
+                "Passenger successfully checked in."
+            );
+
+
+        }catch(error){
+
+            checkInButton.disabled =
+                false;
+
+            showToast(
+                "Check-in connection failed.",
+                "error"
+            );
+
+        }
+
+    }
+);
+
+
+/* =========================================
+   BOARD
+========================================= */
+
+boardButton.addEventListener(
+    "click",
+    async function(){
+
+        if(
+            !verifiedBooking
+        ){
+            return;
+        }
+
+
+        boardButton.disabled =
+            true;
+
+        boardButton.textContent =
+            "BOARDING...";
+
+
+        try{
+
+            const response =
+                await fetch(
+                    "/api/tickets/board",
+                    {
+
+                        method:"POST",
+
+                        headers:{
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body:
+                            JSON.stringify({
+
+                                bookingReference:
+                                    verifiedBooking
+                                    .bookingReference
+
+                            })
+
+                    }
+                );
+
+
+            const data =
+                await response.json();
+
+
+            if(
+                !response.ok
+            ){
+
+                boardButton.disabled =
+                    false;
+
+                showToast(
+                    data.message ||
+                    "Boarding failed.",
+                    "error"
+                );
+
+                return;
+
+            }
+
+
+            verifiedBooking =
+                data.booking;
+
+
+            boardButton.disabled =
+                true;
+
+            boardButton.textContent =
+                "PASSENGER BOARDED";
+
+
+            boardingStatus.textContent =
+                "DONE";
+
+
+            resultTitle.textContent =
+                "PASSENGER BOARDED";
+
+            resultMessage.textContent =
+                "Boarding has been recorded successfully. This ticket cannot be boarded again.";
+
+
+            showToast(
+                "Passenger successfully boarded."
+            );
+
+
+        }catch(error){
+
+            boardButton.disabled =
+                false;
+
+            showToast(
+                "Boarding connection failed.",
+                "error"
+            );
+
+        }
+
+    }
+);
+
+
+/* =========================================
+   MOBILE NAV
+========================================= */
+
+document
+    .getElementById("menuButton")
+    .addEventListener(
+        "click",
+        function(){
+
+            const links =
+                document.querySelector(
+                    ".nav-links"
+                );
+
+
+            if(
+                links.style.display ===
+                "flex"
+            ){
+
+                links.style.display =
+                    "";
+
+            }else{
+
+                links.style.display =
+                    "flex";
+
+                links.style.position =
+                    "absolute";
+
+                links.style.top =
+                    "72px";
+
+                links.style.left =
+                    "0";
+
+                links.style.right =
+                    "0";
+
+                links.style.flexDirection =
+                    "column";
+
+                links.style.padding =
+                    "10px";
+
+                links.style.borderRadius =
+                    "25px";
+
+                links.style.background =
+                    "rgba(3,17,38,.95)";
+
+                links.style.border =
+                    "1px solid rgba(255,255,255,.1)";
+
+                links.style.backdropFilter =
+                    "blur(20px)";
+
+            }
+
+        }
+    );
+
+
+/* =========================================
+   ENTER KEY
+========================================= */
+
+[
+    ticketToken,
+    bookingReference,
+    passengerCode,
+    securityCode
+].forEach(
+    function(input){
+
+        input.addEventListener(
+            "keydown",
+            function(event){
+
+                if(
+                    event.key ===
+                    "Enter"
+                ){
+
+                    verifyButton.click();
+
+                }
+
+            }
+        );
+
+    }
+);
+
+</script>
+
+</body>
+
+</html>

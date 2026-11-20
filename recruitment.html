@@ -1,0 +1,1158 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#edf7ff">
+  <meta name="description" content="Join China Southern Airlines Virtual. Explore our recruitment opportunities and apply today.">
+  <title>Recruitment | China Southern Airlines Virtual</title>
+
+  <style>
+    :root {
+      --white:#fff;
+      --blue:#0878d1;
+      --blue-dark:#063b76;
+      --blue-light:#eaf5ff;
+      --navy:#10243d;
+      --muted:#63748a;
+      --border:rgba(12,76,135,.13);
+      --glass:rgba(255,255,255,.62);
+      --shadow:0 22px 70px rgba(10,69,125,.13),inset 0 1px 0 rgba(255,255,255,.9);
+      --radius:28px;
+      --max:1240px;
+    }
+
+    * { box-sizing:border-box; }
+
+    html {
+      scroll-behavior:smooth;
+      scroll-padding-top:112px;
+    }
+
+    body {
+      margin:0;
+      color:var(--navy);
+      font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      line-height:1.65;
+      overflow-x:hidden;
+      background:
+        radial-gradient(ellipse at 8% 8%,rgba(68,169,255,.13),transparent 32%),
+        radial-gradient(ellipse at 92% 38%,rgba(0,111,210,.10),transparent 30%),
+        linear-gradient(145deg,#fafdff,#edf7ff 48%,#fff);
+      background-attachment:fixed;
+    }
+
+    body:before {
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      z-index:-1;
+      background-image:radial-gradient(rgba(8,120,209,.12) .7px,transparent .7px);
+      background-size:24px 24px;
+      opacity:.18;
+    }
+
+    a { color:inherit;text-decoration:none; }
+    img { display:block;max-width:100%; }
+    button,a { -webkit-tap-highlight-color:transparent; }
+    button { cursor:pointer; }
+
+    :focus-visible {
+      outline:3px solid var(--blue);
+      outline-offset:4px;
+    }
+
+    .container {
+      width:min(var(--max),calc(100% - 40px));
+      margin:auto;
+    }
+
+    .section {
+      padding:88px 0;
+      position:relative;
+      scroll-margin-top:112px;
+    }
+
+    .eyebrow {
+      display:inline-flex;
+      align-items:center;
+      gap:9px;
+      color:var(--blue);
+      font-size:.76rem;
+      font-weight:850;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      margin-bottom:13px;
+    }
+
+    .eyebrow:before {
+      content:"";
+      width:24px;
+      height:3px;
+      border-radius:9px;
+      background:var(--blue);
+    }
+
+    h1,h2,h3,p { margin-top:0; }
+    h1,h2,h3 { line-height:1.12;letter-spacing:-.035em; }
+
+    h1 { font-size:clamp(2.7rem,6.5vw,5.7rem); }
+    h2 { font-size:clamp(2rem,4vw,3.4rem); }
+    h3 { font-size:1.3rem; }
+
+    .accent { color:var(--blue); }
+    .muted { color:var(--muted); }
+
+    /* TOPBAR */
+
+    .topbar {
+      background:rgba(5,48,94,.88);
+      color:#eaf5ff;
+      padding:7px 0;
+      font-size:.78rem;
+      backdrop-filter:blur(20px);
+      -webkit-backdrop-filter:blur(20px);
+      border-bottom:1px solid rgba(255,255,255,.2);
+    }
+
+    .topbar-inner {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+    }
+
+    .topbar a { color:white;font-weight:750; }
+
+    /* NAVIGATION */
+
+    .navbar {
+      position:sticky;
+      top:0;
+      z-index:1000;
+      background:rgba(255,255,255,.58);
+      border:1px solid rgba(255,255,255,.88);
+      border-left:0;
+      border-right:0;
+      box-shadow:0 12px 38px rgba(20,91,150,.10),inset 0 1px 0 #fff;
+      backdrop-filter:blur(30px) saturate(175%);
+      -webkit-backdrop-filter:blur(30px) saturate(175%);
+    }
+
+    .nav-inner {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+      min-height:86px;
+    }
+
+    .brand {
+      display:flex;
+      align-items:center;
+      gap:12px;
+      min-width:0;
+    }
+
+    .brand img {
+      width:52px;
+      height:52px;
+      object-fit:contain;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.9);
+      box-shadow:0 8px 24px rgba(0,83,155,.16);
+    }
+
+    .brand-name {
+      font-weight:900;
+      letter-spacing:-.035em;
+      line-height:1.2;
+    }
+
+    .brand-name span {
+      display:block;
+      font-size:.69rem;
+      color:var(--muted);
+      font-weight:700;
+      margin-top:4px;
+    }
+
+    .desktop-nav {
+      display:flex;
+      align-items:center;
+      gap:5px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+
+    .desktop-nav a {
+      padding:10px 11px;
+      border:1px solid transparent;
+      border-radius:999px;
+      font-size:.83rem;
+      font-weight:750;
+      color:#3b526b;
+      transition:transform .25s,background .25s,box-shadow .25s;
+    }
+
+    .desktop-nav a:hover,
+    .desktop-nav a.active {
+      color:var(--blue);
+      background:rgba(222,241,255,.76);
+      border-color:#fff;
+      box-shadow:0 6px 18px rgba(0,100,180,.09);
+      transform:translateY(-1px);
+    }
+
+    .desktop-nav .nav-cta {
+      background:linear-gradient(135deg,#168fe8,#0754a0);
+      color:white;
+      padding-inline:17px;
+      box-shadow:0 9px 24px rgba(8,120,209,.25),inset 0 1px 0 rgba(255,255,255,.35);
+    }
+
+    .desktop-nav .nav-cta:hover {
+      color:white;
+      background:linear-gradient(135deg,#168fe8,#0754a0);
+    }
+
+    /* HERO */
+
+    .hero {
+      min-height:510px;
+      padding:100px 0 75px;
+      overflow:hidden;
+      position:relative;
+      background:
+        radial-gradient(ellipse at 82% 18%,rgba(8,120,209,.17),transparent 36%),
+        transparent;
+    }
+
+    .hero-grid {
+      display:grid;
+      grid-template-columns:1.04fr .96fr;
+      align-items:center;
+      gap:45px;
+    }
+
+    .hero h1 { margin-bottom:22px; }
+
+    .hero-copy>p {
+      max-width:610px;
+      font-size:1.12rem;
+      color:var(--muted);
+    }
+
+    .hero-actions {
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:28px;
+    }
+
+    .btn {
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      min-height:48px;
+      padding:12px 22px;
+      border:1px solid transparent;
+      border-radius:999px;
+      background:linear-gradient(135deg,#168fe8,#0754a0);
+      color:white;
+      font-weight:800;
+      font-size:.92rem;
+      transition:transform .3s,box-shadow .3s,background .3s;
+      box-shadow:0 10px 25px rgba(8,120,209,.20),inset 0 1px 0 rgba(255,255,255,.32);
+    }
+
+    .btn:hover {
+      transform:translateY(-3px);
+      box-shadow:0 15px 35px rgba(8,120,209,.3);
+    }
+
+    .btn-outline {
+      background:rgba(255,255,255,.48);
+      color:var(--blue);
+      border-color:rgba(8,120,209,.28);
+      box-shadow:inset 0 1px 0 #fff;
+    }
+
+    .btn-outline:hover { background:rgba(222,241,255,.8); }
+
+    .hero-visual {
+      position:relative;
+      min-height:370px;
+      display:grid;
+      place-items:center;
+    }
+
+    .hero-image {
+      width:100%;
+      height:350px;
+      object-fit:cover;
+      border-radius:42px;
+      border:1px solid rgba(255,255,255,.82);
+      box-shadow:0 22px 60px rgba(8,65,120,.16);
+      background:var(--blue-light);
+    }
+
+    .hero-float {
+      position:absolute;
+      bottom:15px;
+      left:-20px;
+      max-width:260px;
+      padding:18px 20px;
+      border-radius:24px;
+      animation:float 5s ease-in-out infinite;
+      background:rgba(255,255,255,.64);
+      border:1px solid rgba(255,255,255,.95);
+      box-shadow:0 18px 50px rgba(8,65,120,.17),inset 0 1px 0 #fff;
+      backdrop-filter:blur(28px) saturate(180%);
+      -webkit-backdrop-filter:blur(28px) saturate(180%);
+    }
+
+    .hero-float strong {
+      display:block;
+      color:var(--blue-dark);
+      font-size:1.05rem;
+    }
+
+    .hero-float span {
+      color:var(--muted);
+      font-size:.82rem;
+    }
+
+    .hero-orbit {
+      position:absolute;
+      top:0;
+      right:-12px;
+      width:125px;
+      height:125px;
+      border:1px solid #0878d133;
+      border-radius:50%;
+      animation:orbit 18s linear infinite;
+    }
+
+    .hero-orbit:after {
+      content:"";
+      position:absolute;
+      top:12px;
+      left:12px;
+      width:15px;
+      height:15px;
+      border-radius:50%;
+      background:var(--blue);
+      box-shadow:0 0 0 7px #0878d122;
+    }
+
+    /* APPLICATIONS */
+
+    .section-heading {
+      max-width:760px;
+      margin-bottom:38px;
+    }
+
+    .section-heading p {
+      max-width:660px;
+      color:var(--muted);
+      font-size:1.04rem;
+    }
+
+    .application-grid {
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:22px;
+    }
+
+    .application-card {
+      position:relative;
+      display:flex;
+      flex-direction:column;
+      min-width:0;
+      padding:28px;
+      border-radius:var(--radius);
+      background:rgba(255,255,255,.58);
+      border:1px solid rgba(255,255,255,.88);
+      box-shadow:0 18px 55px rgba(13,75,130,.10),inset 0 1px 0 rgba(255,255,255,.95);
+      backdrop-filter:blur(24px) saturate(165%);
+      -webkit-backdrop-filter:blur(24px) saturate(165%);
+      overflow:hidden;
+      transition:transform .3s,box-shadow .3s;
+    }
+
+    .application-card:hover {
+      transform:translateY(-7px);
+      box-shadow:0 24px 65px rgba(8,91,160,.18);
+    }
+
+    .application-card:before {
+      content:"";
+      position:absolute;
+      width:190px;
+      height:190px;
+      right:-95px;
+      top:-110px;
+      background:rgba(68,169,255,.16);
+      filter:blur(35px);
+      border-radius:50%;
+      pointer-events:none;
+    }
+
+    .application-card>* {
+      position:relative;
+      z-index:1;
+    }
+
+    .card-top {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:25px;
+    }
+
+    .role-number {
+      color:var(--blue);
+      font-size:.76rem;
+      font-weight:900;
+      letter-spacing:.12em;
+    }
+
+    .pill {
+      display:inline-flex;
+      padding:6px 12px;
+      border-radius:24px;
+      background:rgba(220,241,255,.78);
+      border:1px solid rgba(255,255,255,.9);
+      color:var(--blue-dark);
+      font-size:.76rem;
+      font-weight:800;
+      backdrop-filter:blur(12px);
+      -webkit-backdrop-filter:blur(12px);
+    }
+
+    .icon-box {
+      display:grid;
+      place-items:center;
+      width:58px;
+      height:58px;
+      border-radius:24px;
+      color:var(--blue);
+      background:var(--blue-light);
+      margin-bottom:22px;
+      border:1px solid rgba(255,255,255,.9);
+      box-shadow:0 8px 22px rgba(8,120,209,.08);
+    }
+
+    .icon-box svg {
+      width:27px;
+      height:27px;
+      stroke:currentColor;
+      fill:none;
+      stroke-width:1.7;
+      stroke-linecap:round;
+      stroke-linejoin:round;
+    }
+
+    .application-card h3 {
+      margin-bottom:13px;
+      font-size:1.55rem;
+    }
+
+    .application-card p {
+      color:var(--muted);
+      font-size:.94rem;
+      line-height:1.8;
+      margin-bottom:27px;
+      flex:1;
+    }
+
+    .role-divider {
+      height:1px;
+      width:100%;
+      background:var(--border);
+      margin:0 0 22px;
+    }
+
+    .apply-button {
+      width:100%;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      min-height:50px;
+      padding:12px 22px;
+      border:1px solid transparent;
+      border-radius:999px;
+      background:linear-gradient(135deg,#168fe8,#0754a0);
+      color:white;
+      font-weight:800;
+      font-size:.92rem;
+      transition:transform .3s,box-shadow .3s;
+      box-shadow:0 10px 25px rgba(8,120,209,.20),inset 0 1px 0 rgba(255,255,255,.32);
+    }
+
+    .apply-button:hover {
+      transform:translateY(-3px);
+      box-shadow:0 15px 35px rgba(8,120,209,.3);
+    }
+
+    .apply-button svg {
+      width:17px;
+      height:17px;
+      stroke:currentColor;
+      fill:none;
+      stroke-width:2;
+      stroke-linecap:round;
+      stroke-linejoin:round;
+    }
+
+    /* INFORMATION PANEL */
+
+    .information-panel {
+      display:grid;
+      grid-template-columns:1fr auto;
+      align-items:center;
+      gap:25px;
+      padding:32px;
+      margin-top:55px;
+      border-radius:32px;
+      background:rgba(255,255,255,.58);
+      border:1px solid rgba(255,255,255,.88);
+      box-shadow:var(--shadow);
+      backdrop-filter:blur(24px);
+      -webkit-backdrop-filter:blur(24px);
+    }
+
+    .information-panel h3 {
+      margin-bottom:9px;
+    }
+
+    .information-panel p {
+      color:var(--muted);
+      font-size:.93rem;
+      margin-bottom:0;
+      max-width:700px;
+    }
+
+    /* FOOTER */
+
+    .footer {
+      padding:60px 0 25px;
+      background:linear-gradient(135deg,rgba(5,31,66,.97),rgba(5,75,135,.94));
+      color:white;
+      backdrop-filter:blur(25px);
+      -webkit-backdrop-filter:blur(25px);
+    }
+
+    .footer-grid {
+      display:grid;
+      grid-template-columns:1.4fr 1fr 1fr;
+      gap:35px;
+      padding-bottom:35px;
+    }
+
+    .footer p,.footer a { color:#c7d8ed; }
+
+    .footer h3 {
+      color:white;
+      font-size:1rem;
+    }
+
+    .footer-links {
+      display:grid;
+      gap:10px;
+    }
+
+    .footer a:hover { color:white; }
+
+    .footer-bottom {
+      display:flex;
+      justify-content:space-between;
+      gap:20px;
+      flex-wrap:wrap;
+      padding-top:22px;
+      border-top:1px solid #ffffff24;
+      color:#b6cce5;
+      font-size:.82rem;
+    }
+
+    /* REVEAL ANIMATIONS */
+
+    .reveal {
+      opacity:0;
+      transform:translateY(22px);
+      transition:opacity .7s,transform .7s;
+    }
+
+    .reveal.visible {
+      opacity:1;
+      transform:translateY(0);
+    }
+
+    @keyframes float {
+      0%,100% { transform:translateY(0); }
+      50% { transform:translateY(-10px); }
+    }
+
+    @keyframes orbit {
+      to { transform:rotate(360deg); }
+    }
+
+    /* BACK TO TOP */
+
+    .back-to-top {
+      position:fixed;
+      right:22px;
+      bottom:22px;
+      z-index:900;
+      width:48px;
+      height:48px;
+      border:0;
+      border-radius:50%;
+      background:linear-gradient(135deg,#168fe8,#0754a0);
+      color:white;
+      font-size:1.25rem;
+      box-shadow:0 12px 32px rgba(8,85,150,.3),inset 0 1px 0 rgba(255,255,255,.4);
+      opacity:0;
+      pointer-events:none;
+      transform:translateY(10px);
+      transition:opacity .2s,transform .2s;
+    }
+
+    .back-to-top.visible {
+      opacity:1;
+      pointer-events:auto;
+      transform:translateY(0);
+    }
+
+    /* RESPONSIVE */
+
+    @media(max-width:1080px) {
+      .nav-inner {
+        align-items:center;
+        flex-wrap:wrap;
+        padding:12px 0;
+      }
+
+      .brand {
+        flex:0 0 100%;
+        justify-content:center;
+      }
+
+      .desktop-nav {
+        display:flex;
+        width:100%;
+        justify-content:center;
+        gap:5px;
+        flex-wrap:wrap;
+      }
+
+      .desktop-nav a {
+        padding:8px 10px;
+        font-size:.76rem;
+      }
+    }
+
+    @media(max-width:900px) {
+      .hero-grid {
+        grid-template-columns:1fr;
+      }
+
+      .hero-visual {
+        min-height:330px;
+      }
+
+      .hero-image {
+        height:320px;
+      }
+
+      .application-grid {
+        grid-template-columns:repeat(2,minmax(0,1fr));
+      }
+    }
+
+    @media(max-width:560px) {
+      .container {
+        width:calc(100% - 28px);
+      }
+
+      .section {
+        padding:66px 0;
+      }
+
+      .topbar-inner {
+        justify-content:center;
+        text-align:center;
+      }
+
+      .topbar-inner>span:last-child {
+        display:none;
+      }
+
+      .nav-inner {
+        min-height:72px;
+        padding:10px 0 12px;
+      }
+
+      .brand {
+        flex:0 0 100%;
+      }
+
+      .brand img {
+        width:43px;
+        height:43px;
+      }
+
+      .brand-name { font-size:.91rem; }
+
+      .desktop-nav {
+        display:flex;
+        flex-wrap:wrap;
+        justify-content:center;
+        gap:5px;
+      }
+
+      .desktop-nav a {
+        font-size:.72rem;
+        padding:8px 10px;
+      }
+
+      .desktop-nav .nav-cta {
+        padding-inline:13px;
+      }
+
+      .hero {
+        min-height:auto;
+        padding:48px 0;
+      }
+
+      .hero h1 {
+        font-size:clamp(2.5rem,12vw,3.7rem);
+      }
+
+      .hero-copy>p { font-size:1rem; }
+
+      .hero-visual { min-height:290px; }
+
+      .hero-image {
+        height:290px;
+        border-radius:26px;
+      }
+
+      .hero-float {
+        left:8px;
+        bottom:10px;
+        padding:13px 15px;
+      }
+
+      .hero-orbit {
+        width:85px;
+        height:85px;
+        right:-4px;
+      }
+
+      .hero-actions .btn { width:100%; }
+
+      .application-grid {
+        grid-template-columns:1fr;
+      }
+
+      .application-card { padding:25px; }
+
+      .information-panel {
+        grid-template-columns:1fr;
+        padding:24px;
+      }
+
+      .information-panel .btn { width:100%; }
+
+      .footer-grid { grid-template-columns:1fr; }
+
+      .footer-bottom { flex-direction:column; }
+    }
+
+    @media(prefers-reduced-motion:reduce) {
+      *,*::before,*::after {
+        scroll-behavior:auto!important;
+        animation-duration:.01ms!important;
+        transition-duration:.01ms!important;
+      }
+
+      .reveal {
+        opacity:1;
+        transform:none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="container topbar-inner">
+      <span>China Southern Airlines Virtual</span>
+      <span>Fly towards your dreams - 飞向您的梦想</span>
+    </div>
+  </div>
+
+  <!-- NAVIGATION -->
+  <header class="navbar">
+    <div class="container nav-inner">
+
+      <a class="brand" href="index.html">
+        <img
+          src="https://raw.githubusercontent.com/djblessingm-crypto/SOUT-IMAGE/refs/heads/main/China%20Southern%20Airlines%20%C4%B0stanbul%20Acentas%C4%B1.jfif"
+          alt="China Southern Airlines logo"
+        >
+
+        <span class="brand-name">
+          CHINA SOUTHERN
+          <span>AIRLINES VIRTUAL</span>
+        </span>
+      </a>
+
+      <nav class="desktop-nav" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="index.html#destinations">Destinations</a>
+        <a href="flights.html">Flights</a>
+        <a href="recruitment.html" class="active" aria-current="page">Careers</a>
+        <a href="index.html#community">Community</a>
+        <a href="index.html#booking">Booking</a>
+        <a class="nav-cta"
+           href="https://discord.gg/uUcc6bxXmG"
+           target="_blank"
+           rel="noopener noreferrer">Join CSN ↗</a>
+      </nav>
+
+    </div>
+  </header>
+
+  <main>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container hero-grid">
+
+        <div class="hero-copy reveal">
+          <div class="eyebrow">Careers at CSN Virtual</div>
+
+          <h1>
+            Your journey.<br>
+            Your <span class="accent">opportunity.</span>
+          </h1>
+
+          <p>
+            Every great airline is built by a great team. Discover your
+            opportunity at China Southern Airlines Virtual and become
+            part of our aviation community.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#applications" class="btn">
+              Explore opportunities
+              <span aria-hidden="true">↘</span>
+            </a>
+
+            <a href="https://discord.gg/uUcc6bxXmG"
+               class="btn btn-outline"
+               target="_blank"
+               rel="noopener noreferrer">
+              Join our community
+            </a>
+          </div>
+        </div>
+
+        <div class="hero-visual reveal">
+          <div class="hero-orbit"></div>
+
+          <img
+            class="hero-image"
+            src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1200&q=85"
+            alt="Commercial aircraft flying above the clouds"
+          >
+
+          <div class="hero-float">
+            <strong>Find your place in aviation.</strong>
+            <span>One team. One journey. Endless possibilities.</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- APPLICATION CARDS -->
+    <section class="section" id="applications">
+      <div class="container">
+
+        <div class="section-heading reveal">
+          <div class="eyebrow">Join the team</div>
+          <h2>Choose your <span class="accent">department.</span></h2>
+          <p>
+            Explore our available recruitment opportunities. Choose the
+            department you are interested in and submit your application
+            through its dedicated application form.
+          </p>
+        </div>
+
+        <div class="application-grid">
+
+          <!-- GROUND CREW -->
+          <article class="application-card reveal">
+
+            <div class="card-top">
+              <span class="role-number">OPPORTUNITY 01</span>
+              <span class="pill">Ground Operations</span>
+            </div>
+
+            <div class="icon-box">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M3 21h18"/>
+                <path d="M5 21V9l7-5 7 5v12"/>
+                <path d="M9 21v-6h6v6"/>
+                <path d="M9 10h.01M15 10h.01"/>
+              </svg>
+            </div>
+
+            <h3>Ground Crew</h3>
+
+            <p>
+              Support airport operations and help keep ground services
+              organised. Become part of the team working behind the
+              scenes to support our virtual airline operations.
+            </p>
+
+            <div class="role-divider"></div>
+
+            <a
+              class="apply-button"
+              href="https://docs.google.com/forms/d/e/1FAIpQLScZSddHDPUd9vSKJf4vY08kUX1AiLr3TZHlQ5JeVlWdlRhvkg/viewform?pli=1"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Apply
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M7 17 17 7M7 7h10v10"/>
+              </svg>
+            </a>
+
+          </article>
+
+          <!-- CABIN CREW -->
+          <article class="application-card reveal">
+
+            <div class="card-top">
+              <span class="role-number">OPPORTUNITY 02</span>
+              <span class="pill">Cabin Services</span>
+            </div>
+
+            <div class="icon-box">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="7" r="3"/>
+                <path d="M5 21c.5-4 2.8-7 7-7s6.5 3 7 7"/>
+                <path d="M9 17h6"/>
+              </svg>
+            </div>
+
+            <h3>Cabin Crew</h3>
+
+            <p>
+              Become part of the onboard team. Help create a welcoming
+              passenger experience and represent China Southern Airlines
+              Virtual throughout every journey.
+            </p>
+
+            <div class="role-divider"></div>
+
+            <a
+              class="apply-button"
+              href="https://docs.google.com/forms/d/e/1FAIpQLSfVB56bcKdA7C3r5aulF3dP9Fc9SFtvxXcLp8AfKqOckBOr9A/viewform"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Apply
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M7 17 17 7M7 7h10v10"/>
+              </svg>
+            </a>
+
+          </article>
+
+          <!-- FLIGHT DECK -->
+          <article class="application-card reveal">
+
+            <div class="card-top">
+              <span class="role-number">OPPORTUNITY 03</span>
+              <span class="pill">Flight Operations</span>
+            </div>
+
+            <div class="icon-box">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 2 15 11 22 15 15 16 12 22 9 16 2 15 9 11 12 2Z"/>
+                <path d="M12 11v11"/>
+              </svg>
+            </div>
+
+            <h3>Flight Deck</h3>
+
+            <p>
+              Take your place in our flight operations team. Help connect
+              our destinations and represent CSN Virtual in the skies
+              through our virtual flight operations.
+            </p>
+
+            <div class="role-divider"></div>
+
+            <a
+              class="apply-button"
+              href="https://docs.google.com/forms/d/e/1FAIpQLSf_qBQrY6LZnzG8K-gsq4UpB0mM07_BjX1GyQ892QLZ9pDHug/viewform"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Apply
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M7 17 17 7M7 7h10v10"/>
+              </svg>
+            </a>
+
+          </article>
+
+        </div>
+
+        <!-- BOTTOM INFORMATION -->
+        <div class="information-panel reveal">
+
+          <div>
+            <div class="eyebrow">Start your journey</div>
+            <h3>Ready to become part of CSN Virtual?</h3>
+            <p>
+              Select your preferred department and complete its
+              application form. We look forward to welcoming you
+              to our team.
+            </p>
+          </div>
+
+          <a
+            href="https://discord.gg/uUcc6bxXmG"
+            class="btn"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Visit our Discord ↗
+          </a>
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+
+      <div class="footer-grid">
+
+        <div>
+          <h3>China Southern Airlines Virtual</h3>
+          <p>
+            Fly towards your dreams - 飞向您的梦想.
+            Join our aviation community and experience
+            virtual airline operations with CSN.
+          </p>
+        </div>
+
+        <div>
+          <h3>Explore</h3>
+          <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="flights.html">Flights</a>
+            <a href="recruitment.html">Recruitment</a>
+          </div>
+        </div>
+
+        <div>
+          <h3>Community</h3>
+          <div class="footer-links">
+            <a href="https://discord.gg/uUcc6bxXmG"
+               target="_blank"
+               rel="noopener noreferrer">Join our Discord ↗</a>
+            <a href="index.html#booking">Flight Booking</a>
+            <a href="index.html#destinations">Destinations</a>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <span>
+          © <span id="year"></span> China Southern Airlines Virtual.
+          All rights reserved.
+        </span>
+
+        <span>
+          This is an independent virtual airline community and is not
+          the official China Southern Airlines website.
+        </span>
+      </div>
+
+    </div>
+  </footer>
+
+  <button class="back-to-top" id="backToTop"
+          type="button" aria-label="Back to top">↑</button>
+
+  <script>
+    // Automatic copyright year
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+
+    // Scroll reveal animations
+    const revealElements = document.querySelectorAll(".reveal");
+
+    if ("IntersectionObserver" in window) {
+      const revealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.12
+      });
+
+      revealElements.forEach(element => {
+        revealObserver.observe(element);
+      });
+    } else {
+      revealElements.forEach(element => {
+        element.classList.add("visible");
+      });
+    }
+
+    // Back to top button
+    const backToTop = document.getElementById("backToTop");
+
+    window.addEventListener("scroll", () => {
+      backToTop.classList.toggle("visible", window.scrollY > 450);
+    }, { passive: true });
+
+    backToTop.addEventListener("click", () => {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    });
+  </script>
+
+</body>
+</html>

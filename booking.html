@@ -1,0 +1,1058 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0878d1">
+  <title>Book a Flight | China Southern Airlines Virtual</title>
+  <style>
+    :root {
+      --white:#fff;
+      --blue:#0878d1;
+      --blue-dark:#063b76;
+      --blue-light:#eaf5ff;
+      --navy:#10243d;
+      --muted:#63748a;
+      --border:rgba(12,76,135,.13);
+      --glass:rgba(255,255,255,.62);
+      --shadow:0 22px 70px rgba(10,69,125,.13),inset 0 1px 0 rgba(255,255,255,.9);
+      --radius:28px;
+      --max:1240px;
+    }
+
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body {
+      margin:0;
+      color:var(--navy);
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      background:
+        radial-gradient(ellipse at 8% 8%,rgba(68,169,255,.13),transparent 32%),
+        radial-gradient(ellipse at 92% 38%,rgba(0,111,210,.10),transparent 30%),
+        linear-gradient(145deg,#fafdff,#edf7ff 48%,#fff);
+      min-height:100vh;
+    }
+    body::before {
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      z-index:-1;
+      background-image:radial-gradient(rgba(8,120,209,.12) .7px,transparent .7px);
+      background-size:24px 24px;
+      opacity:.45;
+    }
+    a { color:inherit; text-decoration:none; }
+    button,input,select { font:inherit; }
+    button { cursor:pointer; }
+    .container { width:min(var(--max),calc(100% - 48px)); margin:auto; }
+
+    .topbar {
+      background:rgba(5,48,94,.92);
+      color:#eaf5ff;
+      padding:9px 0;
+      font-size:12px;
+      letter-spacing:.04em;
+    }
+    .topbar-inner {
+      display:flex;
+      justify-content:space-between;
+      gap:14px;
+      flex-wrap:wrap;
+    }
+    .navbar {
+      position:sticky;
+      top:0;
+      z-index:20;
+      background:rgba(255,255,255,.72);
+      border-bottom:1px solid rgba(255,255,255,.8);
+      backdrop-filter:blur(30px);
+      -webkit-backdrop-filter:blur(30px);
+    }
+    .nav-inner {
+      min-height:86px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:24px;
+      flex-wrap:wrap;
+      padding:12px 0;
+    }
+    .brand {
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-weight:850;
+      color:var(--blue-dark);
+      min-width:220px;
+    }
+    .brand img {
+      width:48px;
+      height:48px;
+      object-fit:contain;
+      border-radius:15px;
+    }
+    .brand small {
+      display:block;
+      font-size:10px;
+      color:var(--muted);
+      letter-spacing:.13em;
+      margin-top:3px;
+    }
+    .desktop-nav {
+      display:flex;
+      align-items:center;
+      justify-content:flex-end;
+      gap:7px;
+      flex-wrap:wrap;
+    }
+    .desktop-nav a {
+      padding:11px 13px;
+      border-radius:999px;
+      font-size:13px;
+      font-weight:700;
+      color:#36516e;
+      transition:background .2s,color .2s,transform .2s;
+    }
+    .desktop-nav a:hover,.desktop-nav a.active {
+      color:var(--blue-dark);
+      background:rgba(8,120,209,.09);
+    }
+    .desktop-nav .nav-cta {
+      color:white;
+      background:linear-gradient(135deg,#168fe8,#0754a0);
+      box-shadow:0 9px 22px rgba(8,120,209,.2);
+    }
+
+    .hero {
+      padding:72px 0 48px;
+      text-align:center;
+    }
+    .eyebrow {
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:9px 15px;
+      border:1px solid var(--border);
+      background:rgba(255,255,255,.65);
+      border-radius:999px;
+      color:var(--blue-dark);
+      font-size:11px;
+      font-weight:850;
+      letter-spacing:.13em;
+      text-transform:uppercase;
+    }
+    .eyebrow-dot {
+      width:7px;height:7px;border-radius:50%;
+      background:#1594e8;
+      box-shadow:0 0 0 5px rgba(21,148,232,.12);
+    }
+    h1 {
+      margin:22px auto 14px;
+      max-width:850px;
+      color:var(--blue-dark);
+      font-size:clamp(38px,6vw,68px);
+      line-height:1.04;
+      letter-spacing:-.055em;
+    }
+    .hero p {
+      max-width:650px;
+      margin:0 auto;
+      color:var(--muted);
+      font-size:16px;
+      line-height:1.8;
+    }
+    .hero-note {
+      margin:26px auto 0;
+      display:flex;
+      justify-content:center;
+      gap:20px;
+      flex-wrap:wrap;
+      color:#49647f;
+      font-size:12px;
+      font-weight:700;
+    }
+    .hero-note span { display:flex;align-items:center;gap:7px; }
+
+    .booking-layout {
+      display:grid;
+      grid-template-columns:minmax(0,1.55fr) minmax(270px,.75fr);
+      gap:25px;
+      align-items:start;
+      padding-bottom:85px;
+    }
+    .glass-panel {
+      background:var(--glass);
+      border:1px solid rgba(255,255,255,.9);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      backdrop-filter:blur(26px);
+      -webkit-backdrop-filter:blur(26px);
+    }
+    .form-panel { padding:clamp(22px,4vw,42px); }
+    .panel-heading { margin-bottom:27px; }
+    .panel-heading h2 {
+      margin:0 0 8px;
+      color:var(--blue-dark);
+      font-size:25px;
+      letter-spacing:-.035em;
+    }
+    .panel-heading p {
+      margin:0;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.7;
+    }
+    .form-section {
+      padding:25px 0;
+      border-top:1px solid var(--border);
+    }
+    .section-title {
+      display:flex;
+      align-items:center;
+      gap:11px;
+      margin-bottom:20px;
+    }
+    .section-number {
+      display:grid;
+      place-items:center;
+      width:32px;height:32px;
+      border-radius:12px;
+      background:var(--blue-light);
+      color:var(--blue);
+      font-size:13px;
+      font-weight:900;
+    }
+    .section-title h3 {
+      margin:0;
+      font-size:16px;
+      color:var(--navy);
+    }
+    .form-grid {
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:17px;
+    }
+    .field { min-width:0; }
+    .field.full { grid-column:1/-1; }
+    label {
+      display:block;
+      margin-bottom:8px;
+      font-size:12px;
+      font-weight:800;
+      color:#38536e;
+    }
+    .required { color:#d34d5b; }
+    input,select {
+      width:100%;
+      min-height:49px;
+      padding:0 15px;
+      border:1px solid rgba(12,76,135,.16);
+      border-radius:15px;
+      outline:none;
+      background:rgba(255,255,255,.8);
+      color:var(--navy);
+      transition:border .2s,box-shadow .2s,background .2s;
+    }
+    input:focus,select:focus {
+      border-color:#168fe8;
+      background:white;
+      box-shadow:0 0 0 4px rgba(22,143,232,.11);
+    }
+    input::placeholder { color:#9aaabd; }
+    .helper {
+      margin:7px 0 0;
+      color:#7b8ca0;
+      font-size:11px;
+      line-height:1.5;
+    }
+    .trip-options {
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:12px;
+    }
+    .trip-option {
+      display:flex;
+      align-items:center;
+      gap:10px;
+      min-height:52px;
+      padding:12px 14px;
+      border:1px solid var(--border);
+      border-radius:15px;
+      background:rgba(255,255,255,.65);
+      cursor:pointer;
+      font-size:13px;
+      font-weight:750;
+    }
+    .trip-option input {
+      width:17px;
+      min-height:17px;
+      accent-color:var(--blue);
+    }
+    .passenger-list { display:grid;gap:14px; }
+    .passenger-card {
+      padding:18px;
+      border:1px solid var(--border);
+      border-radius:20px;
+      background:rgba(255,255,255,.58);
+    }
+    .passenger-top {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      margin-bottom:15px;
+    }
+    .passenger-top strong { font-size:13px;color:var(--blue-dark); }
+    .remove-passenger {
+      border:0;
+      background:transparent;
+      color:#c34e5c;
+      font-size:11px;
+      font-weight:800;
+      padding:7px;
+    }
+    .passenger-fields {
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:13px;
+    }
+    .add-passenger {
+      margin-top:13px;
+      border:1px dashed rgba(8,120,209,.4);
+      border-radius:14px;
+      background:rgba(234,245,255,.65);
+      color:var(--blue-dark);
+      padding:13px 16px;
+      font-size:12px;
+      font-weight:850;
+      width:100%;
+    }
+    .add-passenger:hover { background:#e4f2ff; }
+    .terms-row {
+      display:flex;
+      align-items:flex-start;
+      gap:10px;
+      color:var(--muted);
+      font-size:12px;
+      line-height:1.6;
+      margin:20px 0;
+    }
+    .terms-row input {
+      width:17px;
+      min-height:17px;
+      margin-top:2px;
+      flex:0 0 auto;
+      accent-color:var(--blue);
+    }
+    .submit-btn {
+      width:100%;
+      min-height:56px;
+      border:0;
+      border-radius:999px;
+      background:linear-gradient(135deg,#168fe8,#0754a0);
+      color:white;
+      font-size:14px;
+      font-weight:900;
+      letter-spacing:.02em;
+      box-shadow:0 13px 28px rgba(8,120,209,.23);
+      transition:transform .2s,box-shadow .2s,opacity .2s;
+    }
+    .submit-btn:hover { transform:translateY(-2px);box-shadow:0 17px 34px rgba(8,120,209,.28); }
+    .submit-btn:disabled { opacity:.6;cursor:wait;transform:none; }
+
+    .side-column { display:grid;gap:18px; }
+    .side-card { padding:25px; }
+    .side-card h3 { margin:0 0 12px;color:var(--blue-dark);font-size:18px; }
+    .side-card p { margin:0;color:var(--muted);font-size:13px;line-height:1.75; }
+    .hub-card {
+      background:linear-gradient(145deg,rgba(7,75,139,.96),rgba(9,133,211,.9));
+      color:white;
+      overflow:hidden;
+      position:relative;
+    }
+    .hub-card::after {
+      content:"";
+      position:absolute;
+      width:190px;height:190px;
+      right:-80px;top:-80px;
+      border:1px solid rgba(255,255,255,.22);
+      border-radius:50%;
+      box-shadow:0 0 0 22px rgba(255,255,255,.05),0 0 0 44px rgba(255,255,255,.04);
+    }
+    .hub-card h3 { color:white;position:relative;z-index:1; }
+    .hub-card p { color:rgba(255,255,255,.82);position:relative;z-index:1; }
+    .hub-code {
+      display:inline-block;
+      margin-top:17px;
+      padding:8px 12px;
+      border:1px solid rgba(255,255,255,.24);
+      border-radius:999px;
+      color:white;
+      font-size:11px;
+      font-weight:850;
+      letter-spacing:.12em;
+    }
+    .steps { display:grid;gap:17px;margin-top:18px; }
+    .step { display:flex;gap:12px;align-items:flex-start; }
+    .step-no {
+      flex:0 0 28px;height:28px;
+      display:grid;place-items:center;
+      border-radius:10px;
+      background:var(--blue-light);
+      color:var(--blue);
+      font-size:11px;font-weight:900;
+    }
+    .step strong { display:block;font-size:12px;margin:1px 0 4px; }
+    .step span { display:block;color:var(--muted);font-size:11px;line-height:1.5; }
+    .notice {
+      padding:15px;
+      border-radius:16px;
+      background:rgba(234,245,255,.8);
+      border:1px solid rgba(8,120,209,.12);
+      color:#45627f;
+      font-size:11px;
+      line-height:1.7;
+    }
+
+    .message {
+      display:none;
+      margin-top:18px;
+      padding:15px 17px;
+      border-radius:15px;
+      font-size:13px;
+      line-height:1.6;
+    }
+    .message.show { display:block; }
+    .message.error {
+      background:#fff0f0;
+      color:#a12e3a;
+      border:1px solid #f3c9ce;
+    }
+    .message.success {
+      background:#eaf8f0;
+      color:#17613b;
+      border:1px solid #bfe7cf;
+    }
+    .confirmation {
+      display:none;
+      margin-top:25px;
+      padding:clamp(20px,4vw,34px);
+      border:1px solid rgba(25,145,89,.2);
+      border-radius:24px;
+      background:rgba(239,251,244,.88);
+    }
+    .confirmation.show { display:block; }
+    .confirmation h3 { margin:0 0 8px;color:#17613b;font-size:22px; }
+    .confirmation p { color:#4e7460;font-size:13px;line-height:1.7; }
+    .confirmation-grid {
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:10px;
+      margin:18px 0;
+    }
+    .secret-item {
+      padding:13px;
+      border:1px solid rgba(23,97,59,.14);
+      border-radius:14px;
+      background:rgba(255,255,255,.75);
+      min-width:0;
+    }
+    .secret-item small {
+      display:block;color:#63816f;font-size:10px;font-weight:850;
+      text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;
+    }
+    .secret-item strong {
+      display:block;color:#174b31;font-size:14px;overflow-wrap:anywhere;
+    }
+    .copy-btn {
+      margin-top:8px;
+      border:1px solid rgba(23,97,59,.2);
+      background:white;
+      color:#17613b;
+      border-radius:999px;
+      padding:7px 11px;
+      font-size:10px;
+      font-weight:850;
+    }
+    .confirmation-warning {
+      padding:12px 14px;
+      border-radius:13px;
+      background:#fff8e6;
+      color:#805c13;
+      font-size:11px;
+      line-height:1.6;
+    }
+    .footer {
+      padding:30px 0;
+      background:rgba(5,48,94,.96);
+      color:#d9eaff;
+      text-align:center;
+      font-size:11px;
+      line-height:1.8;
+    }
+    .footer p { margin:5px 0;color:rgba(217,234,255,.72); }
+    .back-top {
+      position:fixed;right:22px;bottom:22px;z-index:15;
+      width:45px;height:45px;border:0;border-radius:50%;
+      color:white;background:linear-gradient(135deg,#168fe8,#0754a0);
+      box-shadow:0 10px 25px rgba(8,120,209,.25);
+      opacity:0;pointer-events:none;transform:translateY(10px);
+      transition:.2s;
+    }
+    .back-top.visible { opacity:1;pointer-events:auto;transform:translateY(0); }
+
+    .reveal { opacity:0;transform:translateY(18px);transition:opacity .65s ease,transform .65s ease; }
+    .reveal.visible { opacity:1;transform:translateY(0); }
+
+    @media(max-width:1000px) {
+      .booking-layout { grid-template-columns:1fr; }
+      .side-column { grid-template-columns:repeat(2,minmax(0,1fr)); }
+      .hub-card { grid-column:1/-1; }
+    }
+    @media(max-width:700px) {
+      .container { width:min(100% - 32px,var(--max)); }
+      .nav-inner { justify-content:center; }
+      .brand { width:100%;justify-content:center; }
+      .desktop-nav { justify-content:center;width:100%; }
+      .desktop-nav a { padding:9px 10px;font-size:11px; }
+      .hero { padding:52px 0 35px; }
+      .hero p { font-size:14px; }
+      .form-grid,.passenger-fields { grid-template-columns:1fr; }
+      .side-column { grid-template-columns:1fr; }
+      .hub-card { grid-column:auto; }
+    }
+    @media(max-width:420px) {
+      .trip-options,.confirmation-grid { grid-template-columns:1fr; }
+      .topbar-inner { justify-content:center;text-align:center; }
+    }
+    @media(prefers-reduced-motion:reduce) {
+      *,*::before,*::after {
+        scroll-behavior:auto!important;
+        transition-duration:.01ms!important;
+        animation-duration:.01ms!important;
+      }
+      .reveal { opacity:1;transform:none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="container topbar-inner">
+      <span>CHINA SOUTHERN AIRLINES VIRTUAL</span>
+      <span>FLY TOWARDS YOUR DREAMS · 飞向您的梦想</span>
+    </div>
+  </div>
+
+  <header class="navbar">
+    <div class="container nav-inner">
+      <a class="brand" href="index.html" aria-label="China Southern Airlines Virtual home">
+        <img src="https://raw.githubusercontent.com/djblessingm-crypto/SOUT-IMAGE/refs/heads/main/China%20Southern%20Airlines%20%C4%B0stanbul%20Acentas%C4%B1.jfif" alt="China Southern Airlines Virtual logo">
+        <span>CHINA SOUTHERN<small>AIRLINES VIRTUAL</small></span>
+      </a>
+      <nav class="desktop-nav" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="index.html#destinations">Destinations</a>
+        <a href="flights.html">Flights</a>
+        <a href="recruitment.html">Careers</a>
+        <a href="community.html">Community</a>
+        <a href="booking.html" class="active" aria-current="page">Booking</a>
+        <a class="nav-cta" href="https://discord.gg/UuCc6bxXmG" target="_blank" rel="noopener noreferrer">Join CSN ↗</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero container reveal">
+      <span class="eyebrow"><span class="eyebrow-dot"></span> YOUR JOURNEY STARTS HERE</span>
+      <h1>Your next journey<br>starts with a booking.</h1>
+      <p>
+        Choose your flight, add your passengers and confirm your details.
+        We’ll create your CSN Virtual booking and provide your confirmation codes.
+      </p>
+      <div class="hero-note">
+        <span>Secure booking details</span>
+        <span>One-way and return trips</span>
+        <span>Up to 9 passengers</span>
+      </div>
+    </section>
+
+    <section class="container booking-layout">
+      <div class="glass-panel form-panel reveal">
+        <div class="panel-heading">
+          <h2>Flight reservation</h2>
+          <p>Complete the details below. Fields marked with an asterisk are required.</p>
+        </div>
+
+        <form id="bookingForm">
+          <div class="form-section" style="border-top:0;padding-top:0">
+            <div class="section-title">
+              <span class="section-number">01</span>
+              <h3>Your flight</h3>
+            </div>
+            <div class="form-grid">
+              <div class="field full">
+                <label>Trip type <span class="required">*</span></label>
+                <div class="trip-options">
+                  <label class="trip-option">
+                    <input type="radio" name="tripType" value="one-way" checked>
+                    One-way
+                  </label>
+                  <label class="trip-option">
+                    <input type="radio" name="tripType" value="round-trip">
+                    Return trip
+                  </label>
+                </div>
+              </div>
+              <div class="field">
+                <label for="flightNumber">Flight number <span class="required">*</span></label>
+                <input id="flightNumber" name="flightNumber" type="text" placeholder="e.g. CSN101" maxlength="30" required>
+              </div>
+              <div class="field">
+                <label for="aircraft">Aircraft</label>
+                <input id="aircraft" name="aircraft" type="text" placeholder="e.g. Airbus A350">
+              </div>
+              <div class="field">
+                <label for="origin">Departure airport <span class="required">*</span></label>
+                <input id="origin" name="origin" type="text" placeholder="e.g. Guangzhou (ZGGG)" required>
+              </div>
+              <div class="field">
+                <label for="destination">Arrival airport <span class="required">*</span></label>
+                <input id="destination" name="destination" type="text" placeholder="e.g. Johannesburg (FAOR)" required>
+              </div>
+              <div class="field">
+                <label for="departureDate">Departure date <span class="required">*</span></label>
+                <input id="departureDate" name="departureDate" type="date" required>
+              </div>
+              <div class="field" id="returnDateField" hidden>
+                <label for="returnDate">Return date <span class="required">*</span></label>
+                <input id="returnDate" name="returnDate" type="date" disabled>
+              </div>
+              <div class="field">
+                <label for="gate">Gate (optional)</label>
+                <input id="gate" name="gate" type="text" placeholder="e.g. A12">
+              </div>
+            </div>
+          </div>
+
+          <div class="form-section">
+            <div class="section-title">
+              <span class="section-number">02</span>
+              <h3>Passenger details</h3>
+            </div>
+            <p class="helper" style="margin:0 0 15px">Enter each passenger’s name. Roblox and Discord usernames are optional.</p>
+            <div id="passengerList" class="passenger-list"></div>
+            <button type="button" class="add-passenger" id="addPassenger">+ Add another passenger</button>
+          </div>
+
+          <div class="form-section">
+            <div class="section-title">
+              <span class="section-number">03</span>
+              <h3>Review and confirm</h3>
+            </div>
+            <div class="notice">
+              Please check your flight number, airports, dates and passenger names before submitting.
+              This is a virtual airline booking for the CSN Virtual community.
+            </div>
+            <label class="terms-row">
+              <input type="checkbox" id="agree" required>
+              <span>I confirm that the information I entered is correct and understand this is a virtual airline booking.</span>
+            </label>
+            <button class="submit-btn" id="submitBtn" type="submit">CONFIRM MY BOOKING</button>
+            <div id="formMessage" class="message" role="status" aria-live="polite"></div>
+          </div>
+        </form>
+
+        <section id="confirmation" class="confirmation" aria-live="polite">
+          <h3>Booking created successfully</h3>
+          <p id="confirmationMessage">Your booking has been created. Keep these details safe.</p>
+          <div class="confirmation-grid" id="confirmationDetails"></div>
+          <div class="confirmation-warning">
+            Keep your passenger code, security code and ticket token private. They are used to access and verify your booking. Do not share them publicly or in Discord channels.
+          </div>
+          <button type="button" class="copy-btn" id="copyAll">Copy booking details</button>
+        </section>
+      </div>
+
+      <aside class="side-column reveal">
+        <div class="glass-panel side-card hub-card">
+          <h3>Your journey begins at Guangzhou</h3>
+          <p>Guangzhou Baiyun International Airport is the main hub of China Southern Airlines Virtual.</p>
+          <span class="hub-code">CAN · ZGGG</span>
+        </div>
+
+        <div class="glass-panel side-card">
+          <h3>How booking works</h3>
+          <div class="steps">
+            <div class="step">
+              <span class="step-no">01</span>
+              <div><strong>Choose your flight</strong><span>Enter your flight number, route and travel dates.</span></div>
+            </div>
+            <div class="step">
+              <span class="step-no">02</span>
+              <div><strong>Add passengers</strong><span>Enter the names of everyone travelling.</span></div>
+            </div>
+            <div class="step">
+              <span class="step-no">03</span>
+              <div><strong>Confirm your booking</strong><span>Submit your details to create your reservation.</span></div>
+            </div>
+            <div class="step">
+              <span class="step-no">04</span>
+              <div><strong>Save your codes</strong><span>Keep your confirmation details somewhere private.</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="glass-panel side-card">
+          <h3>Need assistance?</h3>
+          <p>For help with your virtual airline journey, contact the CSN Virtual community on Discord.</p>
+          <p style="margin-top:15px">
+            <a href="https://discord.gg/UuCc6bxXmG" target="_blank" rel="noopener noreferrer" style="color:var(--blue);font-weight:850">Visit CSN Discord ↗</a>
+          </p>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <strong>© <span id="year"></span> China Southern Airlines Virtual. All rights reserved.</strong>
+      <p>This is an independent virtual airline community and is not the official China Southern Airlines website.</p>
+    </div>
+  </footer>
+
+  <button class="back-top" id="backTop" type="button" aria-label="Back to top">↑</button>
+
+  <script>
+    const form = document.getElementById('bookingForm');
+    const passengerList = document.getElementById('passengerList');
+    const addPassengerButton = document.getElementById('addPassenger');
+    const returnDateField = document.getElementById('returnDateField');
+    const returnDateInput = document.getElementById('returnDate');
+    const departureDateInput = document.getElementById('departureDate');
+    const submitButton = document.getElementById('submitBtn');
+    const formMessage = document.getElementById('formMessage');
+    const confirmation = document.getElementById('confirmation');
+    const confirmationDetails = document.getElementById('confirmationDetails');
+    const copyAllButton = document.getElementById('copyAll');
+
+    let passengerCount = 0;
+    let latestBookingDetails = '';
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    function localDateString(date = new Date()) {
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+      return `${year}-${month}-${day}`;
+    }
+
+    const today = localDateString();
+    departureDateInput.min = today;
+    returnDateInput.min = today;
+
+    function selectedTripType() {
+      return form.querySelector('input[name="tripType"]:checked').value;
+    }
+
+    function updateTripType() {
+      const isReturn = selectedTripType() === 'round-trip';
+      returnDateField.hidden = !isReturn;
+      returnDateInput.disabled = !isReturn;
+      returnDateInput.required = isReturn;
+      if (!isReturn) returnDateInput.value = '';
+      updateReturnDateMinimum();
+    }
+
+    function updateReturnDateMinimum() {
+      returnDateInput.min = departureDateInput.value || today;
+      if (returnDateInput.value && returnDateInput.value < returnDateInput.min) {
+        returnDateInput.value = '';
+      }
+    }
+
+    form.querySelectorAll('input[name="tripType"]').forEach(input => {
+      input.addEventListener('change', updateTripType);
+    });
+    departureDateInput.addEventListener('change', updateReturnDateMinimum);
+
+    function addPassenger() {
+      if (passengerCount >= 9) return;
+
+      passengerCount++;
+      const card = document.createElement('div');
+      card.className = 'passenger-card';
+      card.dataset.passenger = String(passengerCount);
+
+      const top = document.createElement('div');
+      top.className = 'passenger-top';
+
+      const title = document.createElement('strong');
+      title.textContent = `Passenger ${passengerCount}`;
+      top.appendChild(title);
+
+      if (passengerCount > 1) {
+        const remove = document.createElement('button');
+        remove.type = 'button';
+        remove.className = 'remove-passenger';
+        remove.textContent = 'Remove';
+        remove.addEventListener('click', () => {
+          card.remove();
+          renumberPassengers();
+        });
+        top.appendChild(remove);
+      }
+
+      const fields = document.createElement('div');
+      fields.className = 'passenger-fields';
+
+      fields.appendChild(createPassengerField('Full name', 'name', 'Enter passenger full name', true));
+      fields.appendChild(createPassengerField('Roblox username', 'robloxUsername', 'Optional Roblox username'));
+      fields.appendChild(createPassengerField('Discord username', 'discordUsername', 'Optional Discord username'));
+
+      card.append(top, fields);
+      passengerList.appendChild(card);
+      updatePassengerControls();
+    }
+
+    function createPassengerField(labelText, fieldName, placeholder, required = false) {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'field';
+
+      const label = document.createElement('label');
+      label.textContent = labelText + (required ? ' *' : '');
+
+      const input = document.createElement('input');
+      input.type = 'text';
+      input.name = fieldName;
+      input.placeholder = placeholder;
+      input.maxLength = fieldName === 'name' ? 100 : 80;
+      input.required = required;
+      input.autocomplete = 'off';
+
+      wrapper.append(label, input);
+      return wrapper;
+    }
+
+    function renumberPassengers() {
+      const cards = [...passengerList.querySelectorAll('.passenger-card')];
+      cards.forEach((card, index) => {
+        card.dataset.passenger = String(index + 1);
+        card.querySelector('.passenger-top strong').textContent = `Passenger ${index + 1}`;
+        const remove = card.querySelector('.remove-passenger');
+        if (index === 0 && remove) remove.remove();
+        if (index > 0 && !remove) {
+          const button = document.createElement('button');
+          button.type = 'button';
+          button.className = 'remove-passenger';
+          button.textContent = 'Remove';
+          button.addEventListener('click', () => {
+            card.remove();
+            renumberPassengers();
+          });
+          card.querySelector('.passenger-top').appendChild(button);
+        }
+      });
+      passengerCount = cards.length;
+      updatePassengerControls();
+    }
+
+    function updatePassengerControls() {
+      const count = passengerList.querySelectorAll('.passenger-card').length;
+      addPassengerButton.disabled = count >= 9;
+      addPassengerButton.textContent = count >= 9
+        ? 'Maximum of 9 passengers reached'
+        : `+ Add another passenger (${count}/9)`;
+      addPassengerButton.style.opacity = count >= 9 ? '.55' : '1';
+    }
+
+    function showMessage(message, type) {
+      formMessage.textContent = message;
+      formMessage.className = `message show ${type}`;
+    }
+
+    function makeSecretItem(label, value) {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'secret-item';
+
+      const small = document.createElement('small');
+      small.textContent = label;
+
+      const strong = document.createElement('strong');
+      strong.textContent = value || 'Not provided';
+
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'copy-btn';
+      button.textContent = 'Copy';
+      button.addEventListener('click', async () => {
+        await copyText(String(value || ''));
+        button.textContent = 'Copied';
+        setTimeout(() => button.textContent = 'Copy', 1500);
+      });
+
+      wrapper.append(small, strong, button);
+      return wrapper;
+    }
+
+    async function copyText(text) {
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch {
+        const temporary = document.createElement('textarea');
+        temporary.value = text;
+        temporary.style.position = 'absolute';
+        temporary.style.left = '-9999px';
+        document.body.appendChild(temporary);
+        temporary.select();
+        document.execCommand('copy');
+        temporary.remove();
+      }
+    }
+
+    function showConfirmation(booking) {
+      confirmationDetails.replaceChildren();
+
+      const items = [
+        ['Booking reference', booking.bookingReference],
+        ['Passenger code', booking.passengerCode],
+        ['Security code', booking.securityCode],
+        ['Ticket token', booking.ticketToken],
+        ['Flight number', booking.flightNumber],
+        ['Booking status', booking.status]
+      ];
+
+      items.forEach(([label, value]) => {
+        confirmationDetails.appendChild(makeSecretItem(label, value));
+      });
+
+      latestBookingDetails = items
+        .map(([label, value]) => `${label}: ${value || 'Not provided'}`)
+        .join('\n');
+
+      document.getElementById('confirmationMessage').textContent =
+        `Your booking ${booking.bookingReference || ''} has been created. Save the private codes below.`;
+
+      confirmation.classList.add('show');
+      confirmation.scrollIntoView({ behavior:'smooth', block:'start' });
+    }
+
+    addPassengerButton.addEventListener('click', addPassenger);
+    addPassenger();
+
+    form.addEventListener('submit', async event => {
+      event.preventDefault();
+      confirmation.classList.remove('show');
+      formMessage.className = 'message';
+
+      if (!form.reportValidity()) return;
+
+      const tripType = selectedTripType();
+      const origin = form.elements.origin.value.trim();
+      const destination = form.elements.destination.value.trim();
+
+      if (origin.toLowerCase() === destination.toLowerCase()) {
+        showMessage('Your departure and arrival airports must be different.', 'error');
+        return;
+      }
+
+      if (departureDateInput.value < today) {
+        showMessage('Please choose a departure date that is today or later.', 'error');
+        return;
+      }
+
+      if (tripType === 'round-trip' &&
+          (!returnDateInput.value || returnDateInput.value < departureDateInput.value)) {
+        showMessage('Your return date must be on or after your departure date.', 'error');
+        return;
+      }
+
+      const passengers = [...passengerList.querySelectorAll('.passenger-card')].map(card => ({
+        name: card.querySelector('[name="name"]').value.trim(),
+        robloxUsername: card.querySelector('[name="robloxUsername"]').value.trim(),
+        discordUsername: card.querySelector('[name="discordUsername"]').value.trim()
+      }));
+
+      if (!passengers.length || passengers.some(passenger => !passenger.name)) {
+        showMessage('Please enter the full name of every passenger.', 'error');
+        return;
+      }
+
+      const bookingData = {
+        flightNumber: form.elements.flightNumber.value.trim(),
+        origin,
+        destination,
+        departureDate: departureDateInput.value,
+        tripType,
+        returnDate: tripType === 'round-trip' ? returnDateInput.value : '',
+        aircraft: form.elements.aircraft.value.trim(),
+        gate: form.elements.gate.value.trim(),
+        passengers
+      };
+
+      submitButton.disabled = true;
+      submitButton.textContent = 'CREATING YOUR BOOKING...';
+
+      try {
+        const response = await fetch('/api/bookings', {
+          method:'POST',
+          headers:{ 'Content-Type':'application/json' },
+          body:JSON.stringify(bookingData)
+        });
+
+        let result;
+        try {
+          result = await response.json();
+        } catch {
+          throw new Error('The server returned an invalid response. Please try again.');
+        }
+
+        if (!response.ok || !result.success || !result.booking) {
+          throw new Error(result.message || 'Your booking could not be created. Please check your details and try again.');
+        }
+
+        showMessage('Your booking has been created successfully.', 'success');
+        showConfirmation(result.booking);
+      } catch (error) {
+        if (error instanceof TypeError) {
+          showMessage('Could not connect to the CSN booking server. Make sure your server is running and open this page through your website server, not as a local file.', 'error');
+        } else {
+          showMessage(error.message || 'Something went wrong. Please try again.', 'error');
+        }
+      } finally {
+        submitButton.disabled = false;
+        submitButton.textContent = 'CONFIRM MY BOOKING';
+      }
+    });
+
+    copyAllButton.addEventListener('click', async () => {
+      if (!latestBookingDetails) return;
+      await copyText(latestBookingDetails);
+      copyAllButton.textContent = 'Copied booking details';
+      setTimeout(() => copyAllButton.textContent = 'Copy booking details', 1800);
+    });
+
+    const backTop = document.getElementById('backTop');
+    window.addEventListener('scroll', () => {
+      backTop.classList.toggle('visible', window.scrollY > 450);
+    });
+    backTop.addEventListener('click', () => {
+      window.scrollTo({ top:0, behavior:'smooth' });
+    });
+
+    const revealObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold:.08 });
+
+    document.querySelectorAll('.reveal').forEach(element => revealObserver.observe(element));
+  </script>
+</body>
+</html>

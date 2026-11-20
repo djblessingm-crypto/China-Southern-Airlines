@@ -1,0 +1,1360 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0878d1">
+  <meta name="description" content="Connect with the China Southern Airlines Virtual community. Discover announcements, events, news and more.">
+  <title>Community | China Southern Airlines Virtual</title>
+
+  <style>
+    :root {
+      --white:#fff;
+      --blue:#0878d1;
+      --blue-dark:#063b76;
+      --blue-light:#eaf5ff;
+      --navy:#10243d;
+      --muted:#63748a;
+      --border:rgba(12,76,135,.13);
+      --glass:rgba(255,255,255,.62);
+      --shadow:0 22px 70px rgba(10,69,125,.13),inset 0 1px 0 rgba(255,255,255,.9);
+      --radius:28px;
+      --max:1240px;
+    }
+
+    * { box-sizing:border-box; margin:0; padding:0; }
+
+    html { scroll-behavior:smooth; }
+
+    body {
+      color:var(--navy);
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      background:
+        radial-gradient(ellipse at 8% 8%,rgba(68,169,255,.13),transparent 32%),
+        radial-gradient(ellipse at 92% 38%,rgba(0,111,210,.10),transparent 30%),
+        linear-gradient(145deg,#fafdff,#edf7ff 48%,#fff);
+      min-height:100vh;
+      overflow-x:hidden;
+    }
+
+    body::before {
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      z-index:-1;
+      background-image:radial-gradient(rgba(8,120,209,.12) .7px,transparent .7px);
+      background-size:24px 24px;
+      opacity:.38;
+    }
+
+    a { color:inherit; text-decoration:none; }
+    button { font:inherit; }
+    img { max-width:100%; display:block; }
+
+    .container { width:min(var(--max),calc(100% - 48px)); margin:auto; }
+
+    .topbar {
+      background:rgba(5,48,94,.92);
+      color:#fff;
+      font-size:12px;
+      padding:10px 0;
+      letter-spacing:.3px;
+    }
+
+    .topbar-inner {
+      display:flex;
+      justify-content:space-between;
+      gap:15px;
+      flex-wrap:wrap;
+    }
+
+    .navbar {
+      position:sticky;
+      top:0;
+      z-index:50;
+      background:rgba(255,255,255,.76);
+      backdrop-filter:blur(28px);
+      -webkit-backdrop-filter:blur(28px);
+      border-bottom:1px solid var(--border);
+    }
+
+    .nav-inner {
+      min-height:86px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:24px;
+    }
+
+    .brand {
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-weight:850;
+      color:var(--blue-dark);
+      min-width:210px;
+    }
+
+    .brand img {
+      width:48px;
+      height:48px;
+      border-radius:17px;
+      object-fit:cover;
+      box-shadow:0 7px 22px rgba(8,120,209,.16);
+    }
+
+    .brand small {
+      display:block;
+      color:var(--muted);
+      font-size:10px;
+      letter-spacing:1.5px;
+      margin-top:3px;
+    }
+
+    .desktop-nav {
+      display:flex;
+      align-items:center;
+      justify-content:flex-end;
+      flex-wrap:wrap;
+      gap:7px;
+    }
+
+    .desktop-nav a {
+      padding:11px 13px;
+      border-radius:30px;
+      font-size:12px;
+      font-weight:750;
+      color:#38516d;
+      transition:.25s ease;
+    }
+
+    .desktop-nav a:hover,
+    .desktop-nav a.active {
+      color:var(--blue);
+      background:var(--blue-light);
+    }
+
+    .desktop-nav .nav-cta {
+      background:linear-gradient(135deg,#168fe8,#0754a0);
+      color:#fff;
+      padding:12px 19px;
+      box-shadow:0 9px 22px rgba(8,120,209,.2);
+    }
+
+    .section { padding:88px 0; }
+    .section-soft { background:rgba(255,255,255,.38); }
+    .section-blue {
+      color:#fff;
+      background:linear-gradient(135deg,#0878d1,#063b76);
+    }
+
+    .eyebrow {
+      color:var(--blue);
+      font-size:11px;
+      font-weight:850;
+      letter-spacing:2px;
+      text-transform:uppercase;
+      margin-bottom:14px;
+    }
+
+    .section-blue .eyebrow { color:#a9ddff; }
+
+    .section-heading {
+      font-size:clamp(29px,4vw,46px);
+      line-height:1.12;
+      letter-spacing:-1.6px;
+      margin-bottom:17px;
+    }
+
+    .accent { color:var(--blue); }
+    .section-blue .accent { color:#a9ddff; }
+
+    .muted { color:var(--muted); line-height:1.8; }
+    .section-blue .muted { color:rgba(255,255,255,.77); }
+    .small { font-size:13px; }
+
+    .section-intro {
+      max-width:680px;
+      margin-bottom:35px;
+    }
+
+    .btn {
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:9px;
+      padding:14px 23px;
+      border:0;
+      border-radius:50px;
+      background:linear-gradient(135deg,#168fe8,#0754a0);
+      color:#fff;
+      font-weight:800;
+      font-size:13px;
+      cursor:pointer;
+      box-shadow:0 12px 25px rgba(8,120,209,.2);
+      transition:transform .25s ease,box-shadow .25s ease;
+    }
+
+    .btn:hover {
+      transform:translateY(-3px);
+      box-shadow:0 17px 30px rgba(8,120,209,.26);
+    }
+
+    .btn-outline {
+      background:rgba(255,255,255,.6);
+      color:var(--blue-dark);
+      border:1px solid var(--border);
+      box-shadow:none;
+    }
+
+    .btn-white {
+      color:var(--blue-dark);
+      background:#fff;
+      box-shadow:none;
+    }
+
+    .glass {
+      background:rgba(255,255,255,.68);
+      border:1px solid rgba(255,255,255,.9);
+      border-radius:var(--radius);
+      backdrop-filter:blur(24px);
+      -webkit-backdrop-filter:blur(24px);
+      box-shadow:var(--shadow);
+    }
+
+    .card {
+      border:1px solid var(--border);
+      background:rgba(255,255,255,.75);
+      border-radius:var(--radius);
+      box-shadow:0 15px 45px rgba(10,69,125,.07);
+      transition:transform .25s ease,box-shadow .25s ease;
+    }
+
+    .card:hover {
+      transform:translateY(-5px);
+      box-shadow:0 22px 50px rgba(10,69,125,.12);
+    }
+
+    .card-body { padding:26px; }
+    .grid-2 { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:22px; }
+    .grid-3 { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:22px; }
+    .grid-4 { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:18px; }
+
+    .pill {
+      display:inline-flex;
+      align-items:center;
+      gap:7px;
+      padding:8px 13px;
+      border-radius:40px;
+      background:var(--blue-light);
+      color:var(--blue-dark);
+      font-size:11px;
+      font-weight:800;
+    }
+
+    .icon-box {
+      width:52px;
+      height:52px;
+      display:grid;
+      place-items:center;
+      border-radius:19px;
+      background:linear-gradient(145deg,#e8f5ff,#cce8ff);
+      color:var(--blue);
+      margin-bottom:19px;
+    }
+
+    .icon-box svg { width:25px; height:25px; }
+
+    .hero {
+      padding:90px 0 82px;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .hero-grid {
+      display:grid;
+      grid-template-columns:1.05fr .95fr;
+      align-items:center;
+      gap:55px;
+    }
+
+    .hero h1 {
+      font-size:clamp(43px,6vw,72px);
+      line-height:1.02;
+      letter-spacing:-3px;
+      margin-bottom:23px;
+    }
+
+    .hero-copy p {
+      color:var(--muted);
+      max-width:570px;
+      line-height:1.85;
+      font-size:16px;
+      margin-bottom:27px;
+    }
+
+    .hero-actions { display:flex; flex-wrap:wrap; gap:12px; }
+
+    .hero-visual {
+      min-height:390px;
+      position:relative;
+      display:grid;
+      place-items:center;
+    }
+
+    .hero-image {
+      width:100%;
+      height:370px;
+      object-fit:cover;
+      border-radius:38px;
+      box-shadow:0 30px 75px rgba(6,59,118,.2);
+      border:7px solid rgba(255,255,255,.75);
+    }
+
+    .hero-float {
+      position:absolute;
+      left:-24px;
+      bottom:24px;
+      padding:19px 22px;
+      max-width:230px;
+    }
+
+    .hero-orbit {
+      position:absolute;
+      width:430px;
+      height:430px;
+      border:1px solid rgba(8,120,209,.12);
+      border-radius:50%;
+      z-index:-1;
+    }
+
+    .stats-grid {
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:15px;
+      margin-top:40px;
+    }
+
+    .stat-card {
+      padding:23px;
+      text-align:center;
+      border-radius:23px;
+      background:rgba(255,255,255,.65);
+      border:1px solid rgba(255,255,255,.9);
+    }
+
+    .stat-number {
+      font-size:30px;
+      font-weight:900;
+      color:var(--blue-dark);
+      letter-spacing:-1px;
+    }
+
+    .stat-label {
+      color:var(--muted);
+      font-size:11px;
+      font-weight:750;
+      margin-top:5px;
+    }
+
+    .section-title-row {
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-end;
+      gap:20px;
+      flex-wrap:wrap;
+      margin-bottom:30px;
+    }
+
+    .section-title-row .section-heading { margin-bottom:0; }
+
+    .live-dot {
+      width:8px;
+      height:8px;
+      display:inline-block;
+      border-radius:50%;
+      background:#16b981;
+      box-shadow:0 0 0 5px rgba(22,185,129,.12);
+    }
+
+    .feed-list { display:grid; gap:15px; }
+
+    .feed-item {
+      padding:23px;
+      border-radius:22px;
+      background:rgba(255,255,255,.76);
+      border:1px solid var(--border);
+    }
+
+    .feed-item h3 { font-size:18px; margin:10px 0; }
+    .feed-meta { display:flex; flex-wrap:wrap; gap:12px; color:var(--muted); font-size:11px; }
+    .feed-item p { color:var(--muted); line-height:1.7; font-size:13px; }
+
+    .empty-state {
+      padding:30px;
+      text-align:center;
+      color:var(--muted);
+      background:rgba(255,255,255,.55);
+      border:1px dashed rgba(8,120,209,.25);
+      border-radius:23px;
+      line-height:1.7;
+    }
+
+    .empty-state strong { display:block; color:var(--navy); margin-bottom:7px; }
+
+    .status-line {
+      display:flex;
+      align-items:center;
+      gap:9px;
+      font-size:12px;
+      color:var(--muted);
+      margin-top:14px;
+    }
+
+    .channel-card h3,
+    .benefit-card h3 { margin-bottom:9px; font-size:18px; }
+
+    .channel-card p,
+    .benefit-card p { color:var(--muted); font-size:13px; line-height:1.75; }
+
+    .number-list { display:grid; gap:14px; }
+
+    .number-item {
+      display:flex;
+      gap:15px;
+      align-items:flex-start;
+      padding:18px;
+      background:rgba(255,255,255,.7);
+      border:1px solid var(--border);
+      border-radius:21px;
+    }
+
+    .number {
+      flex:0 0 37px;
+      height:37px;
+      display:grid;
+      place-items:center;
+      border-radius:14px;
+      background:var(--blue-light);
+      color:var(--blue);
+      font-weight:900;
+    }
+
+    .number-item h3 { font-size:15px; margin:2px 0 6px; }
+    .number-item p { color:var(--muted); font-size:13px; line-height:1.7; }
+
+    .event-date {
+      display:inline-block;
+      padding:10px 13px;
+      border-radius:14px;
+      background:var(--blue-light);
+      color:var(--blue-dark);
+      font-size:12px;
+      font-weight:850;
+      margin-bottom:14px;
+    }
+
+    .event-card h3 { margin-bottom:9px; }
+    .event-card p { color:var(--muted); font-size:13px; line-height:1.7; }
+
+    .faq-list { display:grid; gap:12px; }
+
+    .faq-item {
+      border:1px solid var(--border);
+      border-radius:19px;
+      background:rgba(255,255,255,.7);
+      overflow:hidden;
+    }
+
+    .faq-question {
+      width:100%;
+      border:0;
+      background:transparent;
+      padding:20px 22px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:15px;
+      text-align:left;
+      color:var(--navy);
+      font-weight:800;
+      cursor:pointer;
+    }
+
+    .faq-answer {
+      display:none;
+      padding:0 22px 20px;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.8;
+    }
+
+    .faq-item.open .faq-answer { display:block; }
+    .faq-symbol { color:var(--blue); font-size:22px; }
+
+    .cta-panel {
+      padding:48px;
+      border-radius:35px;
+      background:linear-gradient(135deg,#0878d1,#063b76);
+      color:#fff;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:30px;
+      flex-wrap:wrap;
+      box-shadow:0 25px 65px rgba(6,59,118,.19);
+    }
+
+    .cta-panel h2 {
+      font-size:clamp(27px,4vw,42px);
+      letter-spacing:-1px;
+      margin-bottom:12px;
+    }
+
+    .cta-panel p { color:rgba(255,255,255,.77); line-height:1.7; max-width:600px; }
+
+    .footer {
+      background:#071f3c;
+      color:#fff;
+      padding:65px 0 25px;
+      margin-top:30px;
+    }
+
+    .footer-grid {
+      display:grid;
+      grid-template-columns:1.4fr 1fr 1fr;
+      gap:35px;
+      margin-bottom:45px;
+    }
+
+    .footer p { color:rgba(255,255,255,.65); line-height:1.8; font-size:13px; }
+    .footer h3 { margin-bottom:17px; font-size:14px; }
+    .footer-links { display:grid; gap:12px; }
+    .footer-links a { color:rgba(255,255,255,.7); font-size:13px; }
+    .footer-links a:hover { color:#fff; }
+    .footer-bottom {
+      border-top:1px solid rgba(255,255,255,.12);
+      padding-top:22px;
+      display:flex;
+      justify-content:space-between;
+      gap:15px;
+      flex-wrap:wrap;
+      color:rgba(255,255,255,.55);
+      font-size:11px;
+    }
+
+    .reveal { opacity:0; transform:translateY(22px); transition:opacity .7s ease,transform .7s ease; }
+    .reveal.visible { opacity:1; transform:translateY(0); }
+
+    .back-to-top {
+      position:fixed;
+      right:22px;
+      bottom:22px;
+      z-index:60;
+      width:48px;
+      height:48px;
+      border:0;
+      border-radius:50%;
+      color:#fff;
+      background:linear-gradient(135deg,#168fe8,#0754a0);
+      box-shadow:0 10px 25px rgba(8,120,209,.25);
+      cursor:pointer;
+      opacity:0;
+      pointer-events:none;
+      transform:translateY(10px);
+      transition:.25s ease;
+    }
+
+    .back-to-top.show { opacity:1; pointer-events:auto; transform:translateY(0); }
+
+    @media(max-width:1080px) {
+      .nav-inner { padding:15px 0; align-items:flex-start; flex-direction:column; gap:13px; }
+      .desktop-nav { justify-content:flex-start; width:100%; }
+      .hero-grid { gap:30px; }
+      .grid-4 { grid-template-columns:repeat(2,minmax(0,1fr)); }
+    }
+
+    @media(max-width:760px) {
+      .hero-grid,.grid-2,.grid-3 { grid-template-columns:1fr; }
+      .hero { padding:65px 0; }
+      .hero-visual { min-height:300px; }
+      .hero-image { height:300px; }
+      .hero-float { left:10px; bottom:8px; }
+      .stats-grid { grid-template-columns:repeat(2,1fr); }
+      .footer-grid { grid-template-columns:1fr 1fr; }
+      .section { padding:65px 0; }
+      .cta-panel { padding:30px; }
+    }
+
+    @media(max-width:560px) {
+      .container { width:calc(100% - 30px); }
+      .desktop-nav { gap:3px; }
+      .desktop-nav a { padding:9px 10px; font-size:11px; }
+      .brand { min-width:0; }
+      .hero h1 { letter-spacing:-2px; }
+      .stats-grid { gap:9px; }
+      .stat-card { padding:16px 9px; }
+      .stat-number { font-size:24px; }
+      .grid-4 { grid-template-columns:1fr 1fr; gap:10px; }
+      .card-body { padding:20px; }
+      .footer-grid { grid-template-columns:1fr; }
+      .section-title-row { align-items:flex-start; }
+    }
+
+    @media(prefers-reduced-motion:reduce) {
+      *,*::before,*::after {
+        scroll-behavior:auto !important;
+        animation-duration:.01ms !important;
+        transition-duration:.01ms !important;
+      }
+      .reveal { opacity:1; transform:none; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="topbar">
+    <div class="container topbar-inner">
+      <span>CHINA SOUTHERN AIRLINES VIRTUAL</span>
+      <span>Fly towards your dreams - 飞向您的梦想</span>
+    </div>
+  </div>
+
+  <header class="navbar">
+    <div class="container nav-inner">
+      <a class="brand" href="index.html">
+        <img src="https://raw.githubusercontent.com/djblessingm-crypto/SOUT-IMAGE/refs/heads/main/China%20Southern%20Airlines%20%C4%B0stanbul%20Acentas%C4%B1.jfif" alt="CSN Virtual logo">
+        <span>CSN VIRTUAL<small>CHINA SOUTHERN AIRLINES</small></span>
+      </a>
+
+      <nav class="desktop-nav" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="index.html#destinations">Destinations</a>
+        <a href="flights.html">Flights</a>
+        <a href="recruitment.html">Careers</a>
+        <a href="community.html" class="active" aria-current="page">Community</a>
+        <a href="index.html#booking">Booking</a>
+        <a class="nav-cta" href="https://discord.gg/UuCc6bxXmG" target="_blank" rel="noopener noreferrer">Join CSN ↗</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- SECTION 1: COMMUNITY HERO -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy reveal">
+          <div class="eyebrow">THE CSN COMMUNITY</div>
+          <h1>More than an airline.<br><span class="accent">A community.</span></h1>
+          <p>
+            Meet fellow aviation enthusiasts, connect with our crew,
+            discover community updates and take part in the China Southern
+            Airlines Virtual experience.
+          </p>
+          <div class="hero-actions">
+            <a class="btn" href="https://discord.gg/UuCc6bxXmG" target="_blank" rel="noopener noreferrer">Join our Discord ↗</a>
+            <a class="btn btn-outline" href="#announcements">Explore updates</a>
+          </div>
+        </div>
+
+        <div class="hero-visual reveal">
+          <div class="hero-orbit"></div>
+          <img class="hero-image" src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1200&q=85" alt="Passenger aircraft flying above the clouds">
+          <div class="hero-float glass">
+            <span class="pill"><span class="live-dot"></span> Connected by aviation</span>
+            <h3 style="margin:12px 0 6px">One community.</h3>
+            <p class="muted small">One shared passion for flight.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: COMMUNITY INTRODUCTION -->
+    <section class="section section-soft">
+      <div class="container reveal">
+        <div class="eyebrow">WELCOME ABOARD</div>
+        <h2 class="section-heading">Discover the <span class="accent">CSN experience.</span></h2>
+        <p class="muted section-intro">
+          CSN Virtual brings aviation enthusiasts together through virtual
+          flights, teamwork, shared experiences and a growing international
+          community. Whether you are a pilot, crew member or aviation fan,
+          there is a place for you.
+        </p>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-number">CSN</div>
+            <div class="stat-label">Our airline code</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">46</div>
+            <div class="stat-label">Countries in our network</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">224</div>
+            <div class="stat-label">Destinations</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">CAN</div>
+            <div class="stat-label">Main hub airport</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: LIVE ANNOUNCEMENTS -->
+    <section class="section" id="announcements">
+      <div class="container reveal">
+        <div class="section-title-row">
+          <div>
+            <div class="eyebrow">LIVE FROM CSN</div>
+            <h2 class="section-heading">Community <span class="accent">announcements.</span></h2>
+          </div>
+          <span class="pill"><span class="live-dot"></span> Server connected</span>
+        </div>
+
+        <p class="muted section-intro">
+          Important updates published by the CSN team will appear here.
+        </p>
+
+        <div id="announcements-feed" class="feed-list" aria-live="polite">
+          <div class="empty-state">Loading announcements...</div>
+        </div>
+        <div class="status-line" id="announcements-status">Connecting to CSN server...</div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: LATEST NEWS -->
+    <section class="section section-soft" id="news">
+      <div class="container reveal">
+        <div class="eyebrow">WHAT'S HAPPENING</div>
+        <h2 class="section-heading">Latest <span class="accent">CSN news.</span></h2>
+        <p class="muted section-intro">
+          Keep up with published news and updates from across the airline.
+        </p>
+
+        <div id="news-feed" class="grid-3" aria-live="polite">
+          <div class="empty-state">Loading news...</div>
+        </div>
+        <div class="status-line" id="news-status">Connecting to CSN server...</div>
+      </div>
+    </section>
+
+    <!-- SECTION 5: UPCOMING EVENTS -->
+    <section class="section" id="events">
+      <div class="container reveal">
+        <div class="eyebrow">SAVE THE DATE</div>
+        <h2 class="section-heading">Community <span class="accent">events.</span></h2>
+        <p class="muted section-intro">
+          Discover upcoming events published by the CSN team.
+        </p>
+
+        <div id="events-feed" class="grid-3" aria-live="polite">
+          <div class="empty-state">Loading events...</div>
+        </div>
+        <div class="status-line" id="events-status">Connecting to CSN server...</div>
+      </div>
+    </section>
+
+    <!-- SECTION 6: DISCORD -->
+    <section class="section section-blue">
+      <div class="container grid-2 reveal" style="align-items:center">
+        <div>
+          <div class="eyebrow">OUR ONLINE HOME</div>
+          <h2 class="section-heading">Connect with us on <span class="accent">Discord.</span></h2>
+          <p class="muted">
+            Join the CSN Virtual Discord community to meet members,
+            communicate with the team and follow the latest updates.
+          </p>
+          <div style="margin-top:25px">
+            <a class="btn btn-white" href="https://discord.gg/UuCc6bxXmG" target="_blank" rel="noopener noreferrer">Open CSN Discord ↗</a>
+          </div>
+        </div>
+        <div class="glass card-body" style="color:var(--navy)">
+          <div class="icon-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M8 8h.01M16 8h.01M7 16c3 2 7 2 10 0M5 5C9 3 15 3 19 5l2 12c-5 4-13 4-18 0L5 5Z"/>
+            </svg>
+          </div>
+          <h3 style="font-size:23px;margin-bottom:10px">Your community starts here.</h3>
+          <p class="muted small">
+            The Discord invite opens the official CSN Virtual community
+            invitation supplied by the CSN team.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 7: COMMUNITY CHANNELS -->
+    <section class="section">
+      <div class="container reveal">
+        <div class="eyebrow">STAY CONNECTED</div>
+        <h2 class="section-heading">Explore our <span class="accent">community spaces.</span></h2>
+        <p class="muted section-intro">
+          Find the right place to follow updates, meet members and get involved.
+          Channel availability and permissions are managed on Discord.
+        </p>
+
+        <div class="grid-3">
+          <article class="card channel-card"><div class="card-body">
+            <div class="icon-box"> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5h16v12H8l-4 3V5Z"/><path d="M8 9h8M8 13h5"/></svg></div>
+            <h3>Community chat</h3>
+            <p>Connect with other members and share your aviation interests.</p>
+          </div></article>
+
+          <article class="card channel-card"><div class="card-body">
+            <div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 4h14v16H5zM8 8h8M8 12h8M8 16h5"/></svg></div>
+            <h3>News and updates</h3>
+            <p>Follow important information and published airline updates.</p>
+          </div></article>
+
+          <article class="card channel-card"><div class="card-body">
+            <div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M7 3v4M17 3v4M3 10h18M8 14h3"/></svg></div>
+            <h3>Events and activities</h3>
+            <p>Keep an eye on community events and activities announced by CSN.</p>
+          </div></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 8: COMMUNITY ROLES -->
+    <section class="section section-soft">
+      <div class="container reveal">
+        <div class="eyebrow">EVERYONE HAS A PART</div>
+        <h2 class="section-heading">Different roles. <span class="accent">One team.</span></h2>
+        <p class="muted section-intro">
+          CSN Virtual depends on people working together to create an enjoyable
+          virtual airline experience.
+        </p>
+
+        <div class="grid-3">
+          <article class="card"><div class="card-body">
+            <div class="icon-box">01</div>
+            <h3 style="margin-bottom:10px">Pilots</h3>
+            <p class="muted small">Take part in virtual flights and represent CSN in the skies.</p>
+          </div></article>
+          <article class="card"><div class="card-body">
+            <div class="icon-box">02</div>
+            <h3 style="margin-bottom:10px">Cabin crew</h3>
+            <p class="muted small">Help create a welcoming and organised passenger experience.</p>
+          </div></article>
+          <article class="card"><div class="card-body">
+            <div class="icon-box">03</div>
+            <h3 style="margin-bottom:10px">Ground crew</h3>
+            <p class="muted small">Support ground operations and help flights run smoothly.</p>
+          </div></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 9: HOW TO JOIN -->
+    <section class="section">
+      <div class="container reveal">
+        <div class="eyebrow">GET STARTED</div>
+        <h2 class="section-heading">Your journey with <span class="accent">CSN.</span></h2>
+        <p class="muted section-intro">
+          Follow these steps to become part of the community.
+        </p>
+
+        <div class="number-list">
+          <div class="number-item">
+            <span class="number">01</span>
+            <div><h3>Join the Discord</h3><p>Enter the CSN Virtual Discord community using our official invitation.</p></div>
+          </div>
+          <div class="number-item">
+            <span class="number">02</span>
+            <div><h3>Read the community information</h3><p>Review the available rules, guidance and information shared by the team.</p></div>
+          </div>
+          <div class="number-item">
+            <span class="number">03</span>
+            <div><h3>Explore opportunities</h3><p>Discover available roles and follow the official recruitment process if interested.</p></div>
+          </div>
+          <div class="number-item">
+            <span class="number">04</span>
+            <div><h3>Get involved</h3><p>Connect with members and take part in activities that interest you.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 10: COMMUNITY BENEFITS -->
+    <section class="section section-soft">
+      <div class="container reveal">
+        <div class="eyebrow">THE EXPERIENCE</div>
+        <h2 class="section-heading">Why be part of <span class="accent">CSN?</span></h2>
+
+        <div class="grid-3" style="margin-top:30px">
+          <article class="card benefit-card"><div class="card-body">
+            <div class="icon-box"> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM20 8v6M23 11h-6"/></svg></div>
+            <h3>Meet people</h3><p>Connect with others who share an interest in aviation and virtual flying.</p>
+          </div></article>
+          <article class="card benefit-card"><div class="card-body">
+            <div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12h18M12 3v18M5 5l14 14M19 5 5 19"/></svg></div>
+            <h3>Share experiences</h3><p>Take part in a community built around teamwork and shared interests.</p>
+          </div></article>
+          <article class="card benefit-card"><div class="card-body">
+            <div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 19V5l8-3 8 3v14l-8 3-8-3Z"/><path d="m4 5 8 3 8-3M12 8v14"/></svg></div>
+            <h3>Discover aviation</h3><p>Explore virtual airline operations and learn more about the world of flight.</p>
+          </div></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 11: COMMUNITY GUIDELINES -->
+    <section class="section">
+      <div class="container reveal">
+        <div class="eyebrow">RESPECT AND TEAMWORK</div>
+        <h2 class="section-heading">Our community <span class="accent">guidelines.</span></h2>
+        <p class="muted section-intro">
+          These are general principles for a positive community experience.
+          Always follow the official rules published by CSN staff on Discord.
+        </p>
+
+        <div class="grid-2">
+          <div class="card card-body">
+            <h3 style="margin-bottom:12px">Respect everyone</h3>
+            <p class="muted small">Treat fellow members with courtesy. Harassment, bullying and discrimination do not belong in our community.</p>
+          </div>
+          <div class="card card-body">
+            <h3 style="margin-bottom:12px">Keep things appropriate</h3>
+            <p class="muted small">Use appropriate language and keep conversations suitable for the community.</p>
+          </div>
+          <div class="card card-body">
+            <h3 style="margin-bottom:12px">Listen to staff</h3>
+            <p class="muted small">Follow official instructions and use the correct channels when you need assistance.</p>
+          </div>
+          <div class="card card-body">
+            <h3 style="margin-bottom:12px">Protect your information</h3>
+            <p class="muted small">Never share passwords, private account details or sensitive personal information.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 12: COMMUNITY NEWSLETTER / UPDATES -->
+    <section class="section section-soft">
+      <div class="container grid-2 reveal" style="align-items:center">
+        <div>
+          <div class="eyebrow">DON'T MISS AN UPDATE</div>
+          <h2 class="section-heading">Stay in the <span class="accent">loop.</span></h2>
+          <p class="muted">
+            The CSN website community feed displays published news,
+            announcements and events from the server. Visit this page again
+            to check for new updates.
+          </p>
+        </div>
+        <div class="glass card-body">
+          <div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5h16v14H4z"/><path d="m4 7 8 6 8-6"/></svg></div>
+          <h3 style="font-size:22px;margin-bottom:10px">Your CSN update centre</h3>
+          <p class="muted small" style="margin-bottom:20px">
+            Use the refresh button to request the latest published information.
+          </p>
+          <button class="btn" id="refresh-feeds" type="button">Refresh community feeds</button>
+          <p class="status-line" id="last-refresh">Not refreshed yet.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 13: COMMUNITY FAQ -->
+    <section class="section">
+      <div class="container reveal">
+        <div class="eyebrow">HELP CENTRE</div>
+        <h2 class="section-heading">Community <span class="accent">questions.</span></h2>
+        <p class="muted section-intro">
+          Some quick answers to help you get started.
+        </p>
+
+        <div class="faq-list">
+          <div class="faq-item">
+            <button class="faq-question" type="button"><span>How do I join the CSN community?</span><span class="faq-symbol">+</span></button>
+            <div class="faq-answer">Use the Join CSN Discord link on this page to open the community invitation.</div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" type="button"><span>Where can I find the latest announcements?</span><span class="faq-symbol">+</span></button>
+            <div class="faq-answer">Published announcements from the CSN server appear in the announcements section above.</div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" type="button"><span>Where can I see upcoming events?</span><span class="faq-symbol">+</span></button>
+            <div class="faq-answer">Check the community events section. It displays published entries from the events database.</div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" type="button"><span>How can I apply for a role?</span><span class="faq-symbol">+</span></button>
+            <div class="faq-answer">Visit the Careers page and use the application links for the available positions.</div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" type="button"><span>What if I need help?</span><span class="faq-symbol">+</span></button>
+            <div class="faq-answer">Join the Discord community and use the appropriate support channel or contact a member of staff.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 14: EXPLORE THE AIRLINE -->
+    <section class="section section-soft">
+      <div class="container reveal">
+        <div class="eyebrow">BEYOND THE COMMUNITY</div>
+        <h2 class="section-heading">Explore more of <span class="accent">CSN Virtual.</span></h2>
+        <p class="muted section-intro">
+          Discover the airline, explore destinations and learn about opportunities
+          across the virtual airline.
+        </p>
+
+        <div class="grid-3">
+          <a class="card card-body" href="about.html">
+            <div class="icon-box">01</div>
+            <h3 style="margin-bottom:9px">About CSN</h3>
+            <p class="muted small">Discover our airline and what we represent.</p>
+          </a>
+          <a class="card card-body" href="flights.html">
+            <div class="icon-box">02</div>
+            <h3 style="margin-bottom:9px">Flight information</h3>
+            <p class="muted small">Explore published flight information.</p>
+          </a>
+          <a class="card card-body" href="recruitment.html">
+            <div class="icon-box">03</div>
+            <h3 style="margin-bottom:9px">Careers</h3>
+            <p class="muted small">Discover available opportunities to join the team.</p>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 15: FINAL CALL TO ACTION -->
+    <section class="section">
+      <div class="container reveal">
+        <div class="cta-panel">
+          <div>
+            <div class="eyebrow">YOUR JOURNEY STARTS HERE</div>
+            <h2>Fly towards your dreams.</h2>
+            <p>
+              Become part of the China Southern Airlines Virtual community.
+              Meet the people, share the passion and discover your next journey.
+            </p>
+          </div>
+          <a class="btn btn-white" href="https://discord.gg/UuCc6bxXmG" target="_blank" rel="noopener noreferrer">Join CSN Virtual ↗</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <h3>CHINA SOUTHERN AIRLINES VIRTUAL</h3>
+          <p>Fly towards your dreams - 飞向您的梦想</p>
+          <p style="margin-top:12px">Connecting aviation enthusiasts through a shared virtual airline experience.</p>
+        </div>
+
+        <div>
+          <h3>Explore</h3>
+          <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="flights.html">Flights</a>
+            <a href="recruitment.html">Careers</a>
+          </div>
+        </div>
+
+        <div>
+          <h3>Community</h3>
+          <div class="footer-links">
+            <a href="#announcements">Announcements</a>
+            <a href="#news">News</a>
+            <a href="#events">Events</a>
+            <a href="https://discord.gg/UuCc6bxXmG" target="_blank" rel="noopener noreferrer">Discord ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>© <span id="year"></span> China Southern Airlines Virtual. All rights reserved.</span>
+        <span>This is an independent virtual airline community and is not the official China Southern Airlines website.</span>
+      </div>
+    </div>
+  </footer>
+
+  <button class="back-to-top" id="back-to-top" aria-label="Back to top" type="button">↑</button>
+
+  <script>
+    'use strict';
+
+    const API = {
+      announcements: '/api/announcements',
+      news: '/api/news',
+      events: '/api/events'
+    };
+
+    const $ = selector => document.querySelector(selector);
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    function escapeHTML(value) {
+      return String(value ?? '').replace(/[&<>"']/g, character => ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;'
+      })[character]);
+    }
+
+    function firstText(item, fields, fallback = '') {
+      for (const field of fields) {
+        const value = item?.[field];
+
+        if (typeof value === 'string' && value.trim()) {
+          return value.trim();
+        }
+      }
+
+      return fallback;
+    }
+
+    function formatDate(value) {
+      if (!value) return 'Date not provided';
+
+      const date = new Date(value);
+
+      if (Number.isNaN(date.getTime())) {
+        return escapeHTML(value);
+      }
+
+      return date.toLocaleDateString(undefined, {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric'
+      });
+    }
+
+    function getCollection(payload, key) {
+      if (!payload || payload.success !== true || !Array.isArray(payload[key])) {
+        throw new Error('The server returned an unexpected response.');
+      }
+
+      return payload[key].filter(item =>
+        item && typeof item === 'object' && !Array.isArray(item)
+      );
+    }
+
+    function emptyMessage(title, description) {
+      return `
+        <div class="empty-state">
+          <strong>${escapeHTML(title)}</strong>
+          ${escapeHTML(description)}
+        </div>
+      `;
+    }
+
+    function renderAnnouncements(items) {
+      const feed = $('#announcements-feed');
+
+      if (!items.length) {
+        feed.innerHTML = emptyMessage(
+          'No announcements yet',
+          'There are currently no published community announcements.'
+        );
+        return;
+      }
+
+      feed.innerHTML = items.map(item => {
+        const title = firstText(item, ['title', 'headline', 'name'], 'Community announcement');
+        const description = firstText(item, ['description', 'content', 'message', 'body'], 'No additional details were provided.');
+        const date = firstText(item, ['publishedAt', 'createdAt', 'date', 'updatedAt']);
+
+        return `
+          <article class="feed-item">
+            <span class="pill">CSN announcement</span>
+            <h3>${escapeHTML(title)}</h3>
+            <p>${escapeHTML(description)}</p>
+            <div class="feed-meta" style="margin-top:13px">
+              <span>${escapeHTML(formatDate(date))}</span>
+            </div>
+          </article>
+        `;
+      }).join('');
+    }
+
+    function renderNews(items) {
+      const feed = $('#news-feed');
+
+      if (!items.length) {
+        feed.innerHTML = emptyMessage(
+          'No news published',
+          'New CSN news articles will appear here when published.'
+        );
+        return;
+      }
+
+      feed.innerHTML = items.map(item => {
+        const title = firstText(item, ['title', 'headline', 'name'], 'CSN news');
+        const description = firstText(item, ['description', 'excerpt', 'content', 'body'], 'No article description is available.');
+        const date = firstText(item, ['publishedAt', 'createdAt', 'date', 'updatedAt']);
+        const category = firstText(item, ['category', 'type'], 'Airline news');
+        const link = firstText(item, ['url', 'link']);
+
+        const safeLink = /^https?:\/\//i.test(link) ? link : '';
+
+        return `
+          <article class="card">
+            <div class="card-body">
+              <span class="pill">${escapeHTML(category)}</span>
+              <h3 style="font-size:19px;margin:15px 0 10px">${escapeHTML(title)}</h3>
+              <p class="muted small">${escapeHTML(description)}</p>
+              <div class="feed-meta" style="margin-top:17px">
+                <span>${escapeHTML(formatDate(date))}</span>
+              </div>
+              ${safeLink ? `<a class="btn btn-outline" style="margin-top:18px" href="${escapeHTML(safeLink)}" target="_blank" rel="noopener noreferrer">Read more ↗</a>` : ''}
+            </div>
+          </article>
+        `;
+      }).join('');
+    }
+
+    function renderEvents(items) {
+      const feed = $('#events-feed');
+
+      if (!items.length) {
+        feed.innerHTML = emptyMessage(
+          'No upcoming events listed',
+          'When the CSN team publishes an event, it will appear here.'
+        );
+        return;
+      }
+
+      feed.innerHTML = items.map(item => {
+        const title = firstText(item, ['title', 'name', 'eventName'], 'CSN community event');
+        const description = firstText(item, ['description', 'details', 'content'], 'No additional event details were provided.');
+        const date = firstText(item, ['eventDate', 'date', 'startDate', 'createdAt']);
+        const time = firstText(item, ['time', 'eventTime']);
+        const location = firstText(item, ['location', 'venue']);
+        const status = firstText(item, ['status'], 'Published');
+
+        return `
+          <article class="card event-card">
+            <div class="card-body">
+              <span class="event-date">${escapeHTML(formatDate(date))}</span>
+              <h3>${escapeHTML(title)}</h3>
+              <p>${escapeHTML(description)}</p>
+              <div class="feed-meta" style="margin-top:16px">
+                ${time ? `<span>${escapeHTML(time)}</span>` : ''}
+                ${location ? `<span>${escapeHTML(location)}</span>` : ''}
+                <span>${escapeHTML(status)}</span>
+              </div>
+            </div>
+          </article>
+        `;
+      }).join('');
+    }
+
+    async function loadFeed(name, endpoint, key, renderer) {
+      const status = document.getElementById(`${name}-status`);
+      const feed = document.getElementById(`${name}-feed`);
+
+      status.textContent = 'Connecting to CSN server...';
+
+      try {
+        const response = await fetch(endpoint, {
+          method: 'GET',
+          headers: { 'Accept': 'application/json' },
+          cache: 'no-store'
+        });
+
+        if (!response.ok) {
+          throw new Error(`Server returned HTTP ${response.status}.`);
+        }
+
+        const payload = await response.json();
+        const items = getCollection(payload, key);
+
+        renderer(items);
+
+        status.innerHTML = `<span class="live-dot"></span> Connected · ${items.length} published item${items.length === 1 ? '' : 's'}`;
+      } catch (error) {
+        console.error(`[COMMUNITY] ${name}:`, error);
+
+        feed.innerHTML = emptyMessage(
+          'Unable to load this feed',
+          'The CSN server could not provide this information. Please try again later.'
+        );
+
+        status.textContent = 'Connection unavailable. Check that the CSN server is running.';
+      }
+    }
+
+    async function refreshAllFeeds() {
+      const refreshButton = $('#refresh-feeds');
+      const refreshStatus = $('#last-refresh');
+
+      refreshButton.disabled = true;
+      refreshButton.textContent = 'Refreshing...';
+      refreshStatus.textContent = 'Updating community information...';
+
+      await Promise.all([
+        loadFeed('announcements', API.announcements, 'announcements', renderAnnouncements),
+        loadFeed('news', API.news, 'news', renderNews),
+        loadFeed('events', API.events, 'events', renderEvents)
+      ]);
+
+      refreshButton.disabled = false;
+      refreshButton.textContent = 'Refresh community feeds';
+      refreshStatus.textContent = `Last refreshed: ${new Date().toLocaleTimeString()}`;
+    }
+
+    $('#refresh-feeds').addEventListener('click', refreshAllFeeds);
+
+    document.querySelectorAll('.faq-question').forEach(button => {
+      button.addEventListener('click', () => {
+        const item = button.closest('.faq-item');
+        const wasOpen = item.classList.contains('open');
+
+        document.querySelectorAll('.faq-item').forEach(faq => {
+          faq.classList.remove('open');
+          faq.querySelector('.faq-symbol').textContent = '+';
+        });
+
+        if (!wasOpen) {
+          item.classList.add('open');
+          button.querySelector('.faq-symbol').textContent = '−';
+        }
+      });
+    });
+
+    const backToTop = $('#back-to-top');
+
+    window.addEventListener('scroll', () => {
+      backToTop.classList.toggle('show', window.scrollY > 500);
+    }, { passive: true });
+
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    const revealObserver = 'IntersectionObserver' in window
+      ? new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+              revealObserver.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.12 })
+      : null;
+
+    document.querySelectorAll('.reveal').forEach(element => {
+      if (revealObserver) {
+        revealObserver.observe(element);
+      } else {
+        element.classList.add('visible');
+      }
+    });
+
+    refreshAllFeeds();
+  </script>
+</body>
+</html>
