@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -542,7 +541,7 @@
   <header class="navbar">
     <div class="container nav-inner">
 
-      <a href="/" class="brand" aria-label="CSN Virtual home">
+      <a href="index.html" class="brand" aria-label="CSN Virtual home">
         <!-- Replace this temporary mark with your actual CSN logo image when its path is confirmed. -->
         <img src="https://raw.githubusercontent.com/djblessingm-crypto/SOUT-IMAGE/refs/heads/main/China%20Southern%20Airlines%20%C4%B0stanbul%20Acentas%C4%B1.jfif" alt="CSN Logo" class="brand-mark">
 
@@ -552,7 +551,7 @@
         </div>
       </a>
 
-      <a href="/" class="back-link">
+      <a href="index.html" class="back-link">
         Back to website <span aria-hidden="true">↗</span>
       </a>
 
@@ -609,7 +608,7 @@
             to access China Southern Airlines Virtual.
           </p>
 
-          <a href="/auth/discord" class="btn discord-button">
+          <a href="#" id="discordLogin" role="button" class="btn discord-button">
             <svg class="discord-icon" viewBox="0 0 24 24" aria-hidden="true">
               <path d="M19.7 5.3A19.2 19.2 0 0 0 15 3.8l-.6 1.2a17.5 17.5 0 0 0-4.8 0L9 3.8a19.2 19.2 0 0 0-4.7 1.5C1.3 9.7.5 14 .9 18.2a19.3 19.3 0 0 0 5.8 3l1.3-2.1-2-1 .5-.4c3.9 1.8 8.1 1.8 12 0l.5.4-2 1 1.3 2.1a19.3 19.3 0 0 0 5.8-3c.5-4.9-.8-9.1-4.4-12.9ZM8.7 15.3c-1.1 0-2-1-2-2.2s.9-2.2 2-2.2 2 1 2 2.2-.9 2.2-2 2.2Zm6.6 0c-1.1 0-2-1-2-2.2s.9-2.2 2-2.2 2 1 2 2.2-.9 2.2-2 2.2Z"/>
             </svg>
@@ -617,6 +616,8 @@
             Continue with Discord
             <span aria-hidden="true">↗</span>
           </a>
+
+          <p id="loginStatus" role="status" aria-live="polite" style="margin:14px 0 0;text-align:center;font-size:.9rem;font-weight:600"></p>
 
           <div class="divider">SECURE AUTHENTICATION</div>
 
@@ -653,9 +654,41 @@
     </div>
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+  <script src="js/supabase.js"></script>
   <script>
     document.getElementById('year').textContent =
       new Date().getFullYear();
+
+    var loginButton = document.getElementById('discordLogin');
+    var loginStatus = document.getElementById('loginStatus');
+
+    function showStatus(text) { loginStatus.textContent = text; }
+
+    // Already signed in? Go straight back to the homepage.
+    if (window.csn && window.csn.ready) {
+      window.csn.getUser().then(function (user) {
+        if (user) window.location.href = 'index.html';
+      }).catch(function () {});
+    }
+
+    loginButton.addEventListener('click', function (event) {
+      event.preventDefault();
+
+      if (!window.csn || !window.csn.ready) {
+        showStatus('Discord sign-in is not available yet. Please try again soon.');
+        return;
+      }
+
+      showStatus('Redirecting to Discord...');
+      window.csn.signInWithDiscord().then(function (result) {
+        if (result && result.error) {
+          showStatus('Could not start Discord sign-in. Please try again.');
+        }
+      }).catch(function () {
+        showStatus('Could not start Discord sign-in. Please try again.');
+      });
+    });
   </script>
 
 </body>
