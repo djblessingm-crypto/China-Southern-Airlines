@@ -711,7 +711,34 @@ h3{font-size:1.3rem}
   *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}
   .reveal{opacity:1;transform:none}
 }
+
+/* MOBILE HAMBURGER NAVIGATION */
+.nav-toggle{display:none;flex:0 0 auto;width:48px;height:48px;padding:0;border:1px solid rgba(255,255,255,.9);border-radius:16px;background:rgba(255,255,255,.75);box-shadow:0 8px 22px rgba(0,83,155,.14);flex-direction:column;align-items:center;justify-content:center;gap:5px}
+.nav-toggle span{display:block;width:22px;height:2.5px;border-radius:99px;background:var(--blue-dark);transition:transform .3s ease,opacity .2s ease}
+.nav-toggle[aria-expanded="true"] span:nth-child(1){transform:translateY(7.5px) rotate(45deg)}
+.nav-toggle[aria-expanded="true"] span:nth-child(2){opacity:0}
+.nav-toggle[aria-expanded="true"] span:nth-child(3){transform:translateY(-7.5px) rotate(-45deg)}
+.desktop-nav a[aria-current="page"]{color:var(--blue);background:rgba(222,241,255,.76)}
+@media(max-width:1080px){
+  .nav-inner{flex-wrap:nowrap;justify-content:space-between;padding:12px 0}
+  .brand{flex:1 1 auto;justify-content:flex-start}
+  .nav-toggle{display:flex}
+  .desktop-nav{display:none;position:absolute;top:calc(100% + 8px);left:14px;right:14px;flex-direction:column;align-items:stretch;gap:4px;padding:12px;border-radius:26px;background:linear-gradient(160deg,#f7fbff,#e6f3ff);border:1px solid #fff;box-shadow:0 24px 60px rgba(8,60,120,.22);max-height:calc(100vh - 150px);overflow-y:auto}
+  .desktop-nav.open{display:flex;animation:navIn .25s ease}
+  .desktop-nav a{padding:14px 18px;font-size:.95rem;text-align:left}
+  .desktop-nav .nav-cta{text-align:center;margin-top:6px}
+}
+@keyframes navIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+
+/* LIVE ANNOUNCEMENTS */
+.announcement-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+.announcement-meta{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:14px}
+.announcement-date{font-size:.8rem;color:var(--muted)}
+.announcement-card h3{margin:0 0 10px}
+.announcement-card p{margin:0 0 16px;white-space:pre-line}
+.announcement-card img{width:100%;max-height:190px;object-fit:cover;border-radius:20px;margin-bottom:16px}
 </style>
+<noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
 </head>
 <body>
 
@@ -730,16 +757,17 @@ h3{font-size:1.3rem}
       <span class="brand-name">CHINA SOUTHERN<span>AIRLINES VIRTUAL</span></span>
     </a>
 
-    <nav class="desktop-nav" aria-label="Main navigation">
-      <a href="index.html">Home</a>
+    <nav class="desktop-nav" id="mainNav" aria-label="Main navigation">
+      <a href="index.html" aria-current="page">Home</a>
       <a href="about.html">About</a>
       <a href="destinations.html">Destinations</a>
       <a href="flights.html">Flights</a>
-      <a href="recruitment.html">recruitment</a>
+      <a href="recruitment.html">Recruitment</a>
       <a href="community.html">Community</a>
       <a href="booking.html">Booking</a>
-      <a class="nav-cta" href="Login.html">Login with Discord ↗</a>
+      <a class="nav-cta" id="accountLink" href="login.html">Login with Discord ↗</a>
     </nav>
+    <button class="nav-toggle" id="navToggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mainNav"><span></span><span></span><span></span></button>
   </div>
 </header>
 
@@ -881,6 +909,7 @@ h3{font-size:1.3rem}
           <div class="form-field full"><label for="flightDate">Preferred date</label><input id="flightDate" type="date" required></div>
           <div class="form-field full"><label for="journeyType">Journey type</label><select id="journeyType"><option>One way</option><option>Return</option></select></div>
           <div class="form-field full"><button class="btn" type="submit">Preview request ↗</button></div>
+          <div class="form-field full"><a class="btn btn-outline" href="booking.html">Make a real booking request ↗</a></div>
         </div>
         <p class="small muted" id="bookingMessage" aria-live="polite" style="margin:15px 0 0">Preview only — no booking will be submitted.</p>
       </form>
@@ -973,7 +1002,9 @@ h3{font-size:1.3rem}
 <section class="section section-soft" id="announcements">
   <div class="container">
     <div class="section-heading reveal"><span class="eyebrow">Stay informed</span><h2>What's happening at <span class="accent">CSN Virtual?</span></h2><p>Community updates and announcements will be shared through our official community channels.</p></div>
-    <div class="card info-card reveal"><h3>Follow our announcements</h3><p class="muted">This homepage does not yet have a live announcement feed connected.</p><a class="btn btn-outline" href="https://discord.gg/uUcc6bxXmG" target="_blank" rel="noopener noreferrer">Visit our Discord ↗</a></div>
+    <div id="announcementFeed" class="announcement-grid">
+    <div class="card info-card reveal" id="announcementFallback"><h3>Follow our announcements</h3><p class="muted" id="announcementMessage">Announcements are shared in our Discord community.</p><a class="btn btn-outline" href="https://discord.gg/uUcc6bxXmG" target="_blank" rel="noopener noreferrer">Visit our Discord ↗</a></div>
+    </div>
   </div>
 </section>
 
@@ -1049,6 +1080,8 @@ h3{font-size:1.3rem}
 <button class="back-to-top" id="backToTop" type="button" aria-label="Back to top">↑</button>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script src="js/supabase.js"></script>
 <script>
 "use strict";
 
@@ -1137,6 +1170,72 @@ window.addEventListener("scroll",()=>{
 backToTop.addEventListener("click",()=>{
   window.scrollTo({top:0,behavior:"smooth"});
 });
+
+/* Mobile navigation */
+const navToggle=document.getElementById("navToggle");
+const mainNav=document.getElementById("mainNav");
+function setNav(open){
+  mainNav.classList.toggle("open",open);
+  navToggle.setAttribute("aria-expanded",String(open));
+  navToggle.setAttribute("aria-label",open?"Close menu":"Open menu");
+}
+navToggle.addEventListener("click",()=>setNav(!mainNav.classList.contains("open")));
+mainNav.querySelectorAll("a").forEach(link=>link.addEventListener("click",()=>setNav(false)));
+document.addEventListener("keydown",event=>{if(event.key==="Escape")setNav(false)});
+document.addEventListener("click",event=>{
+  if(!event.target.closest(".nav-inner"))setNav(false);
+});
+window.matchMedia("(min-width:1081px)").addEventListener("change",event=>{if(event.matches)setNav(false)});
+
+/* Supabase: account state and live announcements */
+(function(){
+  if(!window.csn||!window.csn.ready)return;
+
+  window.csn.getUser().then(function(user){
+    if(!user)return;
+    var link=document.getElementById("accountLink");
+    link.textContent="My account ↗";
+    link.setAttribute("href","profile.html");
+  }).catch(function(){});
+
+  var feed=document.getElementById("announcementFeed");
+  var fallback=document.getElementById("announcementFallback");
+  var message=document.getElementById("announcementMessage");
+
+  function safeUrl(value){
+    try{var u=new URL(value);return(u.protocol==="https:"||u.protocol==="http:")?u.href:null}catch(e){return null}
+  }
+
+  window.csn.client.from("announcements")
+    .select("id,title,message,category,image_url,link_url,published_at")
+    .eq("status","published")
+    .lte("published_at",new Date().toISOString())
+    .order("published_at",{ascending:false})
+    .limit(3)
+    .then(function(result){
+      if(result.error){return}
+      var rows=result.data||[];
+      if(!rows.length){message.textContent="No announcements have been published yet. Check our Discord community for the latest updates.";return}
+      fallback.remove();
+      rows.forEach(function(row){
+        var card=document.createElement("article");
+        card.className="card info-card announcement-card";
+        var imageUrl=safeUrl(row.image_url);
+        if(imageUrl){var img=document.createElement("img");img.src=imageUrl;img.alt="";img.loading="lazy";card.appendChild(img)}
+        var meta=document.createElement("div");meta.className="announcement-meta";
+        if(row.category){var pill=document.createElement("span");pill.className="pill";pill.textContent=row.category;meta.appendChild(pill)}
+        var date=document.createElement("span");date.className="announcement-date";
+        date.textContent=new Date(row.published_at).toLocaleDateString(undefined,{year:"numeric",month:"long",day:"numeric"});
+        meta.appendChild(date);card.appendChild(meta);
+        var title=document.createElement("h3");title.textContent=row.title;card.appendChild(title);
+        var body=document.createElement("p");body.className="muted";body.textContent=row.message;card.appendChild(body);
+        var linkUrl=safeUrl(row.link_url);
+        if(linkUrl){var a=document.createElement("a");a.className="btn btn-outline";a.href=linkUrl;a.target="_blank";a.rel="noopener noreferrer";a.textContent="Read more ↗";card.appendChild(a)}
+        feed.appendChild(card);
+      });
+    })
+    .catch(function(){});
+})();
 </script>
 </body>
 </html>
