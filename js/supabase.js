@@ -8,7 +8,7 @@
         "https://twtabmerzpyuyxgttnes.supabase.co";
 
     const SUPABASE_PUBLISHABLE_KEY =
-        "PASTE_YOUR_PUBLISHABLE_KEY_HERE";
+        "sb_publishable_zsV-TfyYfyqN9nFwjBt02A_EYMI0tqe";
 
     const client = window.supabase.createClient(
         SUPABASE_URL,
