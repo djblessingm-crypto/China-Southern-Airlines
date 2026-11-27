@@ -1,535 +1,185 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#edf7ff">
-  <meta name="description" content="Sign in to China Southern Airlines Virtual.">
+  <meta name="theme-color" content="#071b38">
 
-  <title>Member Login | CSN Virtual</title>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <title>Login | China Southern Airlines Virtual</title>
 
   <style>
-    :root{
-      --white:#fff;
-      --blue:#0878d1;
-      --blue-dark:#063b76;
-      --blue-light:#eaf5ff;
-      --navy:#10243d;
-      --muted:#63748a;
-      --border:rgba(12,76,135,.13);
-      --glass:rgba(255,255,255,.62);
-      --shadow:0 22px 70px rgba(10,69,125,.13),inset 0 1px 0 rgba(255,255,255,.9);
-      --radius:28px;
-      --max:1240px;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
     }
 
-    *{box-sizing:border-box}
-
-    html{
-      min-height:100%;
-      scroll-behavior:smooth;
-    }
-
-    body{
-      margin:0;
-      min-height:100vh;
-      color:var(--navy);
-      font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-      line-height:1.65;
-      overflow-x:hidden;
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 25px;
+      color: white;
       background:
-        radial-gradient(ellipse at 8% 8%,rgba(68,169,255,.13),transparent 32%),
-        radial-gradient(ellipse at 92% 38%,rgba(0,111,210,.10),transparent 30%),
-        linear-gradient(145deg,#fafdff,#edf7ff 48%,#fff);
-      background-attachment:fixed;
+        radial-gradient(circle at 15% 10%, #174b7d 0, transparent 35%),
+        radial-gradient(circle at 90% 90%, #123e6b 0, transparent 35%),
+        linear-gradient(135deg, #041226, #092749 60%, #06182e);
     }
 
-    body:before{
-      content:"";
-      position:fixed;
-      inset:0;
-      pointer-events:none;
-      z-index:-1;
-      background-image:radial-gradient(rgba(8,120,209,.12) .7px,transparent .7px);
-      background-size:24px 24px;
-      opacity:.18;
+    .container {
+      width: 100%;
+      max-width: 480px;
+      padding: 42px 35px;
+      border: 1px solid rgba(255,255,255,.13);
+      border-radius: 25px;
+      background: rgba(255,255,255,.075);
+      backdrop-filter: blur(22px);
+      box-shadow: 0 25px 80px rgba(0,0,0,.35);
     }
 
-    a{
-      color:inherit;
-      text-decoration:none;
+    .brand {
+      text-align: center;
+      margin-bottom: 35px;
     }
 
-    button,a{
-      -webkit-tap-highlight-color:transparent;
+    .brand img {
+      width: 85px;
+      height: 85px;
+      object-fit: contain;
+      margin-bottom: 15px;
     }
 
-    :focus-visible{
-      outline:3px solid var(--blue);
-      outline-offset:4px;
+    .brand h1 {
+      font-size: 23px;
+      letter-spacing: 1.5px;
     }
 
-    .container{
-      width:min(var(--max),calc(100% - 40px));
-      margin:auto;
+    .brand p {
+      margin-top: 9px;
+      font-size: 12px;
+      letter-spacing: 2px;
+      color: #9dc9f1;
     }
 
-    /* HEADER */
-
-    .navbar{
-      position:relative;
-      z-index:10;
-      background:rgba(255,255,255,.58);
-      border-bottom:1px solid rgba(255,255,255,.88);
-      box-shadow:0 12px 38px rgba(20,91,150,.10),inset 0 1px 0 #fff;
-      backdrop-filter:blur(30px) saturate(175%);
-      -webkit-backdrop-filter:blur(30px) saturate(175%);
+    .intro {
+      text-align: center;
+      margin-bottom: 28px;
     }
 
-    .nav-inner{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:20px;
-      min-height:86px;
+    .intro h2 {
+      font-size: 25px;
+      margin-bottom: 10px;
     }
 
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      min-width:0;
+    .intro p {
+      font-size: 14px;
+      line-height: 1.6;
+      color: #b5c8dc;
     }
 
-    .brand-mark{
-      width:52px;
-      height:52px;
-      display:grid;
-      place-items:center;
-      flex-shrink:0;
-      border-radius:16px;
-      background:linear-gradient(135deg,#168fe8,#0754a0);
-      color:white;
-      font-size:14px;
-      font-weight:900;
-      box-shadow:0 8px 24px rgba(0,83,155,.16);
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
     }
 
-    .brand-name{
-      font-weight:900;
-      letter-spacing:-.035em;
-      line-height:1.2;
-      font-size:1rem;
+    .option {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      width: 100%;
+      padding: 18px;
+      border: 1px solid rgba(255,255,255,.15);
+      border-radius: 16px;
+      text-decoration: none;
+      color: white;
+      background: rgba(3,20,43,.58);
+      transition: .25s ease;
     }
 
-    .brand-name span{
-      display:block;
-      font-size:.69rem;
-      color:var(--muted);
-      font-weight:700;
-      margin-top:4px;
+    .option:hover {
+      transform: translateY(-3px);
+      border-color: #4ca8ff;
+      background: rgba(31,103,165,.25);
+      box-shadow: 0 12px 30px rgba(0,0,0,.2);
     }
 
-    .back-link{
-      display:inline-flex;
-      align-items:center;
-      gap:9px;
-      padding:10px 17px;
-      border:1px solid rgba(8,120,209,.20);
-      border-radius:999px;
-      background:rgba(255,255,255,.48);
-      color:var(--blue-dark);
-      font-size:.83rem;
-      font-weight:800;
-      transition:transform .25s,background .25s;
+    .option-icon {
+      width: 49px;
+      height: 49px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      border-radius: 13px;
+      background: rgba(53,151,239,.15);
+      color: #78bcff;
+      font-size: 23px;
+      font-weight: bold;
     }
 
-    .back-link:hover{
-      transform:translateY(-2px);
-      background:rgba(222,241,255,.8);
+    .option-content {
+      flex: 1;
     }
 
-    /* MAIN LOGIN EXPERIENCE */
-
-    main{
-      min-height:calc(100vh - 170px);
-      display:grid;
-      place-items:center;
-      padding:65px 0 80px;
-      position:relative;
+    .option-content h3 {
+      font-size: 16px;
+      margin-bottom: 6px;
     }
 
-    .login-layout{
-      display:grid;
-      grid-template-columns:1.05fr .95fr;
-      align-items:center;
-      gap:55px;
-      width:min(100%,1040px);
-      margin:auto;
+    .option-content p {
+      color: #a9bfd6;
+      font-size: 12px;
+      line-height: 1.5;
     }
 
-    .intro{
-      animation:appear .8s ease both;
+    .arrow {
+      color: #80bfff;
+      font-size: 23px;
     }
 
-    .eyebrow{
-      display:inline-flex;
-      align-items:center;
-      gap:9px;
-      color:var(--blue);
-      font-size:.76rem;
-      font-weight:850;
-      letter-spacing:.14em;
-      text-transform:uppercase;
-      margin-bottom:13px;
+    .discord {
+      border-color: rgba(114,137,218,.35);
     }
 
-    .eyebrow:before{
-      content:"";
-      width:24px;
-      height:3px;
-      border-radius:9px;
-      background:var(--blue);
+    .discord .option-icon {
+      background: rgba(114,137,218,.18);
+      color: #a8b8ff;
     }
 
-    h1,h2,h3,p{
-      margin-top:0;
+    .staff .option-icon {
+      background: rgba(40,157,230,.17);
+      color: #65c2ff;
     }
 
-    h1,h2,h3{
-      line-height:1.12;
-      letter-spacing:-.035em;
+    .admin .option-icon {
+      background: rgba(190,163,255,.14);
+      color: #c9adff;
     }
 
-    h1{
-      font-size:clamp(2.7rem,6.5vw,5.7rem);
-      margin-bottom:22px;
+    .divider {
+      height: 1px;
+      background: rgba(255,255,255,.12);
+      margin: 25px 0;
     }
 
-    h1 span{
-      color:var(--blue);
+    .footer {
+      text-align: center;
+      font-size: 11px;
+      line-height: 1.8;
+      color: #849fba;
     }
 
-    .intro-copy{
-      max-width:570px;
-      color:var(--muted);
-      font-size:1.08rem;
-    }
-
-    .feature-list{
-      display:grid;
-      gap:14px;
-      margin-top:32px;
-    }
-
-    .feature{
-      display:flex;
-      align-items:center;
-      gap:13px;
-      color:#3b526b;
-      font-size:.9rem;
-      font-weight:750;
-    }
-
-    .feature-icon{
-      width:42px;
-      height:42px;
-      display:grid;
-      place-items:center;
-      flex-shrink:0;
-      border-radius:16px;
-      background:var(--blue-light);
-      color:var(--blue);
-      border:1px solid rgba(255,255,255,.9);
-      font-weight:900;
-    }
-
-    /* LIQUID GLASS LOGIN CARD */
-
-    .login-card{
-      position:relative;
-      overflow:hidden;
-      padding:38px;
-      background:var(--glass);
-      border:1px solid rgba(255,255,255,.9);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-      backdrop-filter:blur(28px) saturate(180%);
-      -webkit-backdrop-filter:blur(28px) saturate(180%);
-      animation:appear .8s .12s ease both;
-    }
-
-    .login-card:before{
-      content:"";
-      position:absolute;
-      top:-110px;
-      right:-100px;
-      width:230px;
-      height:230px;
-      border-radius:50%;
-      background:rgba(8,120,209,.09);
-      filter:blur(8px);
-      pointer-events:none;
-    }
-
-    .card-content{
-      position:relative;
-      z-index:1;
-    }
-
-    .card-brand{
-      width:66px;
-      height:66px;
-      display:grid;
-      place-items:center;
-      margin:0 auto 24px;
-      border-radius:22px;
-      background:linear-gradient(135deg,#168fe8,#0754a0);
-      color:white;
-      font-size:15px;
-      font-weight:900;
-      box-shadow:0 12px 28px rgba(8,120,209,.25);
-    }
-
-    .login-card h2{
-      margin-bottom:12px;
-      text-align:center;
-      font-size:clamp(1.7rem,3vw,2.2rem);
-    }
-
-    .card-description{
-      max-width:350px;
-      margin:0 auto 30px;
-      color:var(--muted);
-      text-align:center;
-      font-size:.94rem;
-    }
-
-    /* BUTTONS */
-
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:10px;
-      min-height:48px;
-      padding:12px 22px;
-      border:1px solid transparent;
-      border-radius:999px;
-      background:linear-gradient(135deg,#168fe8,#0754a0);
-      color:white;
-      font-weight:800;
-      font-size:.92rem;
-      transition:transform .3s,box-shadow .3s,background .3s;
-      box-shadow:0 10px 25px rgba(8,120,209,.20),inset 0 1px 0 rgba(255,255,255,.32);
-    }
-
-    .btn:hover{
-      transform:translateY(-3px);
-      box-shadow:0 15px 35px rgba(8,120,209,.3);
-    }
-
-    .btn-outline{
-      background:rgba(255,255,255,.48);
-      color:var(--blue);
-      border-color:rgba(8,120,209,.28);
-      box-shadow:inset 0 1px 0 #fff;
-    }
-
-    .discord-button{
-      width:100%;
-      min-height:58px;
-      border-radius:999px;
-      font-size:.96rem;
-    }
-
-    .discord-icon{
-      width:23px;
-      height:23px;
-      fill:currentColor;
-      flex-shrink:0;
-    }
-
-    .divider{
-      display:flex;
-      align-items:center;
-      gap:14px;
-      margin:28px 0;
-      color:#8294a8;
-      font-size:.72rem;
-      font-weight:850;
-      letter-spacing:.14em;
-    }
-
-    .divider:before,
-    .divider:after{
-      content:"";
-      flex:1;
-      height:1px;
-      background:rgba(12,76,135,.13);
-    }
-
-    /* SECURITY INFORMATION */
-
-    .security-panel{
-      display:flex;
-      align-items:flex-start;
-      gap:13px;
-      padding:17px;
-      border:1px solid rgba(255,255,255,.9);
-      border-radius:24px;
-      background:rgba(225,242,255,.55);
-      color:var(--muted);
-      font-size:.82rem;
-      line-height:1.7;
-    }
-
-    .security-icon{
-      width:35px;
-      height:35px;
-      display:grid;
-      place-items:center;
-      flex-shrink:0;
-      border-radius:13px;
-      background:rgba(255,255,255,.8);
-      color:var(--blue);
-      font-weight:900;
-    }
-
-    .security-panel strong{
-      display:block;
-      color:var(--blue-dark);
-      margin-bottom:3px;
-    }
-
-    .terms{
-      margin:23px 0 0;
-      text-align:center;
-      color:var(--muted);
-      font-size:.76rem;
-    }
-
-    .terms a{
-      color:var(--blue);
-      font-weight:800;
-    }
-
-    /* FOOTER */
-
-    .footer{
-      padding:23px 0;
-      background:linear-gradient(135deg,rgba(5,31,66,.97),rgba(5,75,135,.94));
-      color:white;
-      text-align:center;
-      font-size:.82rem;
-    }
-
-    .footer p{
-      margin:0;
-      color:#c7d8ed;
-    }
-
-    /* MOTION */
-
-    @keyframes appear{
-      from{
-        opacity:0;
-        transform:translateY(22px);
-      }
-      to{
-        opacity:1;
-        transform:translateY(0);
-      }
-    }
-
-    @keyframes float{
-      0%,100%{transform:translateY(0)}
-      50%{transform:translateY(-8px)}
-    }
-
-    .card-brand{
-      animation:float 5s ease-in-out infinite;
-    }
-
-    /* RESPONSIVE */
-
-    @media(max-width:850px){
-      .login-layout{
-        grid-template-columns:1fr;
-        max-width:570px;
-        gap:35px;
+    @media(max-width: 480px) {
+      .container {
+        padding: 32px 22px;
       }
 
-      .intro{
-        text-align:center;
-      }
-
-      .intro-copy{
-        margin-inline:auto;
-      }
-
-      .feature-list{
-        display:none;
-      }
-
-      h1{
-        font-size:clamp(2.8rem,9vw,4.5rem);
-      }
-    }
-
-    @media(max-width:560px){
-      .container{
-        width:calc(100% - 28px);
-      }
-
-      .nav-inner{
-        min-height:72px;
-      }
-
-      .brand-mark{
-        width:44px;
-        height:44px;
-      }
-
-      .brand-name{
-        font-size:.85rem;
-      }
-
-      .back-link{
-        padding:9px 13px;
-        font-size:.74rem;
-      }
-
-      main{
-        padding:45px 0 60px;
-      }
-
-      .login-layout{
-        gap:26px;
-      }
-
-      .login-card{
-        padding:27px 21px;
-      }
-
-      h1{
-        font-size:clamp(2.5rem,12vw,3.7rem);
-      }
-
-      .intro-copy{
-        font-size:.96rem;
-      }
-    }
-
-    @media(prefers-reduced-motion:reduce){
-      *,*::before,*::after{
-        scroll-behavior:auto!important;
-        animation-duration:.01ms!important;
-        transition-duration:.01ms!important;
+      .brand h1 {
+        font-size: 20px;
       }
     }
   </style>
@@ -537,159 +187,72 @@
 
 <body>
 
-  <!-- HEADER -->
-  <header class="navbar">
-    <div class="container nav-inner">
+  <main class="container">
 
-      <a href="index.html" class="brand" aria-label="CSN Virtual home">
-        <!-- Replace this temporary mark with your actual CSN logo image when its path is confirmed. -->
-        <img src="https://raw.githubusercontent.com/djblessingm-crypto/SOUT-IMAGE/refs/heads/main/China%20Southern%20Airlines%20%C4%B0stanbul%20Acentas%C4%B1.jfif" alt="CSN Logo" class="brand-mark">
+    <header class="brand">
+      <img
+        src="assets/csn-logo.png"
+        alt="CSN Virtual Logo"
+        onerror="this.style.display='none'"
+      >
 
-        <div class="brand-name">
-          CHINA SOUTHERN AIRLINES
-          <span>VIRTUAL AIRLINE</span>
+      <h1>CHINA SOUTHERN</h1>
+      <p>AIRLINES VIRTUAL</p>
+    </header>
+
+    <section class="intro">
+      <h2>Welcome Back</h2>
+      <p>Select your preferred sign-in method to access the CSN Virtual platform.</p>
+    </section>
+
+    <section class="options">
+
+      <!-- DISCORD LOGIN -->
+      <a href="auth/discord" class="option discord">
+        <div class="option-icon">D</div>
+
+        <div class="option-content">
+          <h3>Login with Discord</h3>
+          <p>Continue using your connected Discord account.</p>
         </div>
+
+        <span class="arrow">›</span>
       </a>
 
-      <a href="index.html" class="back-link">
-        Back to website <span aria-hidden="true">↗</span>
+      <!-- STAFF LOGIN -->
+      <a href="staff-login.html" class="option staff">
+        <div class="option-icon">S</div>
+
+        <div class="option-content">
+          <h3>Staff Login</h3>
+          <p>Access your staff account and department dashboard.</p>
+        </div>
+
+        <span class="arrow">›</span>
       </a>
 
-    </div>
-  </header>
+      <!-- ADMIN LOGIN -->
+      <a href="admin-login.html" class="option admin">
+        <div class="option-icon">A</div>
 
-  <!-- LOGIN CONTENT -->
-  <main>
-    <div class="container login-layout">
-
-      <section class="intro">
-        <div class="eyebrow">CSN VIRTUAL MEMBERS</div>
-
-        <h1>
-          Your journey.<br>
-          <span>Your airline.</span>
-        </h1>
-
-        <p class="intro-copy">
-          Welcome to China Southern Airlines Virtual.
-          Sign in with Discord to access your member
-          experience and continue your journey with CSN.
-        </p>
-
-        <div class="feature-list">
-
-          <div class="feature">
-            <span class="feature-icon">01</span>
-            Your personal member profile
-          </div>
-
-          <div class="feature">
-            <span class="feature-icon">02</span>
-            Your bookings and flight information
-          </div>
-
-          <div class="feature">
-            <span class="feature-icon">03</span>
-            Access to your CSN community
-          </div>
-
+        <div class="option-content">
+          <h3>Admin Login</h3>
+          <p>Secure access for authorised platform administrators.</p>
         </div>
-      </section>
 
-      <section class="login-card">
-        <div class="card-content">
+        <span class="arrow">›</span>
+      </a>
 
-          <img src="https://raw.githubusercontent.com/djblessingm-crypto/SOUT-IMAGE/refs/heads/main/China%20Southern%20Airlines%20%C4%B0stanbul%20Acentas%C4%B1.jfif" alt="CSN Logo" class="card-brand">
+    </section>
 
-          <h2>Welcome back.</h2>
+    <div class="divider"></div>
 
-          <p class="card-description">
-            Sign in securely using your Discord account
-            to access China Southern Airlines Virtual.
-          </p>
+    <footer class="footer">
+      China Southern Airlines Virtual<br>
+      Official Digital Platform · Secure Access
+    </footer>
 
-          <a href="#" id="discordLogin" role="button" class="btn discord-button">
-            <svg class="discord-icon" viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M19.7 5.3A19.2 19.2 0 0 0 15 3.8l-.6 1.2a17.5 17.5 0 0 0-4.8 0L9 3.8a19.2 19.2 0 0 0-4.7 1.5C1.3 9.7.5 14 .9 18.2a19.3 19.3 0 0 0 5.8 3l1.3-2.1-2-1 .5-.4c3.9 1.8 8.1 1.8 12 0l.5.4-2 1 1.3 2.1a19.3 19.3 0 0 0 5.8-3c.5-4.9-.8-9.1-4.4-12.9ZM8.7 15.3c-1.1 0-2-1-2-2.2s.9-2.2 2-2.2 2 1 2 2.2-.9 2.2-2 2.2Zm6.6 0c-1.1 0-2-1-2-2.2s.9-2.2 2-2.2 2 1 2 2.2-.9 2.2-2 2.2Z"/>
-            </svg>
-
-            Continue with Discord
-            <span aria-hidden="true">↗</span>
-          </a>
-
-          <p id="loginStatus" role="status" aria-live="polite" style="margin:14px 0 0;text-align:center;font-size:.9rem;font-weight:600"></p>
-
-          <div class="divider">SECURE AUTHENTICATION</div>
-
-          <div class="security-panel">
-            <div class="security-icon">✓</div>
-
-            <div>
-              <strong>Your security comes first.</strong>
-              You will be redirected to Discord's official
-              authorisation page. CSN will not ask you
-              to enter your Discord password on this website.
-            </div>
-          </div>
-
-          <p class="terms">
-            By continuing, you agree to follow the
-            <a href="https://discord.com/terms" target="_blank" rel="noopener noreferrer">Discord Terms</a>
-            and CSN Virtual community rules.
-          </p>
-
-        </div>
-      </section>
-
-    </div>
   </main>
-
-  <!-- FOOTER -->
-  <footer class="footer">
-    <div class="container">
-      <p>
-        © <span id="year"></span> China Southern Airlines Virtual.
-        Fly towards your dreams - 飞向您的梦想.
-      </p>
-    </div>
-  </footer>
-
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
-  <script src="js/supabase.js"></script>
-  <script>
-    document.getElementById('year').textContent =
-      new Date().getFullYear();
-
-    var loginButton = document.getElementById('discordLogin');
-    var loginStatus = document.getElementById('loginStatus');
-
-    function showStatus(text) { loginStatus.textContent = text; }
-
-    // Already signed in? Go straight back to the homepage.
-    if (window.csn && window.csn.ready) {
-      window.csn.getUser().then(function (user) {
-        if (user) window.location.href = 'index.html';
-      }).catch(function () {});
-    }
-
-    loginButton.addEventListener('click', function (event) {
-      event.preventDefault();
-
-      if (!window.csn || !window.csn.ready) {
-        showStatus('Discord sign-in is not available yet. Please try again soon.');
-        return;
-      }
-
-      showStatus('Redirecting to Discord...');
-      window.csn.signInWithDiscord().then(function (result) {
-        if (result && result.error) {
-          showStatus('Could not start Discord sign-in. Please try again.');
-        }
-      }).catch(function () {
-        showStatus('Could not start Discord sign-in. Please try again.');
-      });
-    });
-  </script>
 
 </body>
 </html>
